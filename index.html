@@ -147,7 +147,7 @@
         display: flex;
         width: 100%;
         flex-direction: column; /*縦に並べるため*/
-        align-items: center;
+        align-items: stretch;
         justify-content: center;
         font-size: 3vh;
         margin: 0;
@@ -158,14 +158,41 @@
         align-items: center;
         justify-content: center;
         font-size: 3vh;
-        margin: 50px ;
+        margin: 100px 0 50px 0;
     }
-    .cefnter p {
+    .cefnter p ,li{
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2vh;
-        margin: 30px 30px;
+        font-size: clamp(18px, 1.5vw, 30px);
+        margin: auto;
+        width: 80%;
+        max-width: 1000px;
+    }
+
+    .schedule-card {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 80%;
+        height: auto;
+        background-color: #ffffff;
+        border-radius: 20px;
+        overflow: hidden;
+        max-width: 1000px;
+        margin: auto;
+        padding: 30px;
+        box-sizing: border-box;   }
+
+    .schedule-item{
+        display: flex;
+        padding: 15px;
+        font-size: clamp(18px, 1.5vw, 30px);
+    }
+    
+    .month{
+        width: 200px;
+        font-weight: bold;
     }
 
 
@@ -214,17 +241,62 @@
         <section class="cefnter">
             <div id="About">
                 <h2>About</h2>
-                <p>木曽青峰高校吹奏楽部は、音楽を通じて学生たちを育てる活動を行っています。毎週の練習、定期演奏会、地域イベントへの参加など、多様な活動を展開しています。</p>
+                <p>吾輩わがはいは猫である。名前はまだ無い。どこで生れたかとんと見当けんとうがつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪どうあくな種族であったそうだ。この書生というのは時々我々を捕つかまえて煮にて食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌てのひらに載せられてスーと持ち上げられた時何だかフワフワした感じがあったば</p>
             </div>
             <div id="Activities">
                 <h2>Activities</h2>
-                <ul>
-                    <li>毎週の練習セッション</li>
-                    <li>年に一度の定期演奏会</li>
-                    <li>地域の祭りやイベントへの参加</li>
-                    <li>音楽コンテストへの出場</li>
-                </ul>
+                <div class="schedule-card">
+                    <div class="schedule-item">
+                        <div class="month">４月</div>
+                        <div class="description">jfjfjfjfj<br>oijsdofi</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="month">５月</div>
+                        <div class="description">jfjfjfjfj</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="month">６月</div>
+                        <div class="description">jfjfjfjfj</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="month">７月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div>
+                     <div class="schedule-item">
+                        <div class="month">８月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div><div class="schedule-item">
+                        <div class="month">９月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div>
+                     <div class="schedule-item">
+                        <div class="month">１０月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div>
+                     <div class="schedule-item">
+                        <div class="month">１１月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div>
+                     <div class="schedule-item">
+                        <div class="month">１２月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div>
+                     <div class="schedule-item">
+                        <div class="month">１月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div>
+                     <div class="schedule-item">
+                        <div class="month">２月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div>
+                     <div class="schedule-item">
+                        <div class="month">３月</div>
+                        <div class="description">jfjfjfjfj</div>
+                     </div>
+                
+                </div>
             </div>
+
             <div id="Weekly">
                 <h2>Weekly</h2>
 
