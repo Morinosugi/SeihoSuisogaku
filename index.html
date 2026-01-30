@@ -20,28 +20,15 @@
   })(document);
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <afterdeleat>
     <script src="https://assets.codepen.io/16327/GSDevTools3.min.js"></script>
     <script>
-        // 1. アニメーションを作成
-        const tl = gsap.timeline();
-        tl.to(".char", { duration: 2, scale: 2, opacity: 1 });
-
         // 2. ツールを起動（これだけで画面下部にUIが出ます）
         GSDevTools.create();
     </script>
 </afterdeleat>
-
-
-<script>
-  // 1. アニメーションを作成
-  const tl = gsap.timeline();
-  tl.to(".char", { duration: 2, scale: 2, opacity: 1 });
-
-  // 2. ツールを起動（これだけで画面下部にUIが出ます）
-  GSDevTools.create();
-</script>
 
 <style>
     body {
@@ -55,13 +42,16 @@
     }
 
     .header {
+        position: fixed;
         width: 100%;
-        height: 60px;
+        height: 10vh;
         background-color: #73321A;
         display: flex;
         align-items: center;
-        padding: 0 20px;
         box-sizing: border-box;
+
+        opacity: 0;
+        pointer-events: auto;
     }
 
     .header a{
@@ -86,15 +76,19 @@
         justify-content: center;
         align-items: center;
         background-color: aliceblue;
+
+        
     }
     .top h1 {
         font-size: 4vh;
         font-style: bold;
         margin: 0;
+        opacity: 0;
     }
     .top p {
         font-size: 2vh;
         margin: 0;
+        opacity: 0;
     }
 
     @media screen and (max-width: 768px) {
@@ -122,36 +116,71 @@
         </nav>
     </header>
 
-        <main>
-            <section class="top">
-                <h1>木曽青峰高校 吹奏楽部</h1>
-                <p>Kisoseiho Suisogakubu</p>
-            </section>
-            <div id="About">
-                <h2>About</h2>
-                <p>木曽青峰高校吹奏楽部は、音楽を通じて学生たちを育てる活動を行っています。毎週の練習、定期演奏会、地域イベントへの参加など、多様な活動を展開しています。</p>
-            </div>
-            <div id="Activities">
-                <h2>Activities</h2>
-                <ul>
-                    <li>毎週の練習セッション</li>
-                    <li>年に一度の定期演奏会</li>
-                    <li>地域の祭りやイベントへの参加</li>
-                    <li>音楽コンテストへの出場</li>
-                </ul>
-            </div>
-            <div id="Weekly">
-                <h2>Weekly</h2>
+    <main>
+        <section class="top">
+            <h1>木曽青峰高校 吹奏楽部</h1>
+            <p>Kisoseiho Suisogakubu</p>
+        </section>
+        <div id="About">
+            <h2>About</h2>
+            <p>木曽青峰高校吹奏楽部は、音楽を通じて学生たちを育てる活動を行っています。毎週の練習、定期演奏会、地域イベントへの参加など、多様な活動を展開しています。</p>
+        </div>
+        <div id="Activities">
+            <h2>Activities</h2>
+            <ul>
+                <li>毎週の練習セッション</li>
+                <li>年に一度の定期演奏会</li>
+                <li>地域の祭りやイベントへの参加</li>
+                <li>音楽コンテストへの出場</li>
+            </ul>
+        </div>
+        <div id="Weekly">
+            <h2>Weekly</h2>
 
-            </div>
-            <div id="Contact">
-                <h2>Contact</h2>
-                <p>お問い合わせは以下のメールアドレスまでお願い
-                    
-                                      
-                    dddいたします。</p>
-                <p>Email:
-            </div>
-        </main>
+        </div>
+        <div id="Contact">
+            <h2>Contact</h2>
+            <p>お問い合わせは以下のメールアドレスまでお願い
+                
+                                    
+                dddいたします。</p>
+            <p>Email:
+        </div>
+    </main>
 </body>
 
+<script>
+    // GSAP本体とGSDevToolsが読み込まれている前提
+    const tl = gsap.timeline({ id: "IntroAnim" });
+
+    tl.to(".top h1, .top p", {
+    opacity: 1,      // 表示する
+    scale: 1,      // 1.2倍まで大きく
+    duration: 3,   // 2.5秒かけて
+    ease: "power1.out" // 滑らかな動き（減速）
+    });
+
+    // タイムライン操作パネルを表示
+    GSDevTools.create({ animation: tl });
+
+
+
+
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.to("header", {
+    autoAlpha: 1,      // 透明度1 & visibility: visible
+    y: 0,              // 本来の位置に戻す
+    duration: 1,         // 3秒かけて
+    ease: "power1",
+    scrollTrigger: {
+        trigger: "top",    // どこを基準にするか
+        start: "top top", // メインの中央が画面上部に来たら
+
+        scrub: true,      // スクロール連動
+        // markers: true,   // 開発中これをONにすると、開始位置が画面に表示されて便利！
+    }
+    });
+
+</script>
