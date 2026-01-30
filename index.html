@@ -88,14 +88,13 @@
         margin: 0;
         
         background-color: #F2C2CF;
-
-        
+                
     }
         
     .top h1 {
         color: black;
         font-size: 4vh;
-        font-style: bold;
+        font-weight: 500;
         margin: 0;
         opacity: 0;
         transform: translateY(-10vh);
@@ -106,8 +105,15 @@
         opacity: 0;
         transform: translateY(-10vh);
     }
+    #line-art {
+        margin-top: 30px;
+        display: flex;
+        position: absolute;
+        bottom: 3vh;
+        opacity: 0;
+    }
 
-    /* <main-style> ============================ */
+    /* <scrol main-style> ============================ */
 
     .main__action {
         display: flex;
@@ -217,6 +223,7 @@
         <section class="top">
             <h1>木曽青峰高校 吹奏楽部</h1>
             <p>Kisoseiho Suisogakubu</p>
+            <img src="suibu line art.png" alt="line art" id="line-art" width="70%" height="auto">
             
             <div class="main__action">
                 <a class="main__scroll" href="#" id="scroll-button">
@@ -314,18 +321,24 @@
     const tl = gsap.timeline({ id: "IntroAnim" });
 
     tl.to(".top h1, .top p", {
-    opacity: 1,      // 表示する
     scale: 1,      // 1.2倍まで大きく
+    opacity: 1,      // 表示する
     duration: 3,   // 2.5秒かけて
-    ease: "power1.out" // 滑らかな動き（減速）
+    ease: "power3.out" // 滑らかな動き（減速）
     });
+
+    tl.to("#line-art", {
+    opacity: 1,      // 表示する
+    duration: 1.5,
+    ease: "power1.out"
+    },"<"); // 1秒前から開始
 
     tl.to(".main__action", {
     opacity: 1,      // 表示する
     scale: 1,      // 1.2倍まで大きく
     duration: 1,   // 2.5秒かけて
     ease: "power3.out" // 滑らかな動き（減速）
-    },"<1"); // 1秒前から開始
+    },"<1.5"); // 1秒前から開始
 
     
 
@@ -359,6 +372,29 @@
             scrollTo: "#About", // どの要素まで飛ばすか（または数値で 1000 のようにも書ける）
             ease: "power1.inOut"  // 動き出しと止まり際を滑らかに
         });
+    });
+
+    // 計算された等間隔な動きを適用
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from(".schedule-item", {
+        duration: 0.8,
+        y: 50,               // 50px下から
+        scale: 0.5,          // 半分のサイズから
+        rotationX: 30,       // 手前に少し倒れた状態から起き上がる
+        opacity: 0,
+        
+        stagger: {
+            amount: 0.4,       // 全体で0.4秒の間に等間隔で開始
+            grid: "auto",      // グリッドレイアウトを自動認識して左上から順に発火
+            from: "top"     // 中央から広がるようにしたい場合はここを "center" に
+        },
+        scrollTrigger:{
+            trigger: ".schedule-card",
+            start: "top 85%",
+            scrub: false,
+        },
+
+        ease: "expo.out",    // Macのような高級感のある減速
     });
 
 </script>
