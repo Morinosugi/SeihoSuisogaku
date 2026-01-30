@@ -21,6 +21,7 @@
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 
 <afterdeleat>
     <script src="https://assets.codepen.io/16327/GSDevTools3.min.js"></script>
@@ -31,6 +32,12 @@
 </afterdeleat>
 
 <style>
+
+    a {
+        text-decoration: none;
+        margin: 0;
+    }
+
     body {
         font-family: "kiwi-maru", sans-serif;
         font-weight: 400;
@@ -38,14 +45,14 @@
         margin: 0;
         
         
-        background-color: #A7C8F2;
+        background-color: #C4E1F2;
     }
 
     .header {
         position: fixed;
         width: 100%;
         height: 10vh;
-        background-color: #73321A;
+        background-color: #BF8A8E;
         display: flex;
         align-items: center;
         box-sizing: border-box;
@@ -56,8 +63,8 @@
 
     .header a{
         color: white ;
-        text-decoration: none;
         margin: 1vh 1vh;
+        font-size: 2vh;
     }
 
 
@@ -76,21 +83,63 @@
         flex-direction: column; /*縦に並べるため*/
         justify-content: center;
         align-items: center;
-        background-color: aliceblue;
+        
+        background-color: #F2C2CF;
 
         
     }
     .top h1 {
+        color: black;
         font-size: 4vh;
         font-style: bold;
         margin: 0;
         opacity: 0;
+        transform: translateY(-10vh);
     }
     .top p {
         font-size: 2vh;
         margin: 0;
         opacity: 0;
+        transform: translateY(-10vh);
     }
+
+    /* <main-style> ============================ */
+
+    .main__action {
+        display: flex;
+        position: absolute;
+        bottom: 10vh;
+    }
+
+    .main__scroll-text {
+        color: rgba(28,28,30,1);
+        margin: 0;
+    }
+
+    .main__action:hover .main__scroll-box {
+        margin: 0;
+        animation: scroll-down 3s infinite;
+    }
+
+    /* Animate scroll icon */
+    @keyframes scroll-down {
+        0%, 100% {
+            transform: translateY(0rem);
+            opacity: 1;
+        }
+
+        35% {
+            transform: translateY(1rem);
+            opacity: 0;
+        }
+
+        70% {
+            transform: translateY(-1rem);
+            opacity: 0;
+        }
+    }
+
+
 
     .cefnter{
         
@@ -144,6 +193,21 @@
         <section class="top">
             <h1>木曽青峰高校 吹奏楽部</h1>
             <p>Kisoseiho Suisogakubu</p>
+            
+            <div class="main__action">
+                <a class="main__scroll" href="#" id="scroll-button">
+                    <div class="main__scroll-box">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M11.9997 13.1716L7.04996     8.22186L5.63574 9.63607L11.9997 16L18.3637 9.63607L16.9495 8.22186L11.9997 13.1716Z" fill="rgba(28,28,30,1)">
+                            </path>
+                        </svg>
+                    </div>
+                    <span class="main__scroll-text">Scroll</span>
+                </a>
+            </div>
+
+
         </section>
 
         <section class="cefnter">
@@ -187,10 +251,10 @@
     ease: "power1.out" // 滑らかな動き（減速）
     });
 
+    
 
-
-
-
+    /*
+    
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.to("header", {
@@ -205,6 +269,20 @@
         scrub: true,      // スクロール連動
         // markers: true,   // 開発中これをONにすると、開始位置が画面に表示されて便利！
     }
+    });
+    */
+
+    // Aboutへのスクロール
+    gsap.registerPlugin(ScrollToPlugin);
+
+    const btn = document.querySelector("#scroll-button");
+
+    btn.addEventListener("click", () => {
+        gsap.to(window, {
+            duration: 1,      // 1.5秒かけて移動
+            scrollTo: "#About", // どの要素まで飛ばすか（または数値で 1000 のようにも書ける）
+            ease: "power1.inOut"  // 動き出しと止まり際を滑らかに
+        });
     });
 
 </script>
