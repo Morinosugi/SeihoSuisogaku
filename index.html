@@ -611,6 +611,21 @@
         color: #ffffff;
     }
 
+    textarea {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        outline: none;
+        color: #000;
+        font-size: 1em;
+        font-weight: 400;
+        background: transparent;
+        border: 2px solid #000;
+        transition: 0.1s;
+        border-radius: 8px;
+        resize: none;
+    }
+
     /* ここまでフォーム */
 </style>
 
@@ -751,7 +766,8 @@
             <div class="object" id="Contact">
                 <h2>Contact</h2>
                 <form class="form"
-                    action="https://docs.google.com/forms/d/e/1FAIpQLSeJ9tKPn-eJnnshtRYWq7_Et_LrKdEKadiApvFCXnqpCPkPtQ/formResponse">
+                    action="https://docs.google.com/forms/d/e/1FAIpQLSeJ9tKPn-eJnnshtRYWq7_Et_LrKdEKadiApvFCXnqpCPkPtQ/formResponse"
+                    method="POST" target="hidden_iframe">
                     <div class="inputGroup" id="form-name">
                         <input type="text" id="name" name="entry.357402207">
                         <span for="name">お名前</span>
@@ -826,20 +842,28 @@
                         <input type="email" id="email" name="entry.601438554">
                         <span for="email">メールアドレス</span>
                     </div>
-                    <div class="inputGroup" id="form-kinds">
-                        <textarea id="message" name="entry.1045781291" rows="4" cols="50"
-                            ></textarea>
-                        <span for="message">種類</span>
+                    <div class="inputToggle" id="form-kinds">
+                        <label class="Toggle">
+                            <input type="radio" id="opinion" name="entry.1853267698_sentinel" value="意見"
+                                onchange="toggleUI()">
+                            <span class="title" for="opinion">意見</span>
+                        </label>
+                        <label class="Toggle">
+                            <input type="radio" id="question" name="entry.1853267698_sentinel" value="質問"
+                                checked="" onchange="toggleUI()">
+                            <span class="title" for="question">質問</span>
+                        </label>
+                        
                     </div>
                     <div class="inputGroup" id="form-message">
-                        <textarea id="message" name="entry.1045781291" rows="4" cols="50"
-                           ></textarea>
-                        <span for="message">entry.194499310</span>
+                        <textarea id="message" name="entry.1045781291" rows="4" cols="50"></textarea>
+                        <span for="message">内容</span>
 
                     </div>
                     <button class="enter">送信</button>
 
                 </form>
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
             </div>
         </section>
 
