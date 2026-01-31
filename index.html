@@ -187,6 +187,57 @@
         max-width: 1000px;
     }
 
+    button {
+        margin: 100px auto auto auto;
+        background: transparent;
+        position: relative;
+        padding: 5px 15px;
+        display: flex;
+        align-items: center;
+        font-size: 17px;
+        font-weight: 600;
+        cursor: pointer;
+        border: 1px solid black;
+        border-radius: 25px;
+        outline: none;
+        overflow: hidden;
+        color: black;
+        transition: color 0.3s 0.1s ease-out;
+        text-align: center;
+    }
+
+    button span {
+        margin: 10px;
+    }
+
+    button::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        content: "";
+        border-radius: 50%;
+        display: block;
+        width: 20em;
+        height: 20em;
+        left: -5em;
+        text-align: center;
+        transition: box-shadow 0.5s ease-out;
+        z-index: -1;
+    }
+
+    button:hover {
+        color: #fff;
+        border: 1px solid black;
+    }
+
+    button:hover::before {
+        box-shadow: inset 0 0 0 10em black;
+    }
+
+
     .schedule-card {
         display: flex;
         flex-direction: column;
@@ -230,6 +281,69 @@
             font-size: 3%;
         }
     }
+
+
+    .insta-container {
+            display: flex;
+            gap: 15px; /* 写真の間の余白 */
+            justify-content: center;
+            padding: 20px;
+            font-family: sans-serif;
+            width: 80%;
+            margin: auto;
+        }
+
+        .insta-item {
+            position: relative;
+            flex: 1; /* 均等に広がる */
+            aspect-ratio: 1 / 1; /* 正方形を維持 */
+            overflow: hidden;
+            border-radius: 12px;
+ 
+        }
+
+        .insta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+
+        /* ホバー時の黒背景（タイトル表示用） */
+        .insta-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* 半透明の黒 */
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-align: center;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            text-decoration: none; /* リンクの下線を消す */
+        }
+
+        .insta-item:hover .insta-overlay {
+            opacity: 1;
+        }
+
+        .insta-item video { width: 100%; height: 100%; object-fit: cover; }
+
+        /* レスポンシブ：画面が狭い時は2〜3枚にする */
+        @media (max-width: 900px) {
+            .insta-container { flex-wrap: wrap; }
+            .insta-item { flex: 1 1 calc(33.333% - 15px); }
+        }
+    
 </style>
 
 <body>
@@ -259,6 +373,27 @@
             <div class="object" id="About">
                 <h2>About</h2>
                 <p>吾輩わがはいは猫である。名前はまだ無い。どこで生れたかとんと見当けんとうがつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪どうあくな種族であったそうだ。この書生というのは時々我々を捕つかまえて煮にて食うという話である。しかしその当時は何という考もなかったから別段恐しいとも思わなかった。ただ彼の掌てのひらに載せられてスーと持ち上げられた時何だかフワフワした感じがあったば</p>
+            </div>
+
+            <div class="object" id="instagram">
+                <button onclick="window.location.href='https://www.instagram.com/shwo._.official'">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    class="bi bi-instagram"
+                    viewBox="0 0 16 16"
+                >
+                    <path
+                    d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"
+                    ></path>
+                </svg>
+                <span>Instragram</span>
+                </button>
+                <div id="instagram-feed" class="insta-container">
+                    <p id="loading">Loading Instagram Feed...</p>
+                </div>
             </div>
 
             <div class="object" id="Activities">
@@ -455,4 +590,79 @@
     });
 
 
+
+
+    //instagram部分
+ 
+    const accessToken = 'IGAARSi9hRQ0JBZAGJ0YXd4Y0hhLXEwMnhrOG9TdF8xeWI0ZAlFrYnhiMHBnbExBVkEwVDl6aTJ3NlZAmOGpoNGN2UmFMMXJKWmdTQVVqT0tOaU9lV2J6LWVRXzZAPb3JyVWs3R21jMVhaRXZAEeEt5OU9JWnJzd01qSGQwYjU3Y2EwWQZDZD'; // ここにトークンを入れる
+    const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink,media_type,thumbnail_url&limit=5&access_token=${accessToken}`;
+
+    async function fetchInstaFeed() {
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            
+            const container = document.getElementById('instagram-feed');
+            const loadingText = document.getElementById('loading');
+            
+            if (data.data) {
+                loadingText.remove(); // 読み込み中を消す
+                
+                data.data.forEach(post => {
+                    const item = document.createElement('div');
+                    item.className = 'insta-item';
+
+                    let mediaHtml = '';
+                    
+                    // VIDEO（リール）の場合
+                    if (post.media_type === 'VIDEO') {
+                        mediaHtml = `
+                            <video 
+                                src="${post.media_url}" 
+                                poster="${post.thumbnail_url}" 
+                                muted 
+                                loop 
+                                playsinline 
+                                autoPlay
+                                style="width:100%; height:100%; object-fit:cover;">
+                            </video>`;
+
+                        // マウスホバー時の動作をセット
+                        item.onmouseover = () => {
+                            const video = item.querySelector('video');
+                            if (video) video.play().catch(e => console.log("再生ブロック:", e));
+                        };
+                        item.onmouseout = () => {
+                            const video = item.querySelector('video');
+                            if (video) {
+                                video.pause();
+                                video.currentTime = 0; // 最初に戻す
+                            }
+                        };
+
+                    } else {
+                        // 通常の画像（IMAGE）やカルーセル（CAROUSEL_ALBUM）の場合
+                        mediaHtml = `<img src="${post.media_url}" alt="Instagram" style="width:100%; height:100%; object-fit:cover;">`;
+                    }
+
+                    item.innerHTML = `
+                        ${mediaHtml}
+                        <a href="${post.permalink}" target="_blank" class="insta-overlay">
+                            <span>${post.caption ? post.caption.substring(0, 50) + '...' : ''}</span>
+                        </a>
+                    `;
+                    container.appendChild(item);
+                });
+            }
+        } catch (error) {
+            console.error('データの取得に失敗しました:', error);
+            document.getElementById('loading').innerText = '読み込みに失敗しました。';
+        }
+    }
+
+    fetchInstaFeed();
+
+    
+
 </script>
+
