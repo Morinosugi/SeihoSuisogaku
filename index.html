@@ -196,7 +196,7 @@
 
     }
 
-    button {
+    .button {
         margin: 100px auto auto auto;
         background: transparent;
         position: relative;
@@ -215,7 +215,7 @@
         text-align: center;
     }
 
-    button span {
+    .button span {
         margin: 10px;
     }
 
@@ -237,12 +237,12 @@
         z-index: -1;
     }
 
-    button:hover {
+    .button:hover {
         color: #fff;
         border: 1px solid black;
     }
 
-    button:hover::before {
+    .button:hover::before {
         box-shadow: inset 0 0 0 10em black;
     }
 
@@ -388,7 +388,7 @@
     .form {
         display: flex;
         flex-direction: column;
-        gap: 35px;
+        gap: 16px;
         width: 80%;
         height: auto;
         border-radius: 20px;
@@ -397,20 +397,20 @@
         margin: auto;
         box-sizing: border-box;
         background-color: #F2C2CF;
-        padding: 10vw;
+        padding: 5vw;
     }
 
 
     /*学年トクラス選択メニュー*/
     .menu {
-        padding: 0.5rem;
+
         box-sizing: border-box;
 
         position: relative;
         display: flex;
         justify-content: left;
         border-radius: 8px;
-
+        height: 45px;
         width: 100%;
         border: 2px solid #000000;
     }
@@ -419,14 +419,14 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        width: 70px;
-        height: 50px;
-        border-radius: 8px;
+        width: 60px;
+        height: 100%;
+        border-radius: 6px;
         position: relative;
         z-index: 1;
         overflow: hidden;
         transform-origin: center left;
-        transition: width 0.2s ease-in;
+        transition: width 0.4s ease-in;
         text-decoration: none;
         color: inherit;
 
@@ -435,38 +435,54 @@
             z-index: -1;
             content: "";
             display: block;
-            border-radius: 8px;
+            border-radius: 6px;
             width: 100%;
             height: 100%;
             top: 0;
             transform: translateX(100%);
             transition: transform 0.2s ease-in;
-            transform-origin: center right;
-            background-color: #ffffff57;
+            transform-origin: center center;
+            background-color: #000000;
+            color: black;
         }
 
         &:hover,
-        &:focus {
+        &:focus,
+        &:link.is-active {
             outline: 0;
             width: 130px;
+            height: 100%;
 
             &:before,
             .link-title {
                 transform: translateX(0);
+
+
                 opacity: 1;
+                color: #ffffff;
+            }
+
+            .link-icon {
+                color: #ffffff;
+                transition: color 0.2s ease-in;
+                transform: translateX(0);
+
+
             }
         }
+
+
     }
 
     .link-icon {
-        width: 28px;
-        height: 28px;
+
         display: block;
         flex-shrink: 0;
-        left: 1vw;
+        left: 1.5vw;
         position: absolute;
 
-        font-size: 28px;
+        font-size: 20px;
+        align-items: center;
     }
 
     .link-title {
@@ -475,10 +491,14 @@
         transform-origin: center right;
         display: block;
         text-align: center;
-        text-indent: 28px;
-        font-size: 20px;
+        margin-left: 2.5vw;
+        margin-bottom: 1px;
+        font-size: 16px;
         width: 100%;
+        align-items: center;
+
     }
+
 
     .inputRadio label {
         font-size: 24px;
@@ -499,12 +519,13 @@
 
     .inputGroup input {
         width: 100%;
+        height: 45px;
         padding: 10px;
         box-sizing: border-box;
         outline: none;
         border: none;
         color: #000;
-        font-size: 1em;
+        font-size: 20px;
         font-weight: 400;
         background: transparent;
         border-left: 2px solid #000;
@@ -531,11 +552,11 @@
         border-radius: 8px;
     }
 
-    .inputGroup input:valid~span,
-    .inputGroup input:focus~span {
+    .inputGroup input:focus~span,
+    .inputGroup input:not(:placeholder-shown)~span {
         transform: translateY(-20px);
 
-        padding: 5px 10px;
+        padding: 3px 10px;
         background: #000;
         letter-spacing: 0.2em;
         color: #fff;
@@ -568,6 +589,52 @@
         color: white;
     }
 
+    #form-name-Anonymous {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1px;
+        height: 45px;
+    }
+
+    #name {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    #Anonymous {
+        display: none;
+    }
+
+    #AnonymousLabel {
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+
+        height: 100%;
+        width: 40px;
+        border-radius: 0px 8px 8px 0px;
+        border: 2px solid #000;
+        cursor: pointer;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        flex-shrink: 0;
+
+        background-color: transparent;
+        transition: all 0.5s ease;
+    }
+
+    #Anonymous:checked+#AnonymousLabel {
+        background-color: #000;
+        color: #fff;
+    }
+
+
     /*フォームのtoggle*/
     .inputToggle {
         position: relative;
@@ -582,15 +649,18 @@
         width: 100%;
         font-size: 14px;
         overflow: hidden;
+        height: 40px;
     }
 
     .inputToggle .Toggle {
         flex: 1 1 auto;
         text-align: center;
+
     }
 
     .inputToggle input {
         display: none;
+        height: 100%;
     }
 
     .inputToggle .title {
@@ -598,21 +668,24 @@
         cursor: pointer;
         align-items: center;
         justify-content: center;
+        margin: auto;
 
         border: none;
         padding: .5rem 0;
-        color: rgba(51, 65, 85, 1);
+        color: rgb(0, 0, 0);
         transition: all .15s ease-in-out;
     }
 
     .inputToggle input:checked+.title {
         background-color: #000000;
+
         font-weight: 500;
         color: #ffffff;
     }
 
     textarea {
         width: 100%;
+
         padding: 10px;
         box-sizing: border-box;
         outline: none;
@@ -624,6 +697,23 @@
         transition: 0.1s;
         border-radius: 8px;
         resize: none;
+    }
+
+    #form-message textarea:focus~span,
+    #form-message textarea:not(:placeholder-shown)~span {
+        transform: translateY(-20px);
+
+        padding: 3px 10px;
+        background: #000;
+        letter-spacing: 0.2em;
+        color: #fff;
+        border: 2px;
+    }
+
+    #form-message input:valid,
+    #form-message input:focus {
+        border: 2px solid #000;
+        border-radius: 8px;
     }
 
     /* ここまでフォーム */
@@ -662,7 +752,7 @@
             </div>
 
             <div class="object" id="instagram">
-                <button onclick="window.location.href='https://www.instagram.com/shwo._.official'">
+                <button class="button" onclick="window.location.href='https://www.instagram.com/shwo._.official'">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-instagram" viewBox="0 0 16 16">
                         <path
@@ -768,14 +858,19 @@
                 <form class="form"
                     action="https://docs.google.com/forms/d/e/1FAIpQLSeJ9tKPn-eJnnshtRYWq7_Et_LrKdEKadiApvFCXnqpCPkPtQ/formResponse"
                     method="POST" target="hidden_iframe">
-                    <div class="inputGroup" id="form-name">
-                        <input type="text" id="name" name="entry.357402207">
-                        <span for="name">お名前</span>
+                    <div id="form-name-Anonymous">
+                        <div class="inputGroup" id="form-name">
+                            <input type="text" id="name" name="entry.357402207" placeholder=" ">
+                            <span for="name" id="name-label">お名前</span>
+                        </div>
+                        <input type="checkbox" value="匿名" id="Anonymous" onchange="toggleUI()">
+                        <label id="AnonymousLabel" for="Anonymous">匿名</label>
+
                     </div>
                     <div class="inputToggle" id="role">
                         <label class="Toggle">
-                            <input type="radio" id="student" name="entry.1227194780_sentinel" value="生徒"
-                                checked="" onchange="toggleUI()">
+                            <input type="radio" id="student" name="entry.1227194780_sentinel" value="生徒" checked=""
+                                onchange="toggleUI()">
                             <span class="title" for="student">生徒</span>
                         </label>
                         <label class="Toggle">
@@ -785,9 +880,8 @@
                         </label>
                     </div>
                     <div class="inputRadio" id="form-grade">
-                        <label for="grade">学年</label>
                         <div class="menu">
-                            <a href="javascript:void(0)" class="link">
+                            <a href="javascript:void(0)" class="link is-active">
                                 <span class="material-symbols-outlined link-icon" font-size="28px">counter_1</span>
                                 <span class="link-title">１年</span>
                             </a>
@@ -803,13 +897,14 @@
                                 <span class="material-symbols-outlined link-icon">help</span>
                                 <span class="link-title">その他</span>
                             </a>
+                            <input type="hidden" id="entry-grade" name="entry.373475341_sentinel" value="年">
                         </div>
 
                     </div>
                     <div class="inputRadio" id="form-class">
-                        <span for="class">クラス</span>
+
                         <div class="menu">
-                            <a href="javascript:void(0)" class="link">
+                            <a href="javascript:void(0)" class="link is-active">
                                 <span class="material-symbols-outlined link-icon">counter_1</span>
                                 <span class="link-title">１組</span>
                             </a>
@@ -830,33 +925,34 @@
                                 <span class="material-symbols-outlined link-icon">help</span>
                                 <span class="link-title">その他</span>
                             </a>
+                            <input type="hidden" id="entry-class" name="entry.613373222_sentinel" value="組">
                         </div>
 
 
                     </div>
                     <div class="inputGroup" id="form-tell">
-                        <input type="text" id="callnom" name="entry.1805112893">
+                        <input type="text" id="callnom" name="entry.1805112893" placeholder=" ">
                         <span for="callnom">電話番号</span>
                     </div>
                     <div class="inputGroup" id="form-email">
-                        <input type="email" id="email" name="entry.601438554">
+                        <input type="email" id="email" name="entry.601438554" placeholder=" ">
                         <span for="email">メールアドレス</span>
                     </div>
                     <div class="inputToggle" id="form-kinds">
                         <label class="Toggle">
-                            <input type="radio" id="opinion" name="entry.1853267698_sentinel" value="意見"
+                            <input type="radio" id="opinion" name="entry.1853267698_sentinel" value="意見" checked=""
                                 onchange="toggleUI()">
                             <span class="title" for="opinion">意見</span>
                         </label>
                         <label class="Toggle">
                             <input type="radio" id="question" name="entry.1853267698_sentinel" value="質問"
-                                checked="" onchange="toggleUI()">
+                                onchange="toggleUI()">
                             <span class="title" for="question">質問</span>
                         </label>
-                        
+
                     </div>
                     <div class="inputGroup" id="form-message">
-                        <textarea id="message" name="entry.1045781291" rows="4" cols="50"></textarea>
+                        <textarea id="message" name="entry.1045781291" rows="4" cols="50" placeholder=" "></textarea>
                         <span for="message">内容</span>
 
                     </div>
@@ -1052,27 +1148,75 @@
         });
     });
 
+
+    // すべての .link に対してクリックイベントを設定
+    document.querySelectorAll('.link').forEach(link => {
+        link.addEventListener('click', function () {
+            // 親要素（.menu）の中にある他の .link からクラスを消す
+            this.parentElement.querySelectorAll('.link').forEach(el => {
+                el.classList.remove('is-active');
+            });
+            // クリックしたものだけにクラスをつける
+            this.classList.add('is-active');
+
+            const value = this.querySelector('.link-title').textContent;
+            const parentId = this.closest('.inputRadio').id; // form-grade か form-class か判定
+
+            if (parentId === 'form-grade') {
+                document.getElementById('entry-grade').value = value;
+            } else if (parentId === 'form-class') {
+                document.getElementById('entry-class').value = value;
+            }
+        });
+    });
+
     function toggleUI() {
         // 選択されたラジオボタンの値を取得
         const selectedValue = document.querySelector('input[name="entry.1227194780_sentinel"]:checked').value;
+        const AnonymousCheckbox = document.getElementById('Anonymous');
 
         // 各セクションの要素を取得
         const StudentDiv1 = document.getElementById('form-grade');
         const StudentDiv2 = document.getElementById('form-class');
         const other = document.getElementById('feedbackSection');
-        
+
 
         // 条件分岐で表示をコントロール
-        if (selectedValue === '生徒') {
-            gsap.to(StudentDiv1,{display:'block', height:'auto', opacity:1, duration:0.5});
-            gsap.to(StudentDiv2,{display:'block', height:'auto',opacity:1, duration:0.5});
-            gsap.to(other,{display:'none', height:'auto',opacity:0, duration:0.5});
-            
-        } else if (selectedValue === 'その他') {
-            gsap.to(StudentDiv1,{display:'none', height:'0', opacity:0, duration:0.5});
-            gsap.to(StudentDiv2,{display:'none', height:'0', opacity:0, duration:0.5});
-            gsap.to(other,{display:'block', height:'auto', opacity:1, duration:0.5});
+        if (AnonymousCheckbox.checked) {
+            document.getElementById('name-label').textContent = "匿名：返信はありません";
+            document.getElementById('name').value = "匿名さん";
+            document.getElementById('entry-grade').value = "";
+            document.getElementById('entry-class').value = "";
+            gsap.to(document.getElementById('role'), { display: 'none', opacity: 0, duration: 0.5 });
+            gsap.to(document.getElementById('form-grade'), { display: 'none', opacity: 0, duration: 0.5 });
+            gsap.to(document.getElementById('form-class'), { display: 'none', opacity: 0, duration: 0.5 });
+            gsap.to(document.getElementById('form-tell'), { display: 'none', opacity: 0, duration: 0.5 });
+            gsap.to(document.getElementById('form-email'), { display: 'none', opacity: 0, duration: 0.5 });
+
+        } else {
+            document.getElementById('name-label').textContent = "お名前";
+            document.getElementById('name').value = "";
+            gsap.to(document.getElementById('role'), { clearProps: "all", duration: 0.5 });
+            gsap.to(document.getElementById('form-grade'), { clearProps: "all", duration: 0.5 });
+            gsap.to(document.getElementById('form-class'), { clearProps: "all", duration: 0.5 });
+            gsap.to(document.getElementById('form-tell'), { clearProps: "all", duration: 0.5 });
+            gsap.to(document.getElementById('form-email'), { clearProps: "all", duration: 0.5 });
+
+            if (selectedValue === '生徒') {
+                gsap.to(StudentDiv1, { display: 'block', opacity: 1, duration: 0.5 });
+                gsap.to(StudentDiv2, { display: 'block', opacity: 1, duration: 0.5 });
+                gsap.to(other, { display: 'none', height: 'auto', opacity: 0, duration: 0.5 });
+
+            } else if (selectedValue === 'その他') {
+                gsap.to(StudentDiv1, { display: 'none', opacity: 0, duration: 0.5 });
+                gsap.to(StudentDiv2, { display: 'none', opacity: 0, duration: 0.5 });
+                gsap.to(other, { display: 'block', height: 'auto', opacity: 1, duration: 0.5 });
+            }
         }
+
+
+
+
     }
 
 
