@@ -387,36 +387,61 @@
     /*slide*/
 
     /* スライドの本体 */
-.slider-container {
-    margin-top: 20px;
-    display: flex;
-    gap:15px;
-    padding: 0 10vw; 
-    overflow-x: auto; 
-    scroll-snap-type: x mandatory; 
-    
-    
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-.slider-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari用スクロールバー非表示 */
-}
+    .slider-container {
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+        padding: 0 10vw;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
 
-/* 各カードのスタイル */
-.card {
-    flex-shrink: 0; /* カードが潰れないようにする */
-    width: 280px;   /* カードの幅 */
-    height: 300px;
-    background: #fff;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    scroll-snap-align: center; /* スナップした時に中央で止まる */
-}
+
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .slider-container::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari用スクロールバー非表示 */
+    }
+
+    /* 各カードのスタイル */
+    .card {
+        flex-shrink: 0;
+        /* カードが潰れないようにする */
+        width: 280px;
+        /* カードの幅 */
+        height: 300px;
+        background: #fff;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        scroll-snap-align: center;
+        flex-direction: column;
+        overflow: hidden;
+        /* スナップした時に中央で止まる */
+    }
+    .card h3{
+        font-size: 3vh;
+    }
+    .card p{
+        margin: auto;
+        margin-top: 0px;
+        justify-content: center;
+    }
 
     /*ここまでslide*/
+
+    #map{
+        display: flex;
+        width: 80%;
+        align-items: center;
+        justify-items: center;
+        margin: auto;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
 
 
 
@@ -895,12 +920,21 @@
                 <h2>Experience</h2>
                 <p>部活動見学、体験は以下の日程で行います。</p>
                 <div class="slider-container">
-                    <div class="card">カード1</div>
+                    <div class="card">
+                        <h3>4月20日</h3>
+                        <p>吾輩わがはいは猫である。名前はまだ無い。どこで生れたかとんと見当けんとうがつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だ</p>
+                    </div>
                     <div class="card">カード2</div>
                     <div class="card">カード3</div>
                     <div class="card">カード4</div>
                     <div class="card">カード5</div>
                 </div>
+            </div>
+
+            <div class="object">
+                <h2>Map</h2>
+                <p>活動は音楽室で行っています。</p>
+                <img src="map.png" id="map">
             </div>
 
             <div class="object" id="Contact">
