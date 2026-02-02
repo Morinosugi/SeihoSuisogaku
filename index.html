@@ -171,7 +171,6 @@
         /*縦に並べるため*/
         align-items: stretch;
         justify-content: center;
-        font-size: 3vh;
         margin: 0;
 
     }
@@ -180,19 +179,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 3vh;
+        font-size: 24px;
         margin: 100px 0 50px 0;
     }
 
-    .cefnter p,
-    li {
+    .cefnter p {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: clamp(18px, 1.5vw, 30px);
+        font-size: 18px;
         margin: auto;
         width: 80%;
-        max-width: 1000px;
+        max-width: 800px;
+        text-align: justify;
 
     }
 
@@ -250,14 +249,14 @@
     .schedule-card {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 30px;
         width: 80%;
         height: auto;
         border-radius: 20px;
         overflow: hidden;
-        max-width: 1000px;
+        max-width: 800px;
         margin: auto;
-        padding: 5vw;
+        padding: 10vw;
         box-sizing: border-box;
     }
 
@@ -271,7 +270,7 @@
 
     .schedule-item {
         display: flex;
-        padding: 15px;
+
         font-size: clamp(18px, 1.5vw, 30px);
     }
 
@@ -303,6 +302,7 @@
         padding: 20px;
         font-family: sans-serif;
         width: 80%;
+        max-width: 800px;
         margin: auto;
         flex-wrap: wrap;
     }
@@ -398,6 +398,7 @@
 
         -ms-overflow-style: none;
         scrollbar-width: none;
+
     }
 
     .slider-container::-webkit-scrollbar {
@@ -411,7 +412,8 @@
         /* カードが潰れないようにする */
         width: 280px;
         /* カードの幅 */
-        height: 300px;
+        padding-bottom: 25px;
+
         background: #fff;
         border-radius: 20px;
         display: flex;
@@ -422,10 +424,12 @@
         overflow: hidden;
         /* スナップした時に中央で止まる */
     }
-    .card h3{
+
+    .card h3 {
         font-size: 3vh;
     }
-    .card p{
+
+    .card p {
         margin: auto;
         margin-top: 0px;
         justify-content: center;
@@ -433,9 +437,10 @@
 
     /*ここまでslide*/
 
-    #map{
+    #map {
         display: flex;
         width: 80%;
+        max-width: 800px;
         align-items: center;
         justify-items: center;
         margin: auto;
@@ -452,14 +457,14 @@
         flex-direction: column;
         gap: 16px;
         width: 80%;
+        max-width: 800px;
         height: auto;
         border-radius: 20px;
         overflow: hidden;
-        max-width: 1000px;
         margin: auto;
         box-sizing: border-box;
         background-color: #F2C2CF;
-        padding: 5vw;
+        padding: 10vw;
     }
 
 
@@ -590,10 +595,9 @@
         font-size: 20px;
         font-weight: 400;
         background: transparent;
-        border-left: 2px solid #000;
-        border-bottom: 2px solid #000;
+        border: 2px solid #000;
         transition: 0.1s;
-        border-bottom-left-radius: 8px;
+        border-radius: 8px;
 
     }
 
@@ -630,6 +634,7 @@
         border: 2px solid #000;
         border-radius: 8px;
     }
+
 
     .enter {
         height: 45px;
@@ -778,6 +783,22 @@
         border-radius: 8px;
     }
 
+    #thanks-msg {
+
+        flex-direction: column;
+        text-align: center;
+        margin: auto;
+
+
+
+    }
+
+    #thanks-msg h2 p {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+    }
+
     /* ここまでフォーム */
 </style>
 
@@ -918,16 +939,44 @@
 
             <div class="object" id="Experience">
                 <h2>Experience</h2>
-                <p>部活動見学、体験は以下の日程で行います。</p>
+                <p>部活動見学、体験</p>
                 <div class="slider-container">
                     <div class="card">
                         <h3>4月20日</h3>
                         <p>吾輩わがはいは猫である。名前はまだ無い。どこで生れたかとんと見当けんとうがつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だ</p>
                     </div>
-                    <div class="card">カード2</div>
-                    <div class="card">カード3</div>
-                    <div class="card">カード4</div>
-                    <div class="card">カード5</div>
+                    <div class="card">
+                        <h3>カード2</h3>
+                        <p></p>
+                    </div>
+                    <div class="card">
+                        <h3>カード3</h3>
+                        <p></p>
+                    </div>
+                    <div class="card">
+                        <h3>カード4</h3>
+                        <p></p>
+                    </div>
+                    <div class="card">
+                        <h3>カード5</h3>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="object" id="Result">
+                <h2>Result</h2>
+                <p>実績</p>
+                <div class="slider-container">
+                    <div class="card" style="background-color: #F2D3AC;">
+                        <h3>アンサンブコンテスト</h3>
+                        <p>2025 12 23<br>菅打8重奏 銀賞<br>ヘンリー八世の音楽集</p>
+
+                    </div>
+                    <div class="card" style="background-color: #F2D3AC;">
+                        <h3>コンクール県大会</h3>
+                        <p>2025 08 09<br>女化稲荷月の朧夜 狐の恩返し伝説による幻想曲<br>金賞 奨励賞</p>
+                    </div>
                 </div>
             </div>
 
@@ -939,10 +988,10 @@
 
             <div class="object" id="Contact">
                 <h2>Contact</h2>
-                <p>現在開発中につき、送信されません。ご容赦願う。</p>
-                <form class="form"
+                <form class="form" id="form"
                     action="https://docs.google.com/forms/d/e/1FAIpQLSeJ9tKPn-eJnnshtRYWq7_Et_LrKdEKadiApvFCXnqpCPkPtQ/formResponse"
                     method="POST" target="hidden_iframe">
+                    <input type="hidden" name="entry.1830151023" value="website">
                     <div id="form-name-Anonymous">
                         <div class="inputGroup" id="form-name">
                             <input type="text" id="name" name="entry.357402207" placeholder=" ">
@@ -954,13 +1003,12 @@
                     </div>
                     <div class="inputToggle" id="role">
                         <label class="Toggle">
-                            <input type="radio" id="student" name="entry.1227194780_sentinel" value="生徒" checked=""
+                            <input type="radio" id="student" name="entry.1227194780" value="生徒" checked=""
                                 onchange="toggleUI()">
                             <span class="title" for="student">生徒</span>
                         </label>
                         <label class="Toggle">
-                            <input type="radio" id="other" name="entry.1227194780_sentinel" value="その他"
-                                onchange="toggleUI()">
+                            <input type="radio" id="other" name="entry.1227194780" value="その他" onchange="toggleUI()">
                             <span class="title" for="other">その他</span>
                         </label>
                     </div>
@@ -982,7 +1030,7 @@
                                 <span class="material-symbols-outlined link-icon">help</span>
                                 <span class="link-title">その他</span>
                             </a>
-                            <input type="hidden" id="entry-grade" name="entry.373475341_sentinel" value="年">
+                            <input type="hidden" id="entry-grade" name="entry.373475341" value="１年">
                         </div>
 
                     </div>
@@ -1010,41 +1058,51 @@
                                 <span class="material-symbols-outlined link-icon">help</span>
                                 <span class="link-title">その他</span>
                             </a>
-                            <input type="hidden" id="entry-class" name="entry.613373222_sentinel" value="組">
+                            <input type="hidden" id="entry-class" name="entry.613373222" value="１組">
                         </div>
 
 
+                    </div>
+                    <div class="inputGroup" id="form-aboutyou" style="display: none">
+                        <input type="text" id="aboutyou" name="entry.1805112893" placeholder=" ">
+                        <span for="callnom">私たちとの関係</span>
                     </div>
                     <div class="inputGroup" id="form-tell">
                         <input type="text" id="callnom" name="entry.1805112893" placeholder=" ">
                         <span for="callnom">電話番号</span>
                     </div>
                     <div class="inputGroup" id="form-email">
-                        <input type="email" id="email" name="entry.601438554" placeholder=" ">
+                        <input type="text" id="email" name="entry.601438554" placeholder=" ">
                         <span for="email">メールアドレス</span>
                     </div>
                     <div class="inputToggle" id="form-kinds">
                         <label class="Toggle">
-                            <input type="radio" id="opinion" name="entry.1853267698_sentinel" value="意見" checked=""
+                            <input type="radio" id="opinion" name="entry.1853267698" value="意見" checked=""
                                 onchange="toggleUI()">
                             <span class="title" for="opinion">意見</span>
                         </label>
                         <label class="Toggle">
-                            <input type="radio" id="question" name="entry.1853267698_sentinel" value="質問"
-                                onchange="toggleUI()">
+                            <input type="radio" id="question" name="entry.1853267698" value="質問" onchange="toggleUI()">
                             <span class="title" for="question">質問</span>
                         </label>
 
                     </div>
                     <div class="inputGroup" id="form-message">
-                        <textarea id="message" name="entry.1045781291" rows="4" cols="50" placeholder=" "></textarea>
+                        <textarea id="message" name="entry.194499310" rows="4" cols="50" placeholder=" "></textarea>
                         <span for="message">内容</span>
 
                     </div>
-                    <button class="enter">送信</button>
+                    <button class="enter" id="enter">送信</button>
+
+
 
                 </form>
+
                 <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                <div id="thanks-msg" style="display: none;">
+                    <h2>お問い合わせありがとうございました！</h2>
+                    <p>返信が必要と判断した場合は、ご指定された連絡先に返信いたします。また、質問とそれに対する答えを、インスタグラムにて配信させていただく場合があります。ご了承ください。</p>
+                </div>
             </div>
         </section>
 
@@ -1211,27 +1269,48 @@
 
 
     //フォーム用
-    document.querySelectorAll('.link').forEach(link => {
-        link.addEventListener('click', function (e) {
-            e.preventDefault();
+    // フォーム要素を取得
+    const form = document.getElementById('form');
+    const iframe = document.getElementById('hidden_iframe');
+    const enter = document.getElementById('enter')
+    let submitted = false;
 
-            // クリックされたテキストを取得（例：１年、２組など）
-            const selectedText = this.querySelector('.link-title').textContent;
+    form.addEventListener('submit', function (e) {
 
-            // 近くにある隠し入力欄（後述）に値をセットする仕組み
-            // もしくは、特定のID（hidden-gradeなど）に直接入れる
-            if (this.closest('#form-grade')) {
-                document.getElementById('hidden-grade').value = selectedText;
-            } else if (this.closest('#form-class')) {
-                document.getElementById('hidden-class').value = selectedText;
-            }
+        if (document.getElementById('message').value === "") {
+            e.preventDefault(); // 送信を中止
+            alert("内容を入力してください。");
+        }
 
-            // 見た目のフィードバック（選択したものをグレーにする）
-            this.closest('.menu').querySelectorAll('.link').forEach(l => l.style.background = "");
-            this.style.background = "#eee";
-            this.style.borderRadius = "8px";
-        });
+        submitted = true;
+
+
     });
+
+    iframe.onload = function () {
+        if (submitted) {
+
+            if (enter) {
+                enter.ariaDisFabled = true;
+                enter.textContent = "送信中..."
+                enter.style.cursor = "not-allowed"
+            }
+            gsap.to("#form", {
+                opacity: 0,
+                duration: 0.5,
+                onComplete: () => {
+
+                    gsap.to("#form", { display: 'none', opacity: 0, duration: 0.5 });
+                    // メッセージ用の要素を表示（HTML側に <div id="thanks-msg" style="display:none"> を用意しておく）
+                    const thanksMsg = document.getElementById('thanks-msg');
+                    thanksMsg.style.display = 'block';
+                    gsap.fromTo(thanksMsg, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+                }
+            });
+        }
+    }
+
+
 
 
     // すべての .link に対してクリックイベントを設定
@@ -1257,7 +1336,7 @@
 
     function toggleUI() {
         // 選択されたラジオボタンの値を取得
-        const selectedValue = document.querySelector('input[name="entry.1227194780_sentinel"]:checked').value;
+        const selectedValue = document.querySelector('input[name="entry.1227194780"]:checked').value;
         const AnonymousCheckbox = document.getElementById('Anonymous');
 
         // 各セクションの要素を取得
@@ -1278,14 +1357,16 @@
             gsap.to(document.getElementById('form-tell'), { display: 'none', opacity: 0, duration: 0.5 });
             gsap.to(document.getElementById('form-email'), { display: 'none', opacity: 0, duration: 0.5 });
 
+            gsap.to(document.getElementById('form-aboutyou'), { clearProps: "all", duration: 0.5 });
         } else {
             document.getElementById('name-label').textContent = "お名前";
-            document.getElementById('name').value = "";
+            if (document.getElementById('name').value == "匿名さん") { document.getElementById("name").value = "" };
             gsap.to(document.getElementById('role'), { clearProps: "all", duration: 0.5 });
             gsap.to(document.getElementById('form-grade'), { clearProps: "all", duration: 0.5 });
             gsap.to(document.getElementById('form-class'), { clearProps: "all", duration: 0.5 });
             gsap.to(document.getElementById('form-tell'), { clearProps: "all", duration: 0.5 });
             gsap.to(document.getElementById('form-email'), { clearProps: "all", duration: 0.5 });
+            gsap.to(document.getElementById('form-aboutyou'), { display: 'none', opacity: 0, duration: 0.5 });
 
             if (selectedValue === '生徒') {
                 gsap.to(StudentDiv1, { display: 'block', opacity: 1, duration: 0.5 });
