@@ -1376,8 +1376,10 @@
                 gsap.to(StudentDiv1, { display: 'block', opacity: 1, duration: 0.5 });
                 gsap.to(StudentDiv2, { display: 'block', opacity: 1, duration: 0.5 });
                 gsap.to(other, { display: 'none', height: 'auto', opacity: 0, duration: 0.5 });
+                gsap.to(document.getElementById('form-aboutyou'), { display: 'none', opacity: 0, duration: 0.5 });
 
             } else if (selectedValue === 'その他') {
+                gsap.to(document.getElementById('form-aboutyou'), { clearProps: "all", duration: 0.5 });
                 gsap.to(StudentDiv1, { display: 'none', opacity: 0, duration: 0.5 });
                 gsap.to(StudentDiv2, { display: 'none', opacity: 0, duration: 0.5 });
                 gsap.to(other, { display: 'block', height: 'auto', opacity: 1, duration: 0.5 });
