@@ -1108,8 +1108,8 @@
 
         <section class="footer">
             <p>木曽青峰高校吹奏楽部</p>
-            <p>〒397-0002 長野県木曽郡木曽町福島５２２３番地</p>
-            <p>TEL: 0264-22-2133</p>
+            <p>〒397-8571 長野県木曽郡木曽町福島1827-2</p>
+            <p>TEL：0264-22-2119（代表）</p>
 
         </section>
     </main>
@@ -1280,21 +1280,22 @@
         if (document.getElementById('message').value === "") {
             e.preventDefault(); // 送信を中止
             alert("内容を入力してください。");
+            return;
         }
 
         submitted = true;
 
-
+        if (enter) {
+            enter.ariaDisFabled = true;
+            enter.textContent = "送信中..."
+            enter.style.cursor = "not-allowed"
+        }
     });
 
     iframe.onload = function () {
         if (submitted) {
 
-            if (enter) {
-                enter.ariaDisFabled = true;
-                enter.textContent = "送信中..."
-                enter.style.cursor = "not-allowed"
-            }
+
             gsap.to("#form", {
                 opacity: 0,
                 duration: 0.5,
