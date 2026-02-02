@@ -1350,8 +1350,8 @@
         if (AnonymousCheckbox.checked) {
             document.getElementById('name-label').textContent = "匿名：返信はありません";
             document.getElementById('name').value = "匿名さん";
-            document.getElementById('entry-grade').value = "";
-            document.getElementById('entry-class').value = "";
+            document.getElementById('entry-grade').value = "その他";
+            document.getElementById('entry-class').value = "その他";
             gsap.to(document.getElementById('role'), { display: 'none', opacity: 0, duration: 0.5 });
             gsap.to(document.getElementById('form-grade'), { display: 'none', opacity: 0, duration: 0.5 });
             gsap.to(document.getElementById('form-class'), { display: 'none', opacity: 0, duration: 0.5 });
@@ -1362,6 +1362,8 @@
         } else {
             document.getElementById('name-label').textContent = "お名前";
             if (document.getElementById('name').value == "匿名さん") { document.getElementById("name").value = "" };
+            document.getElementById('entry-grade').value = "１年";
+            document.getElementById('entry-class').value = "１組";
             gsap.to(document.getElementById('role'), { clearProps: "all", duration: 0.5 });
             gsap.to(document.getElementById('form-grade'), { clearProps: "all", duration: 0.5 });
             gsap.to(document.getElementById('form-class'), { clearProps: "all", duration: 0.5 });
