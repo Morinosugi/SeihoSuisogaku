@@ -1077,14 +1077,15 @@
                     </div>
                     <div class="inputToggle" id="form-kinds">
                         <label class="Toggle">
-                            <input type="radio" id="opinion" name="entry.1853267698" value="意見" checked=""
+                            <input type="radio" id="question" name="entry.1853267698" value="質問" onchange="toggleUI()"  checked="">
+                            <span class="title" for="question" >質問</span>
+                        </label>
+                        <label class="Toggle">
+                            <input type="radio" id="opinion" name="entry.1853267698" value="意見"
                                 onchange="toggleUI()">
                             <span class="title" for="opinion">意見</span>
                         </label>
-                        <label class="Toggle">
-                            <input type="radio" id="question" name="entry.1853267698" value="質問" onchange="toggleUI()">
-                            <span class="title" for="question">質問</span>
-                        </label>
+                        
 
                     </div>
                     <div class="inputGroup" id="form-message">
