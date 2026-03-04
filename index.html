@@ -12,11 +12,11 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-251N5Q4N4J"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-251N5Q4N4J');
+    gtag('config', 'G-251N5Q4N4J');
 </script>
 
 <script>
@@ -466,19 +466,37 @@
 
     /* フォーム用 */
 
-    .form {
+    #form_back {
+        background-color: #F2C2CF;
         display: flex;
         flex-direction: column;
-        gap: 16px;
+
         width: 80%;
         max-width: 800px;
         height: auto;
         border-radius: 20px;
         overflow: hidden;
         margin: auto;
+
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
         box-sizing: border-box;
-        background-color: #F2C2CF;
         padding: 10vw;
+    }
+
+    #open_button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 45px;
+        width: 100%;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: 500;
     }
 
 
@@ -650,6 +668,13 @@
     }
 
 
+    #form_OK_button {
+        display: flex;
+        flex-direction: row;
+        gap: 25px;
+
+    }
+
     .enter {
         height: 45px;
         width: 90px;
@@ -662,13 +687,16 @@
         font-size: 10px;
         letter-spacing: 2px;
         margin-bottom: 1em;
-        margin: 0;
+
+
+
     }
 
     .enter:hover {
         background-color: rgb(0, 0, 0);
         color: white;
     }
+
 
     #form-name-Anonymous {
         display: flex;
@@ -802,6 +830,7 @@
         flex-direction: column;
         text-align: center;
         margin: auto;
+        padding: 10vw;
 
 
 
@@ -994,121 +1023,128 @@
 
             <div class="object" id="Contact">
                 <h2>Contact</h2>
-                <form class="form" id="form"
-                    action="https://docs.google.com/forms/d/e/1FAIpQLSeJ9tKPn-eJnnshtRYWq7_Et_LrKdEKadiApvFCXnqpCPkPtQ/formResponse"
-                    method="POST" target="hidden_iframe">
-                    <input type="hidden" name="entry.1830151023" value="website">
-                    <div id="form-name-Anonymous">
-                        <div class="inputGroup" id="form-name">
-                            <input type="text" id="name" name="entry.357402207" placeholder=" ">
-                            <span for="name" id="name-label">お名前</span>
+                <div id="form_back">
+                    <p id="open_button" onclick="form_open()">ここを押して開く</p>
+                    <form class="form" id="form"
+                        action="https://docs.google.com/forms/d/e/1FAIpQLSeJ9tKPn-eJnnshtRYWq7_Et_LrKdEKadiApvFCXnqpCPkPtQ/formResponse"
+                        method="POST" target="hidden_iframe" onclick="form_click()"
+                        style="display: none; opacity: 0;">
+                        <input type="hidden" name="entry.1830151023" value="website">
+                        <div id="form-name-Anonymous">
+                            <div class="inputGroup" id="form-name">
+                                <input type="text" id="name" name="entry.357402207" placeholder=" ">
+                                <span for="name" id="name-label">お名前</span>
+                            </div>
+                            <input type="checkbox" value="匿名" id="Anonymous" onchange="toggleUI()">
+                            <label id="AnonymousLabel" for="Anonymous">匿名</label>
+
                         </div>
-                        <input type="checkbox" value="匿名" id="Anonymous" onchange="toggleUI()">
-                        <label id="AnonymousLabel" for="Anonymous">匿名</label>
+                        <div class="inputToggle" id="role">
+                            <label class="Toggle">
+                                <input type="radio" id="student" name="entry.1227194780" value="生徒" checked=""
+                                    onchange="toggleUI()">
+                                <span class="title" for="student">生徒</span>
+                            </label>
+                            <label class="Toggle">
+                                <input type="radio" id="other" name="entry.1227194780" value="その他"
+                                    onchange="toggleUI()">
+                                <span class="title" for="other">その他</span>
+                            </label>
+                        </div>
+                        <div class="inputRadio" id="form-grade">
+                            <div class="menu">
+                                <a href="javascript:void(0)" class="link is-active">
+                                    <span class="material-symbols-outlined link-icon" font-size="28px">counter_1</span>
+                                    <span class="link-title">１年</span>
+                                </a>
+                                <a href="javascript:void(0)" class="link">
+                                    <span class="material-symbols-outlined link-icon">counter_2</span>
+                                    <span class="link-title">２年</span>
+                                </a>
+                                <a href="javascript:void(0)" class="link">
+                                    <span class="material-symbols-outlined link-icon">counter_3</span>
+                                    <span class="link-title">３年</span>
+                                </a>
+                                <a href="javascript:void(0)" class="link">
+                                    <span class="material-symbols-outlined link-icon">help</span>
+                                    <span class="link-title">その他</span>
+                                </a>
+                                <input type="hidden" id="entry-grade" name="entry.373475341" value="１年">
+                            </div>
 
-                    </div>
-                    <div class="inputToggle" id="role">
-                        <label class="Toggle">
-                            <input type="radio" id="student" name="entry.1227194780" value="生徒" checked=""
-                                onchange="toggleUI()">
-                            <span class="title" for="student">生徒</span>
-                        </label>
-                        <label class="Toggle">
-                            <input type="radio" id="other" name="entry.1227194780" value="その他" onchange="toggleUI()">
-                            <span class="title" for="other">その他</span>
-                        </label>
-                    </div>
-                    <div class="inputRadio" id="form-grade">
-                        <div class="menu">
-                            <a href="javascript:void(0)" class="link is-active">
-                                <span class="material-symbols-outlined link-icon" font-size="28px">counter_1</span>
-                                <span class="link-title">１年</span>
-                            </a>
-                            <a href="javascript:void(0)" class="link">
-                                <span class="material-symbols-outlined link-icon">counter_2</span>
-                                <span class="link-title">２年</span>
-                            </a>
-                            <a href="javascript:void(0)" class="link">
-                                <span class="material-symbols-outlined link-icon">counter_3</span>
-                                <span class="link-title">３年</span>
-                            </a>
-                            <a href="javascript:void(0)" class="link">
-                                <span class="material-symbols-outlined link-icon">help</span>
-                                <span class="link-title">その他</span>
-                            </a>
-                            <input type="hidden" id="entry-grade" name="entry.373475341" value="１年">
+                        </div>
+                        <div class="inputRadio" id="form-class">
+
+                            <div class="menu">
+                                <a href="javascript:void(0)" class="link is-active">
+                                    <span class="material-symbols-outlined link-icon">counter_1</span>
+                                    <span class="link-title">１組</span>
+                                </a>
+                                <a href="javascript:void(0)" class="link">
+
+                                    <span class="material-symbols-outlined link-icon">counter_2</span>
+                                    <span class="link-title">２組</span>
+                                </a>
+                                <a href="javascript:void(0)" class="link">
+                                    <span class="material-symbols-outlined link-icon">counter_3</span>
+                                    <span class="link-title">３組</span>
+                                </a>
+                                <a href="javascript:void(0)" class="link">
+                                    <span class="material-symbols-outlined link-icon">counter_4</span>
+                                    <span class="link-title">４組</span>
+                                </a>
+                                <a href="javascript:void(0)" class="link">
+                                    <span class="material-symbols-outlined link-icon">help</span>
+                                    <span class="link-title">その他</span>
+                                </a>
+                                <input type="hidden" id="entry-class" name="entry.613373222" value="１組">
+                            </div>
+
+
+                        </div>
+                        <div class="inputGroup" id="form-aboutyou" style="display: none">
+                            <input type="text" id="aboutyou" name="entry.1805112893" placeholder=" ">
+                            <span for="callnom">私たちとの関係</span>
+                        </div>
+                        <div class="inputGroup" id="form-tell">
+                            <input type="text" id="callnom" name="entry.1805112893" placeholder=" ">
+                            <span for="callnom">電話番号</span>
+                        </div>
+                        <div class="inputGroup" id="form-email">
+                            <input type="text" id="email" name="entry.601438554" placeholder=" ">
+                            <span for="email">メールアドレス</span>
+                        </div>
+                        <div class="inputToggle" id="form-kinds">
+                            <label class="Toggle">
+                                <input type="radio" id="question" name="entry.1853267698" value="質問"
+                                    onchange="toggleUI()" checked="">
+                                <span class="title" for="question">質問</span>
+                            </label>
+                            <label class="Toggle">
+                                <input type="radio" id="opinion" name="entry.1853267698" value="意見"
+                                    onchange="toggleUI()">
+                                <span class="title" for="opinion">意見</span>
+                            </label>
+
+
+                        </div>
+                        <div class="inputGroup" id="form-message">
+                            <textarea id="message" name="entry.194499310" rows="4" cols="50" placeholder=" "></textarea>
+                            <span for="message">内容</span>
+
+                        </div>
+                        <div id="form_OK_button">
+                            <button class="enter" id="enter">送信</button>
+                            <button class="enter" id="close" onclick="form_close()">閉じる</button>
                         </div>
 
+                    </form>
+
+                    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+                    <div id="thanks-msg" style="display: none;">
+                        <h2>お問い合わせありがとうございました！</h2>
+                        <p>返信が必要と判断した場合は、ご指定された連絡先に返信いたします。また、質問とそれに対する答えを、インスタグラムにて配信させていただく場合があります。ご了承ください。</p>
                     </div>
-                    <div class="inputRadio" id="form-class">
-
-                        <div class="menu">
-                            <a href="javascript:void(0)" class="link is-active">
-                                <span class="material-symbols-outlined link-icon">counter_1</span>
-                                <span class="link-title">１組</span>
-                            </a>
-                            <a href="javascript:void(0)" class="link">
-
-                                <span class="material-symbols-outlined link-icon">counter_2</span>
-                                <span class="link-title">２組</span>
-                            </a>
-                            <a href="javascript:void(0)" class="link">
-                                <span class="material-symbols-outlined link-icon">counter_3</span>
-                                <span class="link-title">３組</span>
-                            </a>
-                            <a href="javascript:void(0)" class="link">
-                                <span class="material-symbols-outlined link-icon">counter_4</span>
-                                <span class="link-title">４組</span>
-                            </a>
-                            <a href="javascript:void(0)" class="link">
-                                <span class="material-symbols-outlined link-icon">help</span>
-                                <span class="link-title">その他</span>
-                            </a>
-                            <input type="hidden" id="entry-class" name="entry.613373222" value="１組">
-                        </div>
-
-
-                    </div>
-                    <div class="inputGroup" id="form-aboutyou" style="display: none">
-                        <input type="text" id="aboutyou" name="entry.1805112893" placeholder=" ">
-                        <span for="callnom">私たちとの関係</span>
-                    </div>
-                    <div class="inputGroup" id="form-tell">
-                        <input type="text" id="callnom" name="entry.1805112893" placeholder=" ">
-                        <span for="callnom">電話番号</span>
-                    </div>
-                    <div class="inputGroup" id="form-email">
-                        <input type="text" id="email" name="entry.601438554" placeholder=" ">
-                        <span for="email">メールアドレス</span>
-                    </div>
-                    <div class="inputToggle" id="form-kinds">
-                        <label class="Toggle">
-                            <input type="radio" id="question" name="entry.1853267698" value="質問" onchange="toggleUI()"  checked="">
-                            <span class="title" for="question" >質問</span>
-                        </label>
-                        <label class="Toggle">
-                            <input type="radio" id="opinion" name="entry.1853267698" value="意見"
-                                onchange="toggleUI()">
-                            <span class="title" for="opinion">意見</span>
-                        </label>
-                        
-
-                    </div>
-                    <div class="inputGroup" id="form-message">
-                        <textarea id="message" name="entry.194499310" rows="4" cols="50" placeholder=" "></textarea>
-                        <span for="message">内容</span>
-
-                    </div>
-                    <button class="enter" id="enter">送信</button>
-
-
-
-                </form>
-
-                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-                <div id="thanks-msg" style="display: none;">
-                    <h2>お問い合わせありがとうございました！</h2>
-                    <p>返信が必要と判断した場合は、ご指定された連絡先に返信いたします。また、質問とそれに対する答えを、インスタグラムにて配信させていただく場合があります。ご了承ください。</p>
                 </div>
             </div>
         </section>
@@ -1395,6 +1431,22 @@
 
 
 
+    }
+
+    function form_open() {
+        gsap.to("#open_button", {
+            opacity: 0, height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0, duration: 0.5,
+            ease: "power2.inOut", // 加減速をつけるとより滑らか
+            onComplete: () => {
+                gsap.set("#open_button", { display: 'none' });
+            }, duration: 0.5
+        });
+        gsap.to("#form", { display: 'flex', opacity: 1, duration: 0.5 });
+    }
+
+    function form_close() {
+        gsap.to("#form", { display: 'none', opacity: 0, duration: 0.5 });
+        gsap.set("#open_button", { clearProps: "all" });
     }
 
 
