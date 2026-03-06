@@ -305,21 +305,38 @@
 
 
     /* insta関連CSS */
+    #instagram-slider {
+        
+        display: flex;
+        padding-left: 10vw;
+        padding-right: 10vw;
+        overflow-x: auto;
+        scroll-snap-type: x proximity;
+        align-items: center;
+        margin: auto;
+        margin-top: 20px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    #instagram-slider::-webkit-scrollbar {
+        display: none;
+        /* Chrome, Safari用スクロールバー非表示 */
+    }
+
     .insta-container {
         display: flex;
-        gap: 10px;
+        gap: 20px;
         /* 写真の間の余白 */
-        justify-content: center;
-        padding: 20px;
         font-family: sans-serif;
-        width: 80%;
-        max-width: 800px;
-        margin: auto;
-        flex-wrap: wrap;
+        width: auto;
+        margin: auto;  
+        
     }
 
     .insta-item {
         position: relative;
+        width: 80vw;
+        
         flex: 1;
         /* 均等に広がる */
         aspect-ratio: 1 / 1;
@@ -327,6 +344,9 @@
         overflow: hidden;
         border-radius: 12px;
         flex: 1 1 calc(33.333% - 15px);
+        scroll-snap-align: center;
+        align-items: center;
+        justify-content: center;
 
     }
 
@@ -406,9 +426,10 @@
         overflow-x: auto;
         scroll-snap-type: x proximity;
 
-
+        
         -ms-overflow-style: none;
         scrollbar-width: none;
+        
 
     }
 
@@ -423,7 +444,7 @@
         /* カードが潰れないようにする */
         width: 280px;
         /* カードの幅 */
-       
+
 
         background: #fff;
         border-radius: 20px;
@@ -891,8 +912,12 @@
                     </svg>
                     <span>Instragram ☜</span>
                 </button>
-                <div id="instagram-feed" class="insta-container">
-                    <p id="loading">Loading Instagram Feed...</p>
+                <div id="instagram-slider">
+                    <div id="instagram-feed" class="insta-container">
+
+                        <p id="loading">Loading Instagram Feed...</p>
+
+                    </div>
                 </div>
             </div>
 
@@ -1031,8 +1056,7 @@
                     <p id="open_button" onclick="form_open()">ここを押して開く</p>
                     <form class="form" id="form"
                         action="https://docs.google.com/forms/d/e/1FAIpQLSeJ9tKPn-eJnnshtRYWq7_Et_LrKdEKadiApvFCXnqpCPkPtQ/formResponse"
-                        method="POST" target="hidden_iframe" onclick="form_click()"
-                        style="display: none; opacity: 0;">
+                        method="POST" target="hidden_iframe" onclick="form_click()" style="display: none; opacity: 0;">
                         <input type="hidden" name="entry.1830151023" value="website">
                         <div id="form-name-Anonymous">
                             <div class="inputGroup" id="form-name">
@@ -1299,7 +1323,7 @@
                     item.innerHTML = `
                         ${mediaHtml}
                         <a href="${post.permalink}" target="_blank" class="insta-overlay">
-                            <span>${post.caption ? post.caption.substring(0, 50) + '...' : ''}</span>
+                            <span>${post.caption }</span>
                         </a>
                     `;
                     container.appendChild(item);
