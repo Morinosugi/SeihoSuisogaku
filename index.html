@@ -206,7 +206,7 @@
     }
 
     .button {
-        margin: 100px auto auto auto;
+        margin: auto;
         background: transparent;
         position: relative;
         padding: 5px 15px;
@@ -306,6 +306,8 @@
 
     /* insta関連CSS */
     #instagram-slider {
+        height: auto;
+        width: auto;
 
         display: flex;
         padding-left: 10vw;
@@ -317,7 +319,6 @@
         margin-top: 20px;
         -ms-overflow-style: none;
         scrollbar-width: none;
-
         scroll-behavior: smooth;
     }
 
@@ -326,71 +327,87 @@
         /* Chrome, Safari用スクロールバー非表示 */
     }
 
-    .insta-container {
+    #instagram-feed {
         display: flex;
         gap: 20px;
         /* 写真の間の余白 */
-        font-family: sans-serif;
         width: auto;
         margin: auto;
+        height: auto;
 
     }
 
     .insta-item {
         position: relative;
         width: 80vw;
+        height: auto;
+        margin: auto;
+        margin:0;
 
-        flex: 1;
-        /* 均等に広がる */
-        aspect-ratio: 1 / 1;
-        /* 正方形を維持 */
-        overflow: hidden;
-        border-radius: 12px;
-        flex: 1 1 calc(33.333% - 15px);
         align-items: center;
         justify-content: center;
         scroll-snap-align: center;
-        scroll-snap-stop: proximity;
+
+        scroll-snap-stop: always;
 
     }
 
+    #tap-message{
+        position:absolute;
+        bottom: 0;
+        left: auto;
+        width: 100%;
+        color:#000;
+    }
+
+
     .insta-item img {
         width: 100%;
-        height: 100%;
+        height: auto;
+        flex: 1;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 12px;
+        flex: 1 1 calc(33.333% - 15px);
+
         object-fit: cover;
         transition: transform 0.4s ease;
     }
 
     .insta-overlay {
-        position: absolute;
+        position: flex;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        /* 半透明の黒 */
-        color: white;
+        height: 180px;
+        margin: auto;
+        margin-top: 10px;
+        color: rgb(0, 0, 0);
         display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
+
         box-sizing: border-box;
-        opacity: 0;
+        opacity: 1;
         transition: opacity 0.3s ease;
-        text-align: center;
-        font-size: 0.85rem;
+        text-align: justify;
+        font-size: clamp(18px, 1.5vw, 30px);
         line-height: 1.4;
         text-decoration: none;
+        border-radius: 12px;
+        mask-image: linear-gradient(to bottom, black 40px, transparent 150px);
+        overflow: hidden;
         /* リンクの下線を消す */
     }
 
-    .insta-item:hover .insta-overlay {
-        opacity: 1;
-    }
+
 
     .insta-item video {
         width: 100%;
-        height: 100%;
+        height: auto;
+        flex: 1;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 12px;
+        flex: 1 1 calc(33.333% - 15px);
         object-fit: cover;
     }
 
@@ -463,10 +480,13 @@
 
     .card h3 {
         font-size: 3vh;
-        margin: 0;
+        margin: auto;
         margin-bottom: 10px;
         margin-top: 10px;
         font-weight: 500;
+        width: 80%;
+        text-align: center;
+
     }
 
     .card p {
@@ -907,6 +927,14 @@
             </div>
 
             <div class="object" id="instagram">
+                <h2>Instagram</h2>
+                <div id="instagram-slider">
+                    <div id="instagram-feed">
+
+                        <p id="loading">Loading Instagram Feed...</p>
+
+                    </div>
+                </div>
                 <button class="button" onclick="window.location.href='https://www.instagram.com/shwo._.official'">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-instagram" viewBox="0 0 16 16">
@@ -914,15 +942,8 @@
                             d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z">
                         </path>
                     </svg>
-                    <span>Instragram ☜</span>
+                    <span>Instagram ☜</span>
                 </button>
-                <div id="instagram-slider">
-                    <div id="instagram-feed" class="insta-container">
-
-                        <p id="loading">Loading Instagram Feed...</p>
-
-                    </div>
-                </div>
             </div>
 
             <div class="object" id="Activities">
@@ -1289,8 +1310,9 @@
 
                 data.data.forEach(post => {
                     const item = document.createElement('div');
+                    const caption = document.createElement('div');
                     item.className = 'insta-item';
-
+                    caption.className = 'insta-caption';
                     let mediaHtml = '';
 
                     // VIDEO（リール）の場合
@@ -1303,7 +1325,7 @@
                                 loop 
                                 playsinline 
                                 autoPlay
-                                style="width:100%; height:100%; object-fit:cover;">
+                                ">
                             </video>`;
 
                         // マウスホバー時の動作をセット
@@ -1321,16 +1343,23 @@
 
                     } else {
                         // 通常の画像（IMAGE）やカルーセル（CAROUSEL_ALBUM）の場合
-                        mediaHtml = `<img src="${post.media_url}" alt="Instagram" style="width:100%; height:100%; object-fit:cover;">`;
+                        mediaHtml = `<img src="${post.media_url}" alt="Instagram">`;
                     }
 
                     item.innerHTML = `
-                        ${mediaHtml}
+   
+                        <a href="${post.permalink}" target="_blank" class="insta-link">
+                            ${mediaHtml}
+                            <span id="tap-message">タップしてみる</span>
+                        </a>
                         <a href="${post.permalink}" target="_blank" class="insta-overlay">
-                            <span>${post.caption}</span>
+                            <span> ${post.caption}</span>
                         </a>
                     `;
+                    caption.innerHTML = `
+                         `;
                     container.appendChild(item);
+
                 });
             }
         } catch (error) {
