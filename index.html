@@ -306,18 +306,21 @@
 
     /* insta関連CSS */
     #instagram-slider {
-        
+
         display: flex;
         padding-left: 10vw;
         padding-right: 10vw;
         overflow-x: auto;
-        scroll-snap-type: x proximity;
+        scroll-snap-type: x mandatory;
         align-items: center;
         margin: auto;
         margin-top: 20px;
         -ms-overflow-style: none;
         scrollbar-width: none;
+
+        scroll-behavior: smooth;
     }
+
     #instagram-slider::-webkit-scrollbar {
         display: none;
         /* Chrome, Safari用スクロールバー非表示 */
@@ -329,14 +332,14 @@
         /* 写真の間の余白 */
         font-family: sans-serif;
         width: auto;
-        margin: auto;  
-        
+        margin: auto;
+
     }
 
     .insta-item {
         position: relative;
         width: 80vw;
-        
+
         flex: 1;
         /* 均等に広がる */
         aspect-ratio: 1 / 1;
@@ -344,9 +347,9 @@
         overflow: hidden;
         border-radius: 12px;
         flex: 1 1 calc(33.333% - 15px);
-        scroll-snap-align: center;
         align-items: center;
         justify-content: center;
+        scroll-snap-align: start;
 
     }
 
@@ -426,10 +429,10 @@
         overflow-x: auto;
         scroll-snap-type: x proximity;
 
-        
+
         -ms-overflow-style: none;
         scrollbar-width: none;
-        
+
 
     }
 
@@ -1323,7 +1326,7 @@
                     item.innerHTML = `
                         ${mediaHtml}
                         <a href="${post.permalink}" target="_blank" class="insta-overlay">
-                            <span>${post.caption }</span>
+                            <span>${post.caption}</span>
                         </a>
                     `;
                     container.appendChild(item);
