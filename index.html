@@ -7,7 +7,7 @@
     <title>木曽青峰高校吹奏楽部</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<meta name="format-detection" content="telephone=no, address=no, email=no">
+    <meta name="format-detection" content="telephone=no, address=no, email=no">
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -343,22 +343,22 @@
         width: 80vw;
         height: auto;
         margin: auto;
-        margin:0;
+        margin: 0;
 
         align-items: center;
         justify-content: center;
         scroll-snap-align: center;
 
-        scroll-snap-stop: always;
+
 
     }
 
-    #tap-message{
-        position:absolute;
-        bottom: 40px;
+    #tap-message {
+        position: absolute;
+        bottom: 50px;
         left: 0;
         width: 100%;
-        color:#000;
+        color: #000;
     }
 
 
@@ -463,11 +463,7 @@
     /* 各カードのスタイル */
     .card {
         flex-shrink: 0;
-        /* カードが潰れないようにする */
-        width: 80%;
-        /* カードの幅 */
-
-
+        width: 80vw;
         background: #fff;
         border-radius: 20px;
         display: flex;
@@ -935,6 +931,7 @@
                         <p id="loading">Loading Instagram Feed...</p>
 
                     </div>
+
                 </div>
                 <button class="button" onclick="window.location.href='https://www.instagram.com/shwo._.official'">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -1362,6 +1359,23 @@
                     container.appendChild(item);
 
                 });
+                const item = document.createElement('div');
+                item.className = 'insta-item';
+                item.innerHTML = `
+                    <div class="insta-item">
+
+                        <a href="https://www.instagram.com/shwo._.official/" target="_blank" class="insta-link">
+                            <img src="insta-card-follow.png"
+                                alt="Instagram">
+                            <span id="tap-message">さらに表示</span>
+                        </a>
+                        <a href="https://www.instagram.com/p/DVfp0a1k6Pb/" target="_blank" class="insta-overlay">
+                            <span>木曽青峰高校吹奏楽部(SHWO)の公式Instagramです！
+                                1年生6人、2年生2人の計8人で活動しています✨
+                                イベント情報など発信していきます💪🏻</span>
+                        </a>
+                    </div>`
+                container.appendChild(item);
             }
         } catch (error) {
             console.error('データの取得に失敗しました:', error);
