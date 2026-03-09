@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <meta name="format-detection" content="telephone=no, address=no, email=no">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -81,16 +81,16 @@
     */
 
 
-    .PC-message{
+    .PC-message {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        background-color:#BF8A8E;
-        
+        background-color: #BF8A8E;
+
         box-sizing: border-box;
         width: 100%;
-        height:0;
+        height: 0;
         opacity: 0;
 
         @media screen and (min-width: 768px) {
@@ -98,8 +98,9 @@
             opacity: 1;
         }
     }
-    .PC-massage h1{
 
+    .PC-massage h1 {
+        font-size: 10px;
     }
 
 
@@ -113,7 +114,7 @@
 
 
     .top {
-        height: 100vh;
+        height: 100dvh;
         width: 100%;
         display: flex;
         position: relative;
@@ -195,7 +196,7 @@
     .object {
         opacity: 0;
         transform: translateY(12px);
-        will-change: transform, opacity;
+
     }
 
     .center {
@@ -900,10 +901,10 @@
 
 <body>
     <main>
-        <section class ="PC-message">
+        <section class="PC-message">
             <h1>このサイトはスマートフォン向けに開発されています</h1>
             <p>スマートフォンでの閲覧を推奨します。</p>
-            <button  id="continue-button" onclick="PC_continue_button()">続ける</button>
+            <button id="continue-button" onclick="PC_continue_button()">続ける</button>
         </section>
         <section class="top">
             <h1>木曽青峰高校 吹奏楽部</h1>
@@ -1219,125 +1220,125 @@
 
         </section>
     </main>
-</body>
 
+    <script>
 
-<script>
+        const tl = gsap.timeline({ id: "IntroAnim" });
 
-    const tl = gsap.timeline({ id: "IntroAnim" });
-
-    tl.to(".top h1, .top p", {
-        scale: 1,      // 1.2倍まで大きく
-        opacity: 1,      // 表示する
-        duration: 3,   // 2.5秒かけて
-        ease: "power3.out" // 滑らかな動き（減速）
-    });
-
-    tl.to("#line-art", {
-        opacity: 1,      // 表示する
-        duration: 1.5,
-        ease: "power1.out"
-    }, "<"); // 1秒前から開始
-
-    tl.to(".main__action", {
-        opacity: 1,      // 表示する
-        scale: 1,      // 1.2倍まで大きく
-        duration: 1,   // 2.5秒かけて
-        ease: "power3.out" // 滑らかな動き（減速）
-    }, "<1.5"); // 1秒前から開始
-
-
-    // Aboutへのスクロール
-    gsap.registerPlugin(ScrollToPlugin);
-
-    const btn = document.querySelector("#scroll-button");
-
-    btn.addEventListener("click", () => {
-        gsap.to(window, {
-            duration: 1,      // 1.5秒かけて移動
-            scrollTo: "#About", // どの要素まで飛ばすか（または数値で 1000 のようにも書ける）
-            ease: "power1.inOut"  // 動き出しと止まり際を滑らかに
+        tl.to(".top h1, .top p", {
+            scale: 1,      // 1.2倍まで大きく
+            opacity: 1,      // 表示する
+            duration: 3,   // 2.5秒かけて
+            ease: "power3.out" // 滑らかな動き（減速）
         });
-    });
 
-    // 各セクションのアニメーション
-    gsap.utils.toArray(".object").forEach((el) => {
-        gsap.to(el, {
-            opacity: 1,
-            duration: 2,
-            y: 0,
-            ease: "power1.out",
-            scrollTrigger: {
-                trigger: el,
-                start: "top 85%",
-                scrub: false,
-            }
+        tl.to("#line-art", {
+            opacity: 1,      // 表示する
+            duration: 1.5,
+            ease: "power1.out"
+        }, "<"); // 1秒前から開始
+
+        tl.to(".main__action", {
+            opacity: 1,      // 表示する
+            scale: 1,      // 1.2倍まで大きく
+            duration: 1,   // 2.5秒かけて
+            ease: "power3.out" // 滑らかな動き（減速）
+        }, "<1.5"); // 1秒前から開始
+
+
+        // Aboutへのスクロール
+        gsap.registerPlugin(ScrollToPlugin);
+
+        const btn = document.querySelector("#scroll-button");
+
+        btn.addEventListener("click", () => {
+            gsap.to(window, {
+                duration: 1,      // 1.5秒かけて移動
+                scrollTo: "#About", // どの要素まで飛ばすか（または数値で 1000 のようにも書ける）
+                ease: "power1.inOut"  // 動き出しと止まり際を滑らかに
+            });
         });
-    });
 
-    function PC_continue_button(){
-        document.querySelector(".PC-message").style.display = "none";
-        document.querySelector(".PC-message").style.height = "0";
-        tl.restart();
-    };
-
-    gsap.utils.toArray(".schedule-item").forEach((el) => {
-        gsap.from(el, {
-            duration: 0.8,
-            y: 50,               // 50px下から
-            scale: 0.5,          // 半分のサイズから
-            rotationX: 30,       // 手前に少し倒れた状態から起き上がる
-            opacity: 0,
-            stagger: {
-                amount: 0.4,       // 全体で0.4秒の間に等間隔で開始
-                grid: "auto",      // グリッドレイアウトを自動認識して左上から順に発火
-                from: "top"     // 中央から広がるようにしたい場合はここを "center" に
-            },
-
-            scrollTrigger: {
-                trigger: el,
-                start: "top 95%",
-                scrub: false,
-            },
-
-            ease: "expo.out",    // Macのような高級感のある減速
-
+        // 各セクションのアニメーション
+        gsap.utils.toArray(".object").forEach((ob) => {
+            gsap.to(ob, {
+                opacity: 1,
+                duration: 2,
+                y: 0,
+                ease: "power1.out",
+                scrollTrigger: {
+                    trigger: ob,
+                    start: "top 85%",
+                    scrub: false,
+                }
+            });
+            ScrollTrigger.refresh();
         });
-    });
+
+        function PC_continue_button() {
+            document.querySelector(".PC-message").style.display = "none";
+            document.querySelector(".PC-message").style.height = "0";
+            tl.restart();
+        };
+
+        gsap.utils.toArray(".schedule-item").forEach((el) => {
+            gsap.from(el, {
+                duration: 1.8,
+                y: 50,               // 50px下から
+                scale: 0.5,          // 半分のサイズから
+                rotationX: 30,       // 手前に少し倒れた状態から起き上がる
+                opacity: 0,
+                stagger: {
+                    amount: 0.4,       // 全体で0.4秒の間に等間隔で開始
+                    grid: "auto",      // グリッドレイアウトを自動認識して左上から順に発火
+                    from: "top"     // 中央から広がるようにしたい場合はここを "center" に
+                },
+
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 45%",
+                    scrub: false,
+                },
+
+                ease: "expo.out",    // Macのような高級感のある減速
+
+            });
+            ScrollTrigger.refresh();
+        });
 
 
 
 
-    //instagram部分
+        //instagram部分
 
-    const accessToken = 'IGAARSi9hRQ0JBZAGJ0d1pBNGc1TnRwR3NEdlZAtSnVtY0hiMkJ3TWVOb0pldzZALX1RqcHppZAWxES2lHT2hVU0lsRDV4aHhtbGdvdWtaOXh5c2k1bFBfbXFlN3Q0SDVUOWZA4M2ZAUS2dZAeHFvWXhFa01feGxSUWcyMUp4ekVLVEdzawZDZD'; // ここにトークンを入れる
-    const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink,media_type,thumbnail_url&limit=5&access_token=${accessToken}`;
-    const profileUrl = `https://graph.instagram.com/me?fields=id,username,biography,account_type&access_token=${accessToken}`;
+        const accessToken = 'IGAARSi9hRQ0JBZAGJ0d1pBNGc1TnRwR3NEdlZAtSnVtY0hiMkJ3TWVOb0pldzZALX1RqcHppZAWxES2lHT2hVU0lsRDV4aHhtbGdvdWtaOXh5c2k1bFBfbXFlN3Q0SDVUOWZA4M2ZAUS2dZAeHFvWXhFa01feGxSUWcyMUp4ekVLVEdzawZDZD'; // ここにトークンを入れる
+        const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,permalink,media_type,thumbnail_url&limit=5&access_token=${accessToken}`;
+        const profileUrl = `https://graph.instagram.com/me?fields=id,username,biography,account_type&access_token=${accessToken}`;
 
-    async function fetchInstaFeed() {
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
+        async function fetchInstaFeed() {
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
 
-            const profileResponse = await fetch(profileUrl);
-            const profileData = await profileResponse.json();
+                const profileResponse = await fetch(profileUrl);
+                const profileData = await profileResponse.json();
 
-            const container = document.getElementById('instagram-feed');
-            const loadingText = document.getElementById('loading');
+                const container = document.getElementById('instagram-feed');
+                const loadingText = document.getElementById('loading');
 
-            if (data.data) {
-                loadingText.remove(); // 読み込み中を消す
+                if (data.data) {
+                    loadingText.remove(); // 読み込み中を消す
 
-                data.data.forEach(post => {
-                    const item = document.createElement('div');
-                    const caption = document.createElement('div');
-                    item.className = 'insta-item';
-                    caption.className = 'insta-caption';
-                    let mediaHtml = '';
+                    data.data.forEach(post => {
+                        const item = document.createElement('div');
+                        const caption = document.createElement('div');
+                        item.className = 'insta-item';
+                        caption.className = 'insta-caption';
+                        let mediaHtml = '';
 
-                    // VIDEO（リール）の場合
-                    if (post.media_type === 'VIDEO') {
-                        mediaHtml = `
+                        // VIDEO（リール）の場合
+                        if (post.media_type === 'VIDEO') {
+                            mediaHtml = `
                             <video 
                                 src="${post.media_url}" 
                                 poster="${post.thumbnail_url}" 
@@ -1348,25 +1349,25 @@
                                 ">
                             </video>`;
 
-                        // マウスホバー時の動作をセット
-                        item.onmouseover = () => {
-                            const video = item.querySelector('video');
-                            if (video) video.play().catch(e => console.log("再生ブロック:", e));
-                        };
-                        item.onmouseout = () => {
-                            const video = item.querySelector('video');
-                            if (video) {
-                                video.pause();
-                                video.currentTime = 0; // 最初に戻す
-                            }
-                        };
+                            // マウスホバー時の動作をセット
+                            item.onmouseover = () => {
+                                const video = item.querySelector('video');
+                                if (video) video.play().catch(e => console.log("再生ブロック:", e));
+                            };
+                            item.onmouseout = () => {
+                                const video = item.querySelector('video');
+                                if (video) {
+                                    video.pause();
+                                    video.currentTime = 0; // 最初に戻す
+                                }
+                            };
 
-                    } else {
-                        // 通常の画像（IMAGE）やカルーセル（CAROUSEL_ALBUM）の場合
-                        mediaHtml = `<img src="${post.media_url}" alt="Instagram">`;
-                    }
+                        } else {
+                            // 通常の画像（IMAGE）やカルーセル（CAROUSEL_ALBUM）の場合
+                            mediaHtml = `<img src="${post.media_url}" alt="Instagram">`;
+                        }
 
-                    item.innerHTML = `
+                        item.innerHTML = `
    
                         <a href="${post.permalink}" target="_blank" class="insta-link">
                             ${mediaHtml}
@@ -1377,14 +1378,14 @@
                             <span> ${post.caption}</span>
                         </a>
                     `;
-                    caption.innerHTML = `
+                        caption.innerHTML = `
                          `;
-                    container.appendChild(item);
+                        container.appendChild(item);
 
-                });
-                const item = document.createElement('div');
-                item.className = 'insta-item';
-                item.innerHTML = `
+                    });
+                    const item = document.createElement('div');
+                    item.className = 'insta-item';
+                    item.innerHTML = `
                     <div class="insta-item">
 
                         <a href="https://www.instagram.com/shwo._.official/" target="_blank" class="insta-link">
@@ -1395,155 +1396,156 @@
                             <span>${profileData.biography}</span>
                         </a>
                     </div>`
-                container.appendChild(item);
+                    container.appendChild(item);
+                }
+            } catch (error) {
+                console.error('データの取得に失敗しました:', error);
+                document.getElementById('loading').innerText = '読み込みに失敗しました。';
             }
-        } catch (error) {
-            console.error('データの取得に失敗しました:', error);
-            document.getElementById('loading').innerText = '読み込みに失敗しました。';
-        }
-    }
-
-    fetchInstaFeed();
-
-
-
-    //フォーム用
-    // フォーム要素を取得
-    const form = document.getElementById('form');
-    const iframe = document.getElementById('hidden_iframe');
-    const enter = document.getElementById('enter')
-    let submitted = false;
-
-    form.addEventListener('submit', function (e) {
-
-        if (document.getElementById('message').value === "") {
-            e.preventDefault(); // 送信を中止
-            alert("内容を入力してください。");
-            return;
         }
 
-        submitted = true;
+        fetchInstaFeed();
 
-        if (enter) {
-            enter.ariaDisFabled = true;
-            enter.textContent = "送信中..."
-            enter.style.cursor = "not-allowed"
+
+
+        //フォーム用
+        // フォーム要素を取得
+        const form = document.getElementById('form');
+        const iframe = document.getElementById('hidden_iframe');
+        const enter = document.getElementById('enter')
+        let submitted = false;
+
+        form.addEventListener('submit', function (e) {
+
+            if (document.getElementById('message').value === "") {
+                e.preventDefault(); // 送信を中止
+                alert("内容を入力してください。");
+                return;
+            }
+
+            submitted = true;
+
+            if (enter) {
+                enter.ariaDisFabled = true;
+                enter.textContent = "送信中..."
+                enter.style.cursor = "not-allowed"
+            }
+        });
+
+        iframe.onload = function () {
+            if (submitted) {
+
+
+                gsap.to("#form", {
+                    opacity: 0,
+                    duration: 0.5,
+                    onComplete: () => {
+
+                        gsap.to("#form", { display: 'none', opacity: 0, duration: 0.5 });
+                        // メッセージ用の要素を表示（HTML側に <div id="thanks-msg" style="display:none"> を用意しておく）
+                        const thanksMsg = document.getElementById('thanks-msg');
+                        thanksMsg.style.display = 'block';
+                        gsap.fromTo(thanksMsg, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+                    }
+                });
+            }
         }
-    });
 
-    iframe.onload = function () {
-        if (submitted) {
+        // すべての .link に対してクリックイベントを設定
+        document.querySelectorAll('.link').forEach(link => {
+            link.addEventListener('click', function () {
+                // 親要素（.menu）の中にある他の .link からクラスを消す
+                this.parentElement.querySelectorAll('.link').forEach(el => {
+                    el.classList.remove('is-active');
+                });
+                // クリックしたものだけにクラスをつける
+                this.classList.add('is-active');
 
+                const value = this.querySelector('.link-title').textContent;
+                const parentId = this.closest('.inputRadio').id; // form-grade か form-class か判定
 
-            gsap.to("#form", {
-                opacity: 0,
-                duration: 0.5,
-                onComplete: () => {
-
-                    gsap.to("#form", { display: 'none', opacity: 0, duration: 0.5 });
-                    // メッセージ用の要素を表示（HTML側に <div id="thanks-msg" style="display:none"> を用意しておく）
-                    const thanksMsg = document.getElementById('thanks-msg');
-                    thanksMsg.style.display = 'block';
-                    gsap.fromTo(thanksMsg, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+                if (parentId === 'form-grade') {
+                    document.getElementById('entry-grade').value = value;
+                } else if (parentId === 'form-class') {
+                    document.getElementById('entry-class').value = value;
                 }
             });
-        }
-    }
-
-
-
-
-    // すべての .link に対してクリックイベントを設定
-    document.querySelectorAll('.link').forEach(link => {
-        link.addEventListener('click', function () {
-            // 親要素（.menu）の中にある他の .link からクラスを消す
-            this.parentElement.querySelectorAll('.link').forEach(el => {
-                el.classList.remove('is-active');
-            });
-            // クリックしたものだけにクラスをつける
-            this.classList.add('is-active');
-
-            const value = this.querySelector('.link-title').textContent;
-            const parentId = this.closest('.inputRadio').id; // form-grade か form-class か判定
-
-            if (parentId === 'form-grade') {
-                document.getElementById('entry-grade').value = value;
-            } else if (parentId === 'form-class') {
-                document.getElementById('entry-class').value = value;
-            }
         });
-    });
 
-    function toggleUI() {
-        // 選択されたラジオボタンの値を取得
-        const selectedValue = document.querySelector('input[name="entry.1227194780"]:checked').value;
-        const AnonymousCheckbox = document.getElementById('Anonymous');
+        function toggleUI() {
+            // 選択されたラジオボタンの値を取得
+            const selectedValue = document.querySelector('input[name="entry.1227194780"]:checked').value;
+            const AnonymousCheckbox = document.getElementById('Anonymous');
 
-        // 各セクションの要素を取得
-        const StudentDiv1 = document.getElementById('form-grade');
-        const StudentDiv2 = document.getElementById('form-class');
-        const other = document.getElementById('feedbackSection');
+            // 各セクションの要素を取得
+            const StudentDiv1 = document.getElementById('form-grade');
+            const StudentDiv2 = document.getElementById('form-class');
+            const other = document.getElementById('feedbackSection');
 
 
-        // 条件分岐で表示をコントロール
-        if (AnonymousCheckbox.checked) {
-            document.getElementById('name-label').textContent = "匿名：返信はありません";
-            document.getElementById('name').value = "匿名さん";
-            document.getElementById('entry-grade').value = "その他";
-            document.getElementById('entry-class').value = "その他";
-            gsap.to(document.getElementById('role'), { display: 'none', opacity: 0, duration: 0.5 });
-            gsap.to(document.getElementById('form-grade'), { display: 'none', opacity: 0, duration: 0.5 });
-            gsap.to(document.getElementById('form-class'), { display: 'none', opacity: 0, duration: 0.5 });
-            gsap.to(document.getElementById('form-tell'), { display: 'none', opacity: 0, duration: 0.5 });
-            gsap.to(document.getElementById('form-email'), { display: 'none', opacity: 0, duration: 0.5 });
+            // 条件分岐で表示をコントロール
+            if (AnonymousCheckbox.checked) {
+                document.getElementById('name-label').textContent = "匿名：返信はありません";
+                document.getElementById('name').value = "匿名さん";
+                document.getElementById('entry-grade').value = "その他";
+                document.getElementById('entry-class').value = "その他";
+                gsap.to(document.getElementById('role'), { display: 'none', opacity: 0, duration: 0.5 });
+                gsap.to(document.getElementById('form-grade'), { display: 'none', opacity: 0, duration: 0.5 });
+                gsap.to(document.getElementById('form-class'), { display: 'none', opacity: 0, duration: 0.5 });
+                gsap.to(document.getElementById('form-tell'), { display: 'none', opacity: 0, duration: 0.5 });
+                gsap.to(document.getElementById('form-email'), { display: 'none', opacity: 0, duration: 0.5 });
 
-            gsap.to(document.getElementById('form-aboutyou'), { clearProps: "all", duration: 0.5 });
-        } else {
-            document.getElementById('name-label').textContent = "お名前";
-            if (document.getElementById('name').value == "匿名さん") { document.getElementById("name").value = "" };
-            document.getElementById('entry-grade').value = "１年";
-            document.getElementById('entry-class').value = "１組";
-            gsap.to(document.getElementById('role'), { clearProps: "all", duration: 0.5 });
-            gsap.to(document.getElementById('form-grade'), { clearProps: "all", duration: 0.5 });
-            gsap.to(document.getElementById('form-class'), { clearProps: "all", duration: 0.5 });
-            gsap.to(document.getElementById('form-tell'), { clearProps: "all", duration: 0.5 });
-            gsap.to(document.getElementById('form-email'), { clearProps: "all", duration: 0.5 });
-            gsap.to(document.getElementById('form-aboutyou'), { display: 'none', opacity: 0, duration: 0.5 });
-
-            if (selectedValue === '生徒') {
-                gsap.to(StudentDiv1, { display: 'block', opacity: 1, duration: 0.5 });
-                gsap.to(StudentDiv2, { display: 'block', opacity: 1, duration: 0.5 });
-                gsap.to(other, { display: 'none', height: 'auto', opacity: 0, duration: 0.5 });
+                gsap.to(document.getElementById('form-aboutyou'), { clearProps: "all", duration: 0.5 });
+            } else {
+                document.getElementById('name-label').textContent = "お名前";
+                if (document.getElementById('name').value == "匿名さん") { document.getElementById("name").value = "" };
+                document.getElementById('entry-grade').value = "１年";
+                document.getElementById('entry-class').value = "１組";
+                gsap.to(document.getElementById('role'), { clearProps: "all", duration: 0.5 });
+                gsap.to(document.getElementById('form-grade'), { clearProps: "all", duration: 0.5 });
+                gsap.to(document.getElementById('form-class'), { clearProps: "all", duration: 0.5 });
+                gsap.to(document.getElementById('form-tell'), { clearProps: "all", duration: 0.5 });
+                gsap.to(document.getElementById('form-email'), { clearProps: "all", duration: 0.5 });
                 gsap.to(document.getElementById('form-aboutyou'), { display: 'none', opacity: 0, duration: 0.5 });
 
-            } else if (selectedValue === 'その他') {
-                gsap.to(document.getElementById('form-aboutyou'), { clearProps: "all", duration: 0.5 });
-                gsap.to(StudentDiv1, { display: 'none', opacity: 0, duration: 0.5 });
-                gsap.to(StudentDiv2, { display: 'none', opacity: 0, duration: 0.5 });
-                gsap.to(other, { display: 'block', height: 'auto', opacity: 1, duration: 0.5 });
+                if (selectedValue === '生徒') {
+                    gsap.to(StudentDiv1, { display: 'block', opacity: 1, duration: 0.5 });
+                    gsap.to(StudentDiv2, { display: 'block', opacity: 1, duration: 0.5 });
+                    gsap.to(other, { display: 'none', height: 'auto', opacity: 0, duration: 0.5 });
+                    gsap.to(document.getElementById('form-aboutyou'), { display: 'none', opacity: 0, duration: 0.5 });
+
+                } else if (selectedValue === 'その他') {
+                    gsap.to(document.getElementById('form-aboutyou'), { clearProps: "all", duration: 0.5 });
+                    gsap.to(StudentDiv1, { display: 'none', opacity: 0, duration: 0.5 });
+                    gsap.to(StudentDiv2, { display: 'none', opacity: 0, duration: 0.5 });
+                    gsap.to(other, { display: 'block', height: 'auto', opacity: 1, duration: 0.5 });
+                }
             }
+
+
+
+
+        }
+
+        function form_open() {
+            gsap.to("#open_button", {
+                opacity: 0, height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0, duration: 0.5,
+                ease: "power2.inOut", // 加減速をつけるとより滑らか
+                onComplete: () => {
+                    gsap.set("#open_button", { display: 'none' });
+                }, duration: 0.5
+            });
+            gsap.to("#form", { display: 'flex', opacity: 1, duration: 0.5 });
+        }
+
+        function form_close() {
+            gsap.to("#form", { display: 'none', opacity: 0, duration: 0.5 });
+            gsap.set("#open_button", { clearProps: "all" });
         }
 
 
 
+    </script>
+</body>
 
-    }
-
-    function form_open() {
-        gsap.to("#open_button", {
-            opacity: 0, height: 0, paddingTop: 0, paddingBottom: 0, marginTop: 0, marginBottom: 0, duration: 0.5,
-            ease: "power2.inOut", // 加減速をつけるとより滑らか
-            onComplete: () => {
-                gsap.set("#open_button", { display: 'none' });
-            }, duration: 0.5
-        });
-        gsap.to("#form", { display: 'flex', opacity: 1, duration: 0.5 });
-    }
-
-    function form_close() {
-        gsap.to("#form", { display: 'none', opacity: 0, duration: 0.5 });
-        gsap.set("#open_button", { clearProps: "all" });
-    }
-
-
-</script>
+</html>
