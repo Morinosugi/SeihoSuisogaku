@@ -1223,6 +1223,10 @@
 
     <script>
 
+        window.addEventListener("load", () => {
+            ScrollTrigger.refresh();
+        });
+
         const tl = gsap.timeline({ id: "IntroAnim" });
 
         tl.to(".top h1, .top p", {
@@ -1245,6 +1249,7 @@
             ease: "power3.out" // 滑らかな動き（減速）
         }, "<1.5"); // 1秒前から開始
 
+        ScrollTrigger.refresh();
 
         // Aboutへのスクロール
         gsap.registerPlugin(ScrollToPlugin);
@@ -1263,31 +1268,36 @@
         gsap.utils.toArray(".object").forEach((ob) => {
             gsap.to(ob, {
                 opacity: 1,
-                duration: 2,
+                duration: 1.5,
                 y: 0,
                 ease: "power1.out",
                 scrollTrigger: {
                     trigger: ob,
                     start: "top 85%",
                     scrub: false,
+                },
+                onComplete: () => {
+                    ScrollTrigger.refresh();
+                    console.log("リセット");
                 }
             });
-            ScrollTrigger.refresh();
         });
 
         function PC_continue_button() {
             document.querySelector(".PC-message").style.display = "none";
             document.querySelector(".PC-message").style.height = "0";
+            ScrollTrigger.refresh();
             tl.restart();
         };
 
         gsap.utils.toArray(".schedule-item").forEach((el) => {
-            gsap.from(el, {
+            gsap.set(el, { y:50, scale: 0.5, routationX: 30, opacity:0 });
+            gsap.to(el, {
                 duration: 1.8,
-                y: 50,               // 50px下から
-                scale: 0.5,          // 半分のサイズから
-                rotationX: 30,       // 手前に少し倒れた状態から起き上がる
-                opacity: 0,
+                y: 0,               // 50px下から
+                scale: 1,          // 半分のサイズから
+                rotationX: 0,       // 手前に少し倒れた状態から起き上がる
+                opacity: 1,
                 stagger: {
                     amount: 0.4,       // 全体で0.4秒の間に等間隔で開始
                     grid: "auto",      // グリッドレイアウトを自動認識して左上から順に発火
@@ -1296,8 +1306,11 @@
 
                 scrollTrigger: {
                     trigger: el,
-                    start: "top 45%",
+                    start: "top 95%",
                     scrub: false,
+                },
+                onComplete: () => {
+                    console.log("リセット");
                 },
 
                 ease: "expo.out",    // Macのような高級感のある減速
@@ -1397,6 +1410,7 @@
                         </a>
                     </div>`
                     container.appendChild(item);
+                    ScrollTrigger.refresh();
                 }
             } catch (error) {
                 console.error('データの取得に失敗しました:', error);
