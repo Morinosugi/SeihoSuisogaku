@@ -570,12 +570,10 @@
 
     @keyframes ring-pop {
         0% {
-            transform: scale(0.8);
             opacity: 0;
         }
 
         100% {
-            transform: scale(1);
             opacity: 1;
         }
     }
@@ -1790,8 +1788,7 @@
         const container = document.getElementById('roulette-container');
         const instruments = document.querySelectorAll('.instrument');
 
-        // 1. ルーレット用に中身をコピーして「無限感」を出す
-        // 5回分くらいコピーして並べます
+        
         for (let i = 0; i < 2; i++) {
             instruments.forEach(inst => {
                 const clone = inst.cloneNode(true);
@@ -1844,8 +1841,9 @@
         }, { threshold: 0.5 }); // 画面に半分見えたらスタート
 
         observer.observe(container);
+    
 
-    </script>
+</script>
 </body>
 
 </html>
