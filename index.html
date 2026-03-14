@@ -1251,7 +1251,7 @@
                     </div>
 
                     <div class="card-main-body">
-                        <h3 id="modal-title">クラリネット</h3>
+                        <h3 id="modal-titlopene">クラリネット</h3>
                         <p id="modal-desc">
                             木管楽器の一種で、美しい黒色の管体と複雑なキイが特徴です。温かく柔らかな低音から輝かしい高音まで、3オクターブ半以上の広い音域を持ちます。吹奏楽やオケ、ジャズなど多彩なジャンルで主役として活躍します。
                         </p>
@@ -1825,7 +1825,7 @@
                     
 
                     gsap.to(container, { scrollTo: { x: stopPosition2 }, duration: 0 });
-                    openCard();
+                    openCard(selectIndex);
                 }
             });
         }
@@ -1842,6 +1842,11 @@
 
         observer.observe(container);
     
+        function openCard(selectIndex){
+            document.getElementById('modal-title').textContent=instrumentData[selectIndex].name;
+            document.getElementById('modal-desc').textContent=instrumentData[selectIndex].desc;
+        };
+
 
 </script>
 </body>
