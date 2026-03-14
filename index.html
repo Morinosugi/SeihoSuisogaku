@@ -560,21 +560,28 @@
 
     .is-selected {
         img {
-            border: #D9738E 4px solid;
+            border-style: solid;
             border-radius: 50%;
+            box-sizing: border-box;
+
+            animation: ring-pop 0.4s ease-out forwards;
         }
 
-        animation: ring-pop 0.4s ease-out forwards;
+        p {
+            opacity: 0;
+        }
 
     }
 
     @keyframes ring-pop {
         0% {
-            opacity: 0;
+            border-width: 0px;
+            border-color: #d9738e00;
         }
 
         100% {
-            opacity: 1;
+            border-width: 4px;
+            border-color: #d9738e;
         }
     }
 
@@ -629,8 +636,7 @@
         position: relative;
         background-color: white;
         border-radius: 8px;
-        /* 全体的に丸く */
-        padding: 50px 20px 40px;
+        padding: 30px 20px 40px;
         text-align: center;
         z-index: 1;
     }
@@ -1246,14 +1252,14 @@
                     </div>
                 </div>
                 <div id="InstrumentDetailCard">
-                    <div class="card-top-circle">
-                        <div class="inner-dot"></div>
+                    <div class="card-top-circle" onclick="startRoulette()">
+                        <div class="inner-dot" onclick="startRoulette()"></div>
                     </div>
 
                     <div class="card-main-body">
-                        <h3 id="modal-titlopene">クラリネット</h3>
+                        <h3 id="modal-titlopene">くるくる</h3>
                         <p id="modal-desc">
-                            木管楽器の一種で、美しい黒色の管体と複雑なキイが特徴です。温かく柔らかな低音から輝かしい高音まで、3オクターブ半以上の広い音域を持ちます。吹奏楽やオケ、ジャズなど多彩なジャンルで主役として活躍します。
+                            なにがでるかな
                         </p>
                     </div>
                 </div>
@@ -1787,20 +1793,14 @@
 
         const container = document.getElementById('roulette-container');
         const instruments = document.querySelectorAll('.instrument');
+        const cardWidth = 150 + 20; // width(150) + gap(20)
 
-        
-        for (let i = 0; i < 2; i++) {
-            instruments.forEach(inst => {
-                const clone = inst.cloneNode(true);
-                clone.classList.add('clone');
-                container.appendChild(clone);
-            });
-        }
+
+
 
         // 2. ルーレットを回すメイン関数
         function startRoulette() {
             // どこで止まるかランダムに決める 11個目からになるようになってるよん
-            const cardWidth = 150 + 20; // width(150) + gap(20)
             const randomIndex = Math.floor(Math.random() * 10) + 11;
             const stopPosition = randomIndex * cardWidth;
             const selectIndex = instrumentData[randomIndex - 10];
@@ -1809,20 +1809,31 @@
             const selectID = selectIndex.id;
 
 
+            for (let i = 0; i < 2; i++) {
+                instruments.forEach(inst => {
+                    const clone = inst.cloneNode(true);
+                    clone.classList.add('clone');
+                    container.appendChild(clone);
+                });
+            }
+
+            document.querySelectorAll('.instrument').forEach(el => {
+                el.classList.remove('is-selected');
+            });
+
+
             gsap.to(container, {
                 scrollTo: { x: stopPosition },
                 duration: 4,
-                ease: "power4.inOut",
+                ease: "power3.inout",
                 onComplete: () => {
-                    document.querySelectorAll('.instrument').forEach(el => {
-                        el.classList.remove('is-selected');
-                    });
+
                     document.querySelectorAll('.clone').forEach(el => {
                         el.remove();
                     });
 
                     document.getElementById(selectID).classList.add('is-selected');
-                    
+
 
                     gsap.to(container, { scrollTo: { x: stopPosition2 }, duration: 0 });
                     openCard(selectIndex);
@@ -1841,14 +1852,35 @@
         }, { threshold: 0.5 }); // 画面に半分見えたらスタート
 
         observer.observe(container);
-    
-        function openCard(selectIndex){
-            document.getElementById('modal-titlopene').textContent=instrumentData[selectIndex].name;
-            document.getElementById('modal-desc').textContent=instrumentData[selectIndex].desc;
+
+
+        let isScrolling;
+        container.addEventListener('scroll', () => {
+            window.clearTimeout(isScrolling);
+            isScrolling = setTimeout(() => {
+                if (Number.isInteger(container.scrollLeft / cardWidth)) {
+                    selectIndex = instrumentData[(container.scrollLeft / cardWidth)];
+                    console.log("アクティブ状態の変化", selectIndex.id);
+                    console.log(container.scrollLeft);
+                    document.querySelectorAll('.instrument').forEach(el => {
+                        el.classList.remove('is-selected');
+                    });
+                    document.getElementById(selectIndex.id).classList.add('is-selected');
+
+                    openCard(selectIndex);
+                }
+
+            }, 100);
+        });
+
+
+        function openCard(selectIndex) {
+            document.getElementById('modal-titlopene').textContent = selectIndex.name;
+            document.getElementById('modal-desc').textContent = selectIndex.desc;
         };
 
 
-</script>
+    </script>
 </body>
 
 </html>
