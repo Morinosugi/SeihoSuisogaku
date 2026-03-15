@@ -1267,7 +1267,7 @@
 
             <div class="object">
                 <h2>入部お待ちしています</h1>
-                <p>一度音楽室に体験に来てください</p>
+                    <p>一度音楽室に体験に来てください</p>
             </div>
 
             <div class="object" id="Contact">
@@ -1862,9 +1862,10 @@
         let isScrolling;
         container.addEventListener('scroll', () => {
             window.clearTimeout(isScrolling);
+
             isScrolling = setTimeout(() => {
-                if (Number.isInteger(container.scrollLeft / cardWidth)) {
-                    selectIndex = instrumentData[(container.scrollLeft / cardWidth)];
+                if (Math.floor(container.scrollLeft) % cardWidth === 0) {
+                    selectIndex = instrumentData[(Math.floor(container.scrollLeft) / cardWidth)];
                     console.log("アクティブ状態の変化", selectIndex.id);
                     console.log(container.scrollLeft);
                     document.querySelectorAll('.instrument').forEach(el => {
