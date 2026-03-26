@@ -278,7 +278,7 @@
     }
 
     .month {
-        width: 30%;
+        width: 20%;
         min-width: 50px;
         font-weight: 500;
     }
@@ -415,7 +415,7 @@
     }
 
 
-        .button {
+    .button {
         margin: auto;
         background: #4a5df9;
         width: 80vw;
@@ -490,6 +490,8 @@
         /* Chrome, Safari用スクロールバー非表示 */
     }
 
+
+
     /* 各カードのスタイル */
     .card {
         flex-shrink: 0;
@@ -504,6 +506,10 @@
         flex-direction: column;
         overflow: hidden;
         /* スナップした時に中央で止まる */
+    }
+
+    .today {
+        background-color: #BF8A8E;
     }
 
     .card h3 {
@@ -1060,7 +1066,7 @@
         <section class="center">
             <div class="object" id="About">
                 <h2>About</h2>
-                <p>吹奏楽ってどんなイメージですか。経験者でないければやっていけない。いえ、そんなことは全くありません。私たちは人数が少ない吹奏楽部だからこそ、一人ひとりが楽器を輝かせることができます。<br>
+                <p>吹奏楽ってどんなイメージですか。音楽経験者でないければやっていけない。いえ、そんなことは全くありません。私たちは人数が少ない吹奏楽部だからこそ、一人ひとりが楽器を輝かせることができます。<br>
                     2025年夏、金賞:奨励賞。2026年も金賞を目指し練習をしています。そして7月に迫っている定期演奏会に向け、ぜひ大勢の新入部員の皆さんと一緒に音楽を作り、楽しみたいです。<br>
                     部員と顧問＋α!?で音楽室にて待っています！
                 </p>
@@ -1129,7 +1135,7 @@
                 <div class="schedule-card" id="activities-schedule-card">
                     <div class="schedule-item">
                         <div class="month">4月</div>
-                        <div class="description">入部</div>
+                        <div class="description">17日 入部<br>18日 保護者会<br>19日 大通寺での演奏</div>
                     </div>
                     <div class="schedule-item">
                         <div class="month">5月</div>
@@ -1145,7 +1151,7 @@
                     </div>
                     <div class="schedule-item">
                         <div class="month">8月</div>
-                        <div class="description">コンクール<br>3年生引退</div>
+                        <div class="description">7日 コンクール<br>3年生引退</div>
                     </div>
                     <div class="schedule-item">
                         <div class="month">9月</div>
@@ -1160,12 +1166,12 @@
                         <div class="description">木曽病院祭</div>
                     </div>
                     <div class="schedule-item">
-                        <div class="month">1月</div>
-                        <div class="description">アンサンブルコンテスト</div>
+                        <div class="month">12月</div>
+                        <div class="description">18日 アンサンブルコンテスト</div>
                     </div>
                     <div class="schedule-item">
                         <div class="month">3月</div>
-                        <div class="description">卒業式演奏<br>長野県吹奏楽フェスティバル</div>
+                        <div class="description">卒業式演奏<br>14日 長野県吹奏楽フェスティバル</div>
                     </div>
 
                 </div>
@@ -1174,25 +1180,49 @@
             <div class="object" id="Experience">
                 <h2>Experience</h2>
                 <p>部活動見学、体験 予定</p>
-                <div class="slider-container">
-                    <div class="card" id="2026-4-8">
+                <div class="slider-container" id="experience-container">
+                    <div class="card" id="2026-03-27">
+                        <h3>3月27日 金</h3>
+                        <p>終了後 ~ 17:30<br>音楽室<br>部活の見学は11:30まで、楽器の体験は終了までいつでも可能です。</p>
+                    </div>
+                    <div class="card" id="2026-04-08">
                         <h3>4月8日 水</h3>
                         <p>15:30 ~ 17:30<br>音楽室<br>楽器の体験ができます</p>
                     </div>
-                    <div class="card" id="2026-4-9">
+                    <div class="card" id="2026-04-09">
                         <h3>4月9日 木</h3>
-                        <p>16:30 ~ 17:30<br>音楽室<br>楽器の体験ができます</p>
+                        <p>13:30 ~ 15:30<br>音楽室<br>楽器の体験ができます<br>本来ならOFFですが実施します</p>
                     </div>
-                    <div class="card" id="2026-4-10">
+                    <div class="card" id="2026-04-10">
                         <h3>4月10日 金</h3>
                         <p>15:30 ~ 17:30<br>音楽室<br>楽器の体験ができます</p>
                     </div>
-                    <div class="card" id="2026-4-11">
+                    <div class="card" id="2026-04-11">
                         <h3>4月11日 土</h3>
                         <p>08:30 ~ 11:30<br>音楽室<br>楽器の体験ができます</p>
                     </div>
+                    <div class="card" id="2026-04-13">
+                        <h3>4月13日 月</h3>
+                        <p>15:30 ~ 18:30<br>↑理普7限ありのため<br>音楽室<br>楽器の体験ができます</p>
+                    </div>
+                    <div class="card" id="2026-04-14">
+                        <h3>4月14日 火</h3>
+                        <p>15:30 ~ 17:30<br>音楽室<br>楽器の体験ができます</p>
+                    </div>
+                    <div class="card" id="2026-04-15">
+                        <h3>4月15日 水</h3>
+                        <p>15:30 ~ 17:30<br>音楽室<br>楽器の体験ができます</p>
+                    </div>
+                    <div class="card" id="2026-04-16">
+                        <h3>4月16日 木</h3>
+                        <p>16:30 ~ 18:30<br>音楽室<br>楽器の体験ができます<br>本来ならOFFですが実施します</p>
+                    </div>
+                    <div class="card" id="2026-04-17">
+                        <h3>4月17日 金</h3>
+                        <p>15:30 ~ 17:30<br>音楽室<br>クラブ結成式</p>
+                    </div>
                 </div>
-                <p style="margin-top: 12px";>それぞれお好きなタイミングに来ていただき、好きなタイミングに帰ることができます。</p>
+                <p style="margin-top: 12px" ;>それぞれお好きなタイミングに来ていただき、好きなタイミングに帰ることができます。</p>
             </div>
 
 
@@ -1459,6 +1489,22 @@
                 ease: "power1.inOut"  // 動き出しと止まり際を滑らかに
             });
         });
+
+        //Experienceを今日の日付に
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        const todayDate = `${yyyy}-${mm}-${dd}`;
+        console.log(todayDate);
+        targetCard = document.getElementById(todayDate);
+        experienceContainer = document.getElementById("experience-container");
+        if (targetCard) {
+            targetCard.classList.add("today");
+            experienceContainer.scrollLeft = targetCard.offsetLeft - experienceContainer.offsetWidth / 2 + targetCard.offsetWidth / 2;
+        }
+
+
 
         // 各セクションのアニメーション
         gsap.utils.toArray(".object").forEach((ob) => {
