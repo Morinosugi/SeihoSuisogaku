@@ -1486,6 +1486,7 @@
             gsap.to(window, {
                 duration: 1,      // 1.5秒かけて移動
                 scrollTo: "#About", // どの要素まで飛ばすか（または数値で 1000 のようにも書ける）
+                force3D: true,     // 3Dトランスフォームを強制してパフォーマンスを向上
                 ease: "power1.inOut"  // 動き出しと止まり際を滑らかに
             });
         });
@@ -1513,6 +1514,7 @@
                 duration: 1.5,
                 y: 0,
                 ease: "power1.out",
+                force3D: true,
                 scrollTrigger: {
                     trigger: ob,
                     start: "top 85%",
@@ -1888,6 +1890,7 @@
                 scrollTo: { x: stopPosition },
                 duration: 4,
                 ease: "power3.inout",
+                force3D: true,
                 onComplete: () => {
 
                     document.querySelectorAll('.clone').forEach(el => {
