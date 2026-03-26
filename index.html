@@ -1864,11 +1864,11 @@
         // 2. ルーレットを回すメイン関数
         function startRoulette() {
             // どこで止まるかランダムに決める 11個目からになるようになってるよん
-            const randomIndex = Math.floor(Math.random() * 10) + 11;
+            const randomIndex = Math.floor(Math.random() * 10) + 10;
             const stopPosition = randomIndex * cardWidth;
-            const selectIndex = instrumentData[randomIndex - 11];
+            const selectIndex = instrumentData[randomIndex - 10];
             console.log("selectIndex" + selectIndex.name);
-            const stopPosition2 = (randomIndex - 11) * cardWidth;
+            const stopPosition2 = (randomIndex - 10) * cardWidth;
             const selectID = selectIndex.id;
 
 
