@@ -1,3 +1,2 @@
 User-agent: *
 Allow: /
-Sitemap: https://morinosugi.github.io/SeihoSuisogaku/sitemap.xml
