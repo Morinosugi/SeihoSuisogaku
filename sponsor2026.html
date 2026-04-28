@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>木曽青峰高校吹奏楽部 スポンサー募集 2026</title>
-    
+
+    <link rel="icon" href="https://seihosuisogaku.morinosugi.com/favicon.svg" type="image/svg+xml">
+
+    <link rel="shortcut icon" href="https://seihosuisogaku.morinosugi.com/favicon.ico">
+
+    <link rel="apple-touch-icon" href="https://seihosuisogaku.morinosugi.com/apple-touch-icon.png">
+
     <!-- Adobe Fonts (DNP 秀英角ゴシック 銀) -->
     <script>
-      (function(d) {
-        var config = {
-          kitId: 'ahd7ucz',
-          scriptTimeout: 3000,
-          async: true
-        },
-        h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
-      })(document);
+        (function (d) {
+            var config = {
+                kitId: 'ahd7ucz',
+                scriptTimeout: 3000,
+                async: true
+            },
+                h = d.documentElement, t = setTimeout(function () { h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive"; }, config.scriptTimeout), tk = d.createElement("script"), f = false, s = d.getElementsByTagName("script")[0], a; h.className += " wf-loading"; tk.src = 'https://use.typekit.net/' + config.kitId + '.js'; tk.async = true; tk.onload = tk.onreadystatechange = function () { a = this.readyState; if (f || a && a != "complete" && a != "loaded") return; f = true; clearTimeout(t); try { Typekit.load(config) } catch (e) { } }; s.parentNode.insertBefore(tk, s)
+        })(document);
     </script>
-    
+
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- GSAP & ScrollTrigger -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -32,7 +39,7 @@
             --color-berry: #AA4465;
             --color-raspberry: #861657;
             --color-blue: #304C89;
-            
+
             --bg-color: #fafbfc;
             --text-main: #2c3e50;
             --text-light: #7f8c8d;
@@ -48,9 +55,11 @@
         ::-webkit-scrollbar {
             width: 8px;
         }
+
         ::-webkit-scrollbar-track {
             background: transparent;
         }
+
         ::-webkit-scrollbar-thumb {
             background: var(--color-blush);
             border-radius: 4px;
@@ -61,7 +70,7 @@
             font-family: dnp-shuei-gothic-gin-std, sans-serif;
             font-weight: 400;
             font-style: normal;
-            
+
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.8;
@@ -71,9 +80,12 @@
         /* 画面全体に固定で敷くグラデーション背景 */
         .bg-gradient {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background: radial-gradient(circle at 10% 20%, rgba(0, 174, 227, 0.03) 0%, transparent 50%),
-                        radial-gradient(circle at 90% 80%, rgba(255, 166, 158, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 90% 80%, rgba(255, 166, 158, 0.05) 0%, transparent 50%);
             z-index: -1;
         }
 
@@ -139,20 +151,29 @@
         }
 
         @keyframes bounce {
-            0%, 100% { transform: translate(-50%, 0); }
-            50% { transform: translate(-50%, 10px); }
+
+            0%,
+            100% {
+                transform: translate(-50%, 0);
+            }
+
+            50% {
+                transform: translate(-50%, 10px);
+            }
         }
 
         /* ----------------------------------
            各質問ステップ（フォーム感をなくす）
         ----------------------------------- */
         .form-step {
-            min-height: 70vh; /* スクロールに合わせて1つずつ見せるための余白 */
+            min-height: 70vh;
+            /* スクロールに合わせて1つずつ見せるための余白 */
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 50px 0;
-            opacity: 0; /* GSAPで制御 */
+            opacity: 0;
+            /* GSAPで制御 */
         }
 
         .question-label {
@@ -241,7 +262,7 @@
             box-shadow: 0 10px 20px rgba(0, 174, 227, 0.1);
         }
 
-        .amount-option input[type="radio"]:checked + .amount-btn {
+        .amount-option input[type="radio"]:checked+.amount-btn {
             background-color: var(--color-sky);
             color: white;
             border-color: var(--color-sky);
@@ -291,7 +312,10 @@
         ----------------------------------- */
         .thanks-screen {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background: white;
             z-index: 1000;
             display: flex;
@@ -325,9 +349,12 @@
                 min-height: 50vh;
                 padding: 40px 0;
             }
-            input[type="text"], textarea {
+
+            input[type="text"],
+            textarea {
                 font-size: 1.2rem;
             }
+
             .amount-btn {
                 padding: 12px 30px;
                 font-size: 1.1rem;
@@ -335,21 +362,24 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="bg-gradient"></div>
 
     <!-- Google Form用 隠しiframe -->
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){showThanksScreen();}"></iframe>
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"
+        onload="if(submitted){showThanksScreen();}"></iframe>
 
-    <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScMBZtMKSeNMSEYhmR15ej80N__lLEMs3TDVx9CneAbF3AemA/formResponse" method="POST" target="hidden_iframe" id="sponsor-form">
-        
+    <form
+        action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScMBZtMKSeNMSEYhmR15ej80N__lLEMs3TDVx9CneAbF3AemA/formResponse"
+        method="POST" target="hidden_iframe" id="sponsor-form">
+
         <div class="container">
-            
+
             <!-- ヒーローセクション -->
             <section class="hero">
                 <div class="school-info">
-                    <i class="fa-solid fa-music"></i>
                     <span>長野県木曽青峰高等学校 吹奏楽部</span>
                 </div>
                 <h1 class="title">2026年度<br>スポンサー募集</h1>
@@ -412,7 +442,8 @@
             <section class="form-step">
                 <label class="question-label">その他・応援メッセージ</label>
                 <div class="input-wrap">
-                    <textarea name="entry.526435235" rows="1" placeholder="ご自由にご記入ください" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+                    <textarea name="entry.526435235" rows="1" placeholder="ご自由にご記入ください"
+                        oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
                 </div>
             </section>
 
@@ -451,13 +482,13 @@
 
             // 各フォーム項目のスクロール連動アニメーション
             const steps = gsap.utils.toArray('.form-step');
-            
+
             steps.forEach(step => {
-                gsap.fromTo(step, 
-                    { 
-                        y: 80, 
-                        opacity: 0 
-                    }, 
+                gsap.fromTo(step,
+                    {
+                        y: 80,
+                        opacity: 0
+                    },
                     {
                         scrollTrigger: {
                             trigger: step,
@@ -475,10 +506,10 @@
 
         // フォーム送信制御
         let submitted = false;
-        
+
         function submitForm() {
             const form = document.getElementById('sponsor-form');
-            if(form.checkValidity()) {
+            if (form.checkValidity()) {
                 submitted = true;
                 // ボタンのクリックエフェクト
                 gsap.to(".btn-submit", {
@@ -492,7 +523,7 @@
 
         // 完了画面のアニメーション表示
         function showThanksScreen() {
-            if(submitted) {
+            if (submitted) {
                 const thanksScreen = document.getElementById('thanks-screen');
                 thanksScreen.classList.add('active');
 
@@ -511,11 +542,12 @@
                     ease: "back.out(1.5)",
                     delay: 0.3
                 });
-                
+
                 // 元のフォームのスクロール位置をリセット
                 window.scrollTo(0, 0);
             }
         }
     </script>
 </body>
+
 </html>
