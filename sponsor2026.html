@@ -10,8 +10,6 @@
 
     <link rel="shortcut icon" href="https://seihosuisogaku.morinosugi.com/favicon.ico">
 
-    <link rel="apple-touch-icon" href="https://seihosuisogaku.morinosugi.com/apple-touch-icon.png">
-
     <!-- Adobe Fonts (DNP 秀英角ゴシック 銀) -->
     <script>
         (function (d) {
@@ -99,7 +97,7 @@
            ヒーローセクション（挨拶・タイトル）
         ----------------------------------- */
         .hero {
-            min-height: 100vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -166,7 +164,7 @@
            各質問ステップ（フォーム感をなくす）
         ----------------------------------- */
         .form-step {
-            min-height: 70vh;
+            min-height: 50vh;
             /* スクロールに合わせて1つずつ見せるための余白 */
             display: flex;
             flex-direction: column;
@@ -360,6 +358,10 @@
                 font-size: 1.1rem;
             }
         }
+
+        #lure{
+            margin-top: 5vh;
+        }
     </style>
 </head>
 
@@ -440,7 +442,7 @@
             </section>
 
             <section class="form-step">
-                <label class="question-label">その他・応援メッセージ</label>
+                <label class="question-label">その他</label>
                 <div class="input-wrap">
                     <textarea name="entry.526435235" rows="1" placeholder="ご自由にご記入ください"
                         oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
@@ -453,6 +455,7 @@
                 <button type="submit" class="btn-submit" onclick="submitForm()">
                     送信する <i class="fa-solid fa-paper-plane" style="margin-left: 10px;"></i>
                 </button>
+                <p id="lure">このフォームはgoogle formsを介して通信され、個人情報は当目的以外に利用いたしません。</p>
             </section>
 
         </div>
@@ -460,9 +463,8 @@
 
     <!-- 送信完了画面 -->
     <div class="thanks-screen" id="thanks-screen">
-        <i class="fa-solid fa-gift" style="font-size: 5rem; color: var(--color-sky);"></i>
-        <h2>心より感謝申し上げます</h2>
-        <p>メッセージは確かに受け取りました。<br>後ほど担当者よりご連絡させていただきます。</p>
+        <h2>ご入力ありがとうございます</h2>
+        <p>担当者よりご連絡させていただきます。</p>
     </div>
 
     <script>
