@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Widget</title>
+  <style>
+    /* iframeの背景を透明にするための設定 */
+    body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
+    
+    /* グリッドレイアウト */
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 常に3列 */
+      gap: 5px; /* 写真の間のすき間 */
+    }
+    
+    /* スマホ画面の場合は2列にする */
+    @media (max-width: 480px) {
+      .ig-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* 各写真の枠 */
+    .ig-item {
+      position: relative;
+      aspect-ratio: 1 / 1; /* 正方形にする */
+      overflow: hidden;
+      background-color: #f0f0f0;
+      display: block;
+    }
+
+    /* 写真の設定 */
+    .ig-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    /* マウスを乗せたときに少しズームする */
+    .ig-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* 動画アイコン（リール動画の場合に右上に表示） */
+    .video-icon {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .video-icon::after {
+      content: '';
+      width: 0; height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 8px solid white;
+      margin-left: 2px;
+    }
+
+    #loading { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div id="loading">Instagramを読み込み中...</div>
+  <div class="ig-grid" id="ig-grid"></div>
+
+  <script>
+    // ★ ここをステップ2のURLに変更してください ★
+    const WORKERS_API_URL = 'https://suibu-insta-api.sugiko-morinosugi.workers.dev/';
+
+    async function loadInstagram() {
+      try {
+        const response = await fetch(WORKERS_API_URL);
+        const posts = await response.json();
+        
+        document.getElementById('loading').style.display = 'none';
+        const grid = document.getElementById('ig-grid');
+
+        posts.forEach(post => {
+          // 動画はサムネイル（thumbnail_url）、画像は（media_url）を使用
+          const imgUrl = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
+          if (!imgUrl) return;
+
+          // リンク枠の作成
+          const link = document.createElement('a');
+          link.href = post.permalink; // クリックでInstagramの投稿へ飛ぶ
+          link.target = '_blank';
+          link.className = 'ig-item';
+
+          // 画像の作成
+          const img = document.createElement('img');
+          img.src = imgUrl;
+          img.loading = 'lazy';
+          link.appendChild(img);
+
+          // リール動画の場合は右上に再生アイコンを付ける
+          if (post.media_type === 'VIDEO') {
+            const icon = document.createElement('div');
+            icon.className = 'video-icon';
+            link.appendChild(icon);
+          }
+
+          grid.appendChild(link);
+        });
+      } catch (error) {
+        document.getElementById('loading').textContent = '読み込みに失敗しました';
+      }
+    }
+    loadInstagram();
+  </script>
+</body>
+</html>
