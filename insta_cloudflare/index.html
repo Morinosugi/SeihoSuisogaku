@@ -8,37 +8,15 @@
     body { margin: 0; padding: 0; background: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
     
     .ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-    @media (max-width: 480px) { .ig-grid { grid-template-columns: repeat(3, 1fr); } } /* スマホでも3列キープ */
+    @media (max-width: 480px) { .ig-grid { grid-template-columns: repeat(3, 1fr); } }
 
     .ig-item {
       position: relative; aspect-ratio: 1 / 1;
       overflow: hidden; background-color: #f0f0f0; display: block; cursor: pointer;
     }
     .ig-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-    
-    /* 1回目クリック（ホバー）で表示される詳細オーバーレイ */
-    .ig-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.7); color: white;
-      display: flex; flex-direction: column; justify-content: center; align-items: center;
-      opacity: 0; transition: opacity 0.3s ease; padding: 10px; box-sizing: border-box; text-align: center;
-    }
-    /* PCのホバー、またはスマホでタップ(active)されたら表示 */
-    .ig-item:hover .ig-overlay, .ig-item.active .ig-overlay { opacity: 1; }
-    .ig-item:hover img, .ig-item.active img { transform: scale(1.05); }
+    .ig-item:hover img { transform: scale(1.05); }
 
-    .ig-caption {
-      font-size: 11px; margin-bottom: 8px;
-      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-    }
-    
-    /* 各投稿のInstagramへ飛ぶボタン */
-    .ig-link-btn {
-      background-color: #0095f6; color: white; text-decoration: none;
-      padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold;
-    }
-
-    /* 右上のリール動画アイコン */
     .video-icon {
       position: absolute; top: 5px; right: 5px; width: 20px; height: 20px;
       background: rgba(0, 0, 0, 0.5); border-radius: 50%;
@@ -48,7 +26,6 @@
       content: ''; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 6px solid white; margin-left: 2px;
     }
 
-    /* 一番下の「さらに表示」ボタン */
     .more-btn-container { text-align: center; margin-top: 15px; padding-bottom: 15px;}
     .more-btn {
       display: inline-block; background-color: #0095f6; color: white;
@@ -57,74 +34,128 @@
     .more-btn:hover { background-color: #1877f2; }
 
     #loading { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+
+    /* --- ポップアップ（モーダル）部分 --- */
+    .modal-overlay {
+      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      z-index: 1000; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box;
+    }
+    .modal-overlay.show { display: flex; }
+
+    /* カード全体をスクロール可能に変更 */
+    .modal-card {
+      background: #fff; width: 100%; max-width: 450px; max-height: 90vh;
+      border-radius: 12px; display: block; /* フレックスからブロックに変更 */
+      overflow-y: auto; /* 写真とテキストが一緒にスクロールする */
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: popIn 0.3s ease;
+      scrollbar-width: none;
+    }
+    @keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+    .modal-header { display: flex; align-items: center; padding: 12px 16px; border-bottom: 1px solid #efefef; }
+    
+    /* プロフィール画像枠 */
+    .modal-avatar {
+      width: 32px; height: 32px; border-radius: 50%; background: #f0f0f0; margin-right: 12px;
+      overflow: hidden; flex-shrink: 0; border: 1px solid #eaeaea;
+    }
+    .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .modal-username { font-weight: 600; font-size: 14px; color: #262626; flex-grow: 1; }
+    .modal-close { background: none; border: none; font-size: 28px; color: #262626; cursor: pointer; padding: 0; line-height: 1; margin-top: -4px;}
+
+    .modal-image { width: 100%; background: #ffffff; display: flex; justify-content: center; align-items: center; }
+    .modal-image img { width: 100%; max-height: 500px; object-fit: contain; display: block; }
+
+    .modal-caption {
+      padding: 16px; font-size: 14px; color: #262626; line-height: 1.5; white-space: pre-wrap;
+    }
+
+    .modal-footer { padding: 0 16px 16px; text-align: center; }
+    .modal-link-btn {
+      display: block; background-color: #0095f6; color: white; text-decoration: none;
+      padding: 10px; border-radius: 8px; font-weight: bold; font-size: 14px;
+    }
   </style>
 </head>
 <body>
+
   <div id="loading">Instagramを読み込み中...</div>
   <div class="ig-grid" id="ig-grid"></div>
-  <div class="more-btn-container" id="more-btn-container" style="display: none;">
-    <!-- ここにさらに表示ボタンが入ります -->
+  <div class="more-btn-container" id="more-btn-container" style="display: none;"></div>
+
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-avatar">
+          <!-- ここにAPIから取得したプロフィール画像が入ります -->
+          <img id="modal-avatar-img" src="" alt="">
+        </div>
+        <div class="modal-username" id="modal-username"></div>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      
+      <div class="modal-image">
+        <img id="modal-img" src="" alt="">
+      </div>
+      
+      <div class="modal-caption" id="modal-caption"></div>
+      
+      <div class="modal-footer">
+        <a id="modal-link" href="#" target="_blank" class="modal-link-btn">Instagramで開く</a>
+      </div>
+    </div>
   </div>
 
   <script>
     // ★1. ここをあなたのWorkersのURLに変更してください ★
     const WORKERS_API_URL = 'https://suibu-insta-api.sugiko-morinosugi.workers.dev/';
     
-    // ★2. ここを見たい相手のユーザーネームに変更してください（さらに表示ボタンのリンク先になります）★
+    // ★2. ここを見たい相手のユーザーネームに変更してください ★
     const TARGET_USERNAME = 'shwo._.official';
+
+    document.getElementById('modal-username').textContent = TARGET_USERNAME;
 
     async function loadInstagram() {
       try {
         const response = await fetch(WORKERS_API_URL);
-        const posts = await response.json();
-        if (posts.error) throw new Error(posts.error);
+        const data = await response.json(); // プロフィールと投稿のセット
+        if (data.error) throw new Error(data.error);
+
+        // プロフィール画像をセット
+        if (data.profileUrl) {
+          document.getElementById('modal-avatar-img').src = data.profileUrl;
+        }
 
         document.getElementById('loading').style.display = 'none';
         const grid = document.getElementById('ig-grid');
 
-        posts.forEach(post => {
+        // data.media の中に投稿データが入っています
+        data.media.forEach(post => {
           const imgUrl = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
           if (!imgUrl) return;
 
           const item = document.createElement('div');
           item.className = 'ig-item';
 
-          // スマホでの「1回目タップで詳細表示」の制御
-          item.onclick = function(e) {
-            // もしボタン(aタグ)が押されたならそのまま飛ぶので何もしない
-            if(e.target.tagName.toLowerCase() === 'a') return;
-            // 一度他の選択状態を解除して、自分を選択状態にする
-            document.querySelectorAll('.ig-item.active').forEach(el => el.classList.remove('active'));
-            this.classList.add('active');
-          };
+          // クリックでモーダルを開く
+          item.onclick = () => openModal(post, imgUrl);
 
           const img = document.createElement('img');
           img.src = imgUrl;
-          img.loading = 'lazy'; // 遅延読み込みで表示を軽くする
+          img.loading = 'lazy';
           item.appendChild(img);
 
-          // リール動画アイコン
           if (post.media_type === 'VIDEO') {
             const icon = document.createElement('div');
             icon.className = 'video-icon';
             item.appendChild(icon);
           }
 
-          // 詳細オーバーレイ（1回目クリックで表示される部分）
-          const overlay = document.createElement('div');
-          overlay.className = 'ig-overlay';
-          
-          const captionStr = post.caption ? post.caption : '';
-          overlay.innerHTML = `
-            <div class="ig-caption">${captionStr}</div>
-            <a href="${post.permalink}" target="_blank" class="ig-link-btn">Instagramで見る</a>
-          `;
-          item.appendChild(overlay);
-
           grid.appendChild(item);
         });
 
-        // 「さらに表示」ボタンを表示する
         const btnContainer = document.getElementById('more-btn-container');
         btnContainer.style.display = 'block';
         btnContainer.innerHTML = `<a href="https://www.instagram.com/${TARGET_USERNAME}/" target="_blank" class="more-btn">Instagramでさらに表示</a>`;
@@ -133,6 +164,29 @@
         document.getElementById('loading').textContent = '読み込みに失敗しました。';
       }
     }
+
+    function openModal(post, imgUrl) {
+      document.getElementById('modal-img').src = imgUrl;
+      document.getElementById('modal-caption').textContent = post.caption ? post.caption : '';
+      document.getElementById('modal-link').href = post.permalink;
+      
+      document.getElementById('modal-overlay').classList.add('show');
+      document.body.style.overflow = 'hidden';
+      
+      // モーダルを開いた時にスクロール位置を一番上に戻す
+      document.querySelector('.modal-card').scrollTop = 0;
+    }
+
+    function closeModal() {
+      document.getElementById('modal-overlay').classList.remove('show');
+      document.body.style.overflow = '';
+      setTimeout(() => { document.getElementById('modal-img').src = ''; }, 300);
+    }
+
+    document.getElementById('modal-overlay').onclick = function(e) {
+      if (e.target === this) closeModal();
+    };
+
     loadInstagram();
   </script>
 </body>
