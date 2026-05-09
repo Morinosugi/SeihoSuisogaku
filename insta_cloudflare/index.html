@@ -5,65 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Instagram Widget</title>
   <style>
-    /* iframeの背景を透明にするための設定 */
-    body { margin: 0; padding: 0; background: transparent; font-family: sans-serif; }
+    body { margin: 0; padding: 0; background: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
     
-    /* グリッドレイアウト */
-    .ig-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 常に3列 */
-      gap: 5px; /* 写真の間のすき間 */
-    }
-    
-    /* スマホ画面の場合は2列にする */
-    @media (max-width: 480px) {
-      .ig-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+    .ig-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+    @media (max-width: 480px) { .ig-grid { grid-template-columns: repeat(3, 1fr); } } /* スマホでも3列キープ */
 
-    /* 各写真の枠 */
     .ig-item {
-      position: relative;
-      aspect-ratio: 1 / 1; /* 正方形にする */
-      overflow: hidden;
-      background-color: #f0f0f0;
-      display: block;
+      position: relative; aspect-ratio: 1 / 1;
+      overflow: hidden; background-color: #f0f0f0; display: block; cursor: pointer;
+    }
+    .ig-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+    
+    /* 1回目クリック（ホバー）で表示される詳細オーバーレイ */
+    .ig-overlay {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7); color: white;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      opacity: 0; transition: opacity 0.3s ease; padding: 10px; box-sizing: border-box; text-align: center;
+    }
+    /* PCのホバー、またはスマホでタップ(active)されたら表示 */
+    .ig-item:hover .ig-overlay, .ig-item.active .ig-overlay { opacity: 1; }
+    .ig-item:hover img, .ig-item.active img { transform: scale(1.05); }
+
+    .ig-caption {
+      font-size: 11px; margin-bottom: 8px;
+      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    
+    /* 各投稿のInstagramへ飛ぶボタン */
+    .ig-link-btn {
+      background-color: #0095f6; color: white; text-decoration: none;
+      padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold;
     }
 
-    /* 写真の設定 */
-    .ig-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
-
-    /* マウスを乗せたときに少しズームする */
-    .ig-item:hover img {
-      transform: scale(1.05);
-    }
-
-    /* 動画アイコン（リール動画の場合に右上に表示） */
+    /* 右上のリール動画アイコン */
     .video-icon {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      width: 24px;
-      height: 24px;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
+      position: absolute; top: 5px; right: 5px; width: 20px; height: 20px;
+      background: rgba(0, 0, 0, 0.5); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; pointer-events: none; z-index: 2;
     }
     .video-icon::after {
-      content: '';
-      width: 0; height: 0;
-      border-top: 5px solid transparent;
-      border-bottom: 5px solid transparent;
-      border-left: 8px solid white;
-      margin-left: 2px;
+      content: ''; border-top: 4px solid transparent; border-bottom: 4px solid transparent; border-left: 6px solid white; margin-left: 2px;
     }
+
+    /* 一番下の「さらに表示」ボタン */
+    .more-btn-container { text-align: center; margin-top: 15px; padding-bottom: 15px;}
+    .more-btn {
+      display: inline-block; background-color: #0095f6; color: white;
+      text-decoration: none; padding: 10px 24px; border-radius: 8px; font-weight: bold; font-size: 14px; transition: background-color 0.2s;
+    }
+    .more-btn:hover { background-color: #1877f2; }
 
     #loading { text-align: center; padding: 20px; color: #666; font-size: 14px; }
   </style>
@@ -71,47 +62,75 @@
 <body>
   <div id="loading">Instagramを読み込み中...</div>
   <div class="ig-grid" id="ig-grid"></div>
+  <div class="more-btn-container" id="more-btn-container" style="display: none;">
+    <!-- ここにさらに表示ボタンが入ります -->
+  </div>
 
   <script>
-    // ★ ここをステップ2のURLに変更してください ★
+    // ★1. ここをあなたのWorkersのURLに変更してください ★
     const WORKERS_API_URL = 'https://suibu-insta-api.sugiko-morinosugi.workers.dev/';
+    
+    // ★2. ここを見たい相手のユーザーネームに変更してください（さらに表示ボタンのリンク先になります）★
+    const TARGET_USERNAME = 'shwo._.official';
 
     async function loadInstagram() {
       try {
         const response = await fetch(WORKERS_API_URL);
         const posts = await response.json();
-        
+        if (posts.error) throw new Error(posts.error);
+
         document.getElementById('loading').style.display = 'none';
         const grid = document.getElementById('ig-grid');
 
         posts.forEach(post => {
-          // 動画はサムネイル（thumbnail_url）、画像は（media_url）を使用
           const imgUrl = post.media_type === 'VIDEO' ? post.thumbnail_url : post.media_url;
           if (!imgUrl) return;
 
-          // リンク枠の作成
-          const link = document.createElement('a');
-          link.href = post.permalink; // クリックでInstagramの投稿へ飛ぶ
-          link.target = '_blank';
-          link.className = 'ig-item';
+          const item = document.createElement('div');
+          item.className = 'ig-item';
 
-          // 画像の作成
+          // スマホでの「1回目タップで詳細表示」の制御
+          item.onclick = function(e) {
+            // もしボタン(aタグ)が押されたならそのまま飛ぶので何もしない
+            if(e.target.tagName.toLowerCase() === 'a') return;
+            // 一度他の選択状態を解除して、自分を選択状態にする
+            document.querySelectorAll('.ig-item.active').forEach(el => el.classList.remove('active'));
+            this.classList.add('active');
+          };
+
           const img = document.createElement('img');
           img.src = imgUrl;
-          img.loading = 'lazy';
-          link.appendChild(img);
+          img.loading = 'lazy'; // 遅延読み込みで表示を軽くする
+          item.appendChild(img);
 
-          // リール動画の場合は右上に再生アイコンを付ける
+          // リール動画アイコン
           if (post.media_type === 'VIDEO') {
             const icon = document.createElement('div');
             icon.className = 'video-icon';
-            link.appendChild(icon);
+            item.appendChild(icon);
           }
 
-          grid.appendChild(link);
+          // 詳細オーバーレイ（1回目クリックで表示される部分）
+          const overlay = document.createElement('div');
+          overlay.className = 'ig-overlay';
+          
+          const captionStr = post.caption ? post.caption : '';
+          overlay.innerHTML = `
+            <div class="ig-caption">${captionStr}</div>
+            <a href="${post.permalink}" target="_blank" class="ig-link-btn">Instagramで見る</a>
+          `;
+          item.appendChild(overlay);
+
+          grid.appendChild(item);
         });
+
+        // 「さらに表示」ボタンを表示する
+        const btnContainer = document.getElementById('more-btn-container');
+        btnContainer.style.display = 'block';
+        btnContainer.innerHTML = `<a href="https://www.instagram.com/${TARGET_USERNAME}/" target="_blank" class="more-btn">Instagramでさらに表示</a>`;
+
       } catch (error) {
-        document.getElementById('loading').textContent = '読み込みに失敗しました';
+        document.getElementById('loading').textContent = '読み込みに失敗しました。';
       }
     }
     loadInstagram();
