@@ -324,7 +324,7 @@
         @media (max-width: 768px) {
             .form-step { min-height: 50vh; padding: 40px 0; }
             input[type="text"], textarea { font-size: 1.2rem; }
-            .amount-btn { padding: 11px 20px; font-size: 1.1rem; }
+            .amount-btn { padding: 11px 20px; font-size: 1.1rem; min-width: 100px; }
         }
     </style>
 </head>
@@ -401,6 +401,30 @@
                         <input type="text" name="entry.298319453" placeholder="郵便番号・ご住所" data-required="true">
                     </div>
                 </section>
+                
+                <!-- 会社の場合のみ表示される支援金額 -->
+                <section class="form-step">
+                    <label class="question-label">ご予定の支援金額<span class="req">必須</span></label>
+                    <div class="amount-options">
+                        <label class="amount-option">
+                            <input type="radio" name="entry.377160557" value="3000円" data-required="true">
+                            <span class="amount-btn">3,000円</span>
+                        </label>
+                        <label class="amount-option">
+                            <input type="radio" name="entry.377160557" value="5000円" data-required="true">
+                            <span class="amount-btn">5,000円</span>
+                        </label>
+                        <label class="amount-option">
+                            <input type="radio" name="entry.377160557" value="10000円" data-required="true">
+                            <span class="amount-btn">10,000円</span>
+                        </label>
+                        <label class="amount-option">
+                            <input type="radio" name="entry.377160557" value="20000円" data-required="true">
+                            <span class="amount-btn">20,000円</span>
+                        </label>
+                    </div>
+                </section>
+
                 <section class="form-step">
                     <label class="question-label">その他</label>
                     <div class="input-wrap">
@@ -429,35 +453,11 @@
                         <input type="text" name="entry.1682954233" placeholder="電話番号 または メールアドレス" data-required="true">
                     </div>
                 </section>
+                <!-- 個人の場合は金額選択なし -->
                 <section class="form-step">
                     <label class="question-label">その他</label>
                     <div class="input-wrap">
                         <textarea name="entry.1005766975" rows="1" placeholder="ご自由にご記入ください" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
-                    </div>
-                </section>
-            </div>
-
-            <!-- ▼▼ 共通: 支援金額 ▼▼ -->
-            <div id="form-common-amount" style="display: none;">
-                <section class="form-step">
-                    <label class="question-label">ご予定の支援金額<span class="req">必須</span></label>
-                    <div class="amount-options">
-                        <label class="amount-option">
-                            <input type="radio" name="entry.377160557" value="3000円" required>
-                            <span class="amount-btn">3,000円</span>
-                        </label>
-                        <label class="amount-option">
-                            <input type="radio" name="entry.377160557" value="5000円" required>
-                            <span class="amount-btn">5,000円</span>
-                        </label>
-                        <label class="amount-option">
-                            <input type="radio" name="entry.377160557" value="10000円" required>
-                            <span class="amount-btn">10,000円</span>
-                        </label>
-                        <label class="amount-option">
-                            <input type="radio" name="entry.377160557" value="20000円" required>
-                            <span class="amount-btn">20,000円</span>
-                        </label>
                     </div>
                 </section>
             </div>
@@ -507,10 +507,9 @@
         function toggleFormType(type) {
             const formCompany = document.getElementById('form-company');
             const formIndividual = document.getElementById('form-individual');
-            const formCommonAmount = document.getElementById('form-common-amount');
             const submitSection = document.getElementById('submit-section');
 
-            // disabled属性を使わずに、requiredの着脱と値のクリアで対応
+            // 必須設定の解除と値のクリア
             setInputsRequired(formCompany, false);
             setInputsRequired(formIndividual, false);
 
@@ -525,7 +524,6 @@
                 setInputsRequired(formIndividual, true);
             }
 
-            formCommonAmount.style.display = 'block';
             submitSection.style.display = 'flex';
 
             setTimeout(() => {
@@ -535,15 +533,13 @@
             }, 50);
         }
 
-        // 表示・非表示に合わせて必須属性をコントロールする関数
+        // 表示・非表示に合わせて必須属性と値をコントロールする関数
         function setInputsRequired(container, isRequired) {
-            // data-required="true" がついている要素のみ、表示時に required にする
             const requiredInputs = container.querySelectorAll('[data-required="true"]');
             requiredInputs.forEach(input => {
                 input.required = isRequired;
             });
 
-            // 非表示になる場合は、入力済みの値を空にして送信データを送らないようにする
             if (!isRequired) {
                 const allInputs = container.querySelectorAll('input, textarea');
                 allInputs.forEach(input => {
