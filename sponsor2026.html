@@ -48,6 +48,7 @@
             padding: 0;
         }
 
+        /* フォーム感をなくすため、スクロールバーを少し上品に */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -65,7 +66,6 @@
             font-family: dnp-shuei-gothic-gin-std, sans-serif;
             font-weight: 400;
             font-style: normal;
-
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.8;
@@ -89,9 +89,7 @@
             padding: 0 20px;
         }
 
-        /* ----------------------------------
-           ヒーローセクション
-        ----------------------------------- */
+        /* ヒーローセクション */
         .hero {
             min-height: 80vh;
             display: flex;
@@ -146,16 +144,14 @@
             50% { transform: translate(-50%, 10px); }
         }
 
-        /* ----------------------------------
-           各質問ステップ
-        ----------------------------------- */
+        /* 各質問ステップ */
         .form-step {
             min-height: 0vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 50px 0;
-            opacity: 0; /* GSAPで制御 */
+            opacity: 0;
         }
 
         .question-label {
@@ -173,6 +169,7 @@
             font-weight: 400;
         }
 
+        /* 入力フィールド */
         .input-wrap {
             position: relative;
             width: 100%;
@@ -206,9 +203,7 @@
             font-weight: 400;
         }
 
-        /* ----------------------------------
-           ラジオボタン（種類・金額共通）
-        ----------------------------------- */
+        /* 選択ボタン */
         .amount-options {
             display: flex;
             flex-wrap: wrap;
@@ -234,7 +229,6 @@
             border-radius: 50px;
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             background: white;
-            min-width: 120px;
             text-align: center;
         }
 
@@ -251,12 +245,10 @@
             box-shadow: 0 10px 20px rgba(0, 174, 227, 0.2);
         }
 
-        /* ----------------------------------
-           送信エリア
-        ----------------------------------- */
+        /* 送信エリア */
         .submit-step {
             min-height: 80vh;
-            display: flex; /* 初期表示はJSで切り替え */
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -295,12 +287,13 @@
             color: var(--text-light);
         }
 
-        /* ----------------------------------
-           サンクスメッセージ
-        ----------------------------------- */
+        /* サンクスメッセージ */
         .thanks-screen {
             position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background: white;
             z-index: 1000;
             display: flex;
@@ -328,20 +321,10 @@
             color: var(--text-light);
         }
 
-        /* レスポンシブ調整 */
         @media (max-width: 768px) {
-            .form-step {
-                min-height: 50vh;
-                padding: 40px 0;
-            }
-            input[type="text"], textarea {
-                font-size: 1.2rem;
-            }
-            .amount-btn {
-                padding: 11px 20px;
-                font-size: 1.1rem;
-                min-width: 100px;
-            }
+            .form-step { min-height: 50vh; padding: 40px 0; }
+            input[type="text"], textarea { font-size: 1.2rem; }
+            .amount-btn { padding: 11px 20px; font-size: 1.1rem; }
         }
     </style>
 </head>
@@ -350,19 +333,19 @@
 
     <div class="bg-gradient"></div>
 
+    <!-- Google Form用 隠しiframe -->
     <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted){showThanksScreen();}"></iframe>
 
     <form action="https://docs.google.com/forms/u/0/d/e/1FAIpQLScMBZtMKSeNMSEYhmR15ej80N__lLEMs3TDVx9CneAbF3AemA/formResponse" method="POST" target="hidden_iframe" id="sponsor-form">
 
         <!-- Google Form システム用 Hidden Input -->
         <input type="hidden" name="fvv" value="1">
-        <input type="hidden" name="partialResponse" value="[null,null,&quot;-4289172103768133142&quot;]">
+        <input type="hidden" name="partialResponse" value="[null,null,&quot;2185479734369955441&quot;]">
         <input type="hidden" name="pageHistory" value="0">
-        <input type="hidden" name="fbzx" value="-4289172103768133142">
+        <input type="hidden" name="fbzx" value="2185479734369955441">
 
         <div class="container">
 
-            <!-- ヒーローセクション -->
             <section class="hero">
                 <div class="school-info">
                     <span>長野県木曽青峰高等学校 吹奏楽部</span>
@@ -377,7 +360,7 @@
                 </div>
             </section>
 
-            <!-- 種類選択（最初に見える質問） -->
+            <!-- ▼ 種類選択 -->
             <section class="form-step">
                 <label class="question-label">ご支援の種類<span class="req">必須</span></label>
                 <div class="amount-options">
@@ -392,96 +375,94 @@
                 </div>
             </section>
 
-            <!-- ▼▼ 会社用セクション (初期は非表示) ▼▼ -->
+            <!-- ▼▼ 会社用セクション ▼▼ -->
             <div id="form-company" style="display: none;">
                 <section class="form-step">
                     <label class="question-label">会社名・店名<span class="req">必須</span></label>
                     <div class="input-wrap">
-                        <!-- JSで有効化する際、data-required="true"を持つ要素にrequiredを付与します -->
-                        <input type="text" name="entry.1011321067" placeholder="例：株式会社○○" data-required="true" disabled>
+                        <input type="text" name="entry.1011321067" placeholder="例：株式会社○○" data-required="true">
                     </div>
                 </section>
-
                 <section class="form-step">
                     <label class="question-label">担当者名<span class="req">必須</span></label>
                     <div class="input-wrap">
-                        <input type="text" name="entry.692391162" placeholder="例：木曽 太郎" data-required="true" disabled>
+                        <input type="text" name="entry.692391162" placeholder="例：木曽 太郎" data-required="true">
                     </div>
                 </section>
-
                 <section class="form-step">
                     <label class="question-label">ご連絡先<span class="req">必須</span></label>
                     <div class="input-wrap">
-                        <input type="text" name="entry.2088388792" placeholder="電話番号 または メールアドレス" data-required="true" disabled>
+                        <input type="text" name="entry.2088388792" placeholder="電話番号 または メールアドレス" data-required="true">
                     </div>
                 </section>
-
                 <section class="form-step">
                     <label class="question-label">ご住所<span class="req">必須</span></label>
                     <div class="input-wrap">
-                        <input type="text" name="entry.298319453" placeholder="郵便番号・ご住所" data-required="true" disabled>
+                        <input type="text" name="entry.298319453" placeholder="郵便番号・ご住所" data-required="true">
                     </div>
                 </section>
+                <section class="form-step">
+                    <label class="question-label">その他</label>
+                    <div class="input-wrap">
+                        <textarea name="entry.526435235" rows="1" placeholder="ご自由にご記入ください" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+                    </div>
+                </section>
+            </div>
 
+            <!-- ▼▼ 個人用セクション ▼▼ -->
+            <div id="form-individual" style="display: none;">
+                <section class="form-step">
+                    <label class="question-label">お名前<span class="req">必須</span></label>
+                    <div class="input-wrap">
+                        <input type="text" name="entry.1768670706" placeholder="例：木曽 太郎" data-required="true">
+                    </div>
+                </section>
+                <section class="form-step">
+                    <label class="question-label">ご住所<span class="req">必須</span></label>
+                    <div class="input-wrap">
+                        <input type="text" name="entry.897975770" placeholder="郵便番号・ご住所" data-required="true">
+                    </div>
+                </section>
+                <section class="form-step">
+                    <label class="question-label">ご連絡先<span class="req">必須</span></label>
+                    <div class="input-wrap">
+                        <input type="text" name="entry.1682954233" placeholder="電話番号 または メールアドレス" data-required="true">
+                    </div>
+                </section>
+                <section class="form-step">
+                    <label class="question-label">その他</label>
+                    <div class="input-wrap">
+                        <textarea name="entry.1005766975" rows="1" placeholder="ご自由にご記入ください" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'"></textarea>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ▼▼ 共通: 支援金額 ▼▼ -->
+            <div id="form-common-amount" style="display: none;">
                 <section class="form-step">
                     <label class="question-label">ご予定の支援金額<span class="req">必須</span></label>
                     <div class="amount-options">
                         <label class="amount-option">
-                            <input type="radio" name="entry.377160557" value="3000円" data-required="true" disabled>
+                            <input type="radio" name="entry.377160557" value="3000円" required>
                             <span class="amount-btn">3,000円</span>
                         </label>
                         <label class="amount-option">
-                            <input type="radio" name="entry.377160557" value="5000円" data-required="true" disabled>
+                            <input type="radio" name="entry.377160557" value="5000円" required>
                             <span class="amount-btn">5,000円</span>
                         </label>
                         <label class="amount-option">
-                            <input type="radio" name="entry.377160557" value="10000円" data-required="true" disabled>
+                            <input type="radio" name="entry.377160557" value="10000円" required>
                             <span class="amount-btn">10,000円</span>
                         </label>
                         <label class="amount-option">
-                            <input type="radio" name="entry.377160557" value="20000円" data-required="true" disabled>
+                            <input type="radio" name="entry.377160557" value="20000円" required>
                             <span class="amount-btn">20,000円</span>
                         </label>
                     </div>
                 </section>
-
-                <section class="form-step">
-                    <label class="question-label">その他</label>
-                    <div class="input-wrap">
-                        <!-- 任意項目なのでdata-requiredはつけない -->
-                        <textarea name="entry.526435235" rows="1" placeholder="ご自由にご記入ください" oninput="this.style.height = '';this.style.height = this.scrollHeight + 'px'" disabled></textarea>
-                    </div>
-                </section>
             </div>
-            <!-- ▲▲ 会社用セクション ここまで ▲▲ -->
 
-            <!-- ▼▼ 個人用セクション (初期は非表示) ▼▼ -->
-            <div id="form-individual" style="display: none;">
-                <!-- 個人の項目は画像通り必須マークをつけていません（data-requiredも無し） -->
-                <section class="form-step">
-                    <label class="question-label">お名前</label>
-                    <div class="input-wrap">
-                        <input type="text" name="entry.1768670706" placeholder="例：木曽 太郎" disabled>
-                    </div>
-                </section>
-
-                <section class="form-step">
-                    <label class="question-label">ご住所</label>
-                    <div class="input-wrap">
-                        <input type="text" name="entry.897975770" placeholder="郵便番号・ご住所" disabled>
-                    </div>
-                </section>
-
-                <section class="form-step">
-                    <label class="question-label">ご連絡先</label>
-                    <div class="input-wrap">
-                        <input type="text" name="entry.1682954233" placeholder="電話番号 または メールアドレス" disabled>
-                    </div>
-                </section>
-            </div>
-            <!-- ▲▲ 個人用セクション ここまで ▲▲ -->
-
-            <!-- 送信ボタンセクション (初期は非表示) -->
+            <!-- ▼▼ 共通: 送信ボタン ▼▼ -->
             <section class="submit-step form-step" id="submit-section" style="display: none;">
                 <p class="submit-text">ご入力ありがとうございました。<br>内容をご確認の上、送信ボタンを押してください。</p>
                 <button type="submit" class="btn-submit" onclick="submitForm()">
@@ -501,83 +482,80 @@
     </div>
 
     <script>
-        // GSAPとScrollTriggerの初期化
         gsap.registerPlugin(ScrollTrigger);
 
         document.addEventListener("DOMContentLoaded", () => {
-            gsap.from(".hero > *", {
-                y: 30, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.5
-            });
+            gsap.from(".hero > *", { y: 30, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", delay: 0.5 });
             initScrollTriggers();
         });
 
-        // フォーム項目のスクロールアニメーション設定関数
         function initScrollTriggers() {
             const steps = gsap.utils.toArray('.form-step');
             steps.forEach(step => {
-                // すでにトリガー設定済みの場合はスキップ
                 if(step.classList.contains('scroll-triggered')) return;
                 step.classList.add('scroll-triggered');
-
                 gsap.fromTo(step,
                     { y: 80, opacity: 0 },
                     {
-                        scrollTrigger: {
-                            trigger: step,
-                            start: "top 85%",
-                            toggleActions: "play none none reverse"
-                        },
+                        scrollTrigger: { trigger: step, start: "top 85%", toggleActions: "play none none reverse" },
                         y: 0, opacity: 1, duration: 1, ease: "power2.out"
                     }
                 );
             });
         }
 
-        // 種類（会社・個人）を選択した際の切り替えロジック
         function toggleFormType(type) {
             const formCompany = document.getElementById('form-company');
             const formIndividual = document.getElementById('form-individual');
+            const formCommonAmount = document.getElementById('form-common-amount');
             const submitSection = document.getElementById('submit-section');
 
-            // 一旦すべての入力を無効化（エラー防止＆送信データから除外）
-            setInputsState(formCompany, true);
-            setInputsState(formIndividual, true);
+            // disabled属性を使わずに、requiredの着脱と値のクリアで対応
+            setInputsRequired(formCompany, false);
+            setInputsRequired(formIndividual, false);
 
-            // 選択された方だけ表示＆有効化
+            formCompany.style.display = 'none';
+            formIndividual.style.display = 'none';
+
             if (type === 'company') {
                 formCompany.style.display = 'block';
-                formIndividual.style.display = 'none';
-                setInputsState(formCompany, false);
+                setInputsRequired(formCompany, true);
             } else if (type === 'individual') {
-                formCompany.style.display = 'none';
                 formIndividual.style.display = 'block';
-                setInputsState(formIndividual, false);
+                setInputsRequired(formIndividual, true);
             }
 
+            formCommonAmount.style.display = 'block';
             submitSection.style.display = 'flex';
 
-            // DOMが変わったので、少し待ってからScrollTriggerを再計算しアニメーションを適用
             setTimeout(() => {
                 initScrollTriggers();
                 ScrollTrigger.refresh();
-                // 選択後にスムーズに下へ促す
                 window.scrollBy({ top: 150, behavior: 'smooth' });
             }, 50);
         }
 
-        // 入力項目の disabled と required を切り替える関数
-        function setInputsState(container, isDisabled) {
-            const inputs = container.querySelectorAll('input, textarea');
-            inputs.forEach(input => {
-                input.disabled = isDisabled;
-                // data-required="true" が付いている項目だけ、表示時は required をONにする
-                if (input.dataset.required === 'true') {
-                    input.required = !isDisabled;
-                }
+        // 表示・非表示に合わせて必須属性をコントロールする関数
+        function setInputsRequired(container, isRequired) {
+            // data-required="true" がついている要素のみ、表示時に required にする
+            const requiredInputs = container.querySelectorAll('[data-required="true"]');
+            requiredInputs.forEach(input => {
+                input.required = isRequired;
             });
+
+            // 非表示になる場合は、入力済みの値を空にして送信データを送らないようにする
+            if (!isRequired) {
+                const allInputs = container.querySelectorAll('input, textarea');
+                allInputs.forEach(input => {
+                    if (input.type === 'radio' || input.type === 'checkbox') {
+                        input.checked = false;
+                    } else {
+                        input.value = '';
+                    }
+                });
+            }
         }
 
-        // フォーム送信制御
         let submitted = false;
         function submitForm() {
             const form = document.getElementById('sponsor-form');
@@ -587,7 +565,6 @@
             }
         }
 
-        // 完了画面の表示
         function showThanksScreen() {
             if (submitted) {
                 const thanksScreen = document.getElementById('thanks-screen');
