@@ -5,7 +5,9 @@
   <title>Redirecting...</title>
   <script>
     var targetDomain = "https://seihosuisogaku.morinosugi.com";
-    window.location.replace(targetDomain + window.location.pathname + window.location.search);
+    // パスから /SeihoSuisogaku/ を取り除いて新しいドメインに転送する
+    var cleanPath = window.location.pathname.replace(/^\/SeihoSuisogaku/, "");
+    window.location.replace(targetDomain + cleanPath + window.location.search);
   </script>
   <meta http-equiv="refresh" content="0;url=https://seihosuisogaku.morinosugi.com/">
 </head>
