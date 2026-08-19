@@ -4,12 +4,9 @@
   <meta charset="UTF-8">
   <title>Redirecting...</title>
   <script>
-    var targetDomain = "https://seihosuisogaku.morinosugi.com";
-    // パスから /SeihoSuisogaku/ を取り除いて新しいドメインに転送する
-    var cleanPath = window.location.pathname.replace(/^\/SeihoSuisogaku/, "");
-    window.location.replace(targetDomain + cleanPath + window.location.search);
+    // 完全に固定で新ドメインのトップへ転送する
+    window.location.replace("https://seihosuisogaku.morinosugi.com/");
   </script>
-  <meta http-equiv="refresh" content="0;url=https://seihosuisogaku.morinosugi.com/">
 </head>
 <body>
   <p>転送中... ページが切り替わらない場合は<a href="https://seihosuisogaku.morinosugi.com/">こちら</a>をクリックしてください。</p>
