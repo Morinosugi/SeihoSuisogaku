@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>木曽青峰高校吹奏楽部｜新入生歓迎 2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=Anton&display=swap" rel="stylesheet">
+<style>
+
+/* ========================================================
+   カラー：使うのはこの4色だけ（＋白文字用に c-sub）
+   base  … 背景の基本色（茶）
+   accent… 一番目立たせたい色（冒頭・ボタン・数字）
+   sub   … 落ち着いた背景色（本文セクション）
+   line  … 縁取り・淡い区切り線
+   ※ 10色パレットの左側（重要度が高いもの）から採用しています。
+     余った色は使っていません。増やしたい時はここに追加してください。
+   ======================================================== */
+:root{
+  --base:   #542c23; /* パレット1: ベース */
+  --accent: #e04d66; /* パレット2: アクセント（最重要） */
+  --sub:    #31a6f6; /* パレット3: セクション背景 */
+  --line:   #a1d3e3; /* パレット4: 淡い線・キャプション */
+  --ease: cubic-bezier(.7,0,.2,1);
+}
+
+*{ box-sizing:border-box }
+html,body{ margin:0 }
+html{ scroll-behavior:smooth }
+body{
+  font-family:"Kiwi Maru",serif;
+  background:var(--base);
+  color:var(--line);
+  -webkit-font-smoothing:antialiased;
+}
+.an{ font-family:Anton,sans-serif; letter-spacing:.08em; font-weight:400 } /* 見出し用の太字フォント */
+
+
+/* ---------- ヘッダー／ハンバーガーメニュー ---------- */
+#hd{
+  position:fixed; inset:0 0 auto 0; height:56px; z-index:40;
+  background:var(--base); color:var(--line);
+  display:flex; align-items:center; justify-content:center; font-size:22px;
+}
+#hd button{ position:absolute; left:4vw; top:0; height:56px; width:56px; background:none; border:0; cursor:pointer; padding:0 }
+#hd button i{ position:absolute; left:11px; width:34px; height:1px; background:var(--line); transition:.4s var(--ease) }
+#hd button i:first-child{ top:24px } #hd button i:last-child{ top:31px }
+.open #hd button i:first-child{ top:28px; transform:rotate(20deg) }
+.open #hd button i:last-child { top:28px; transform:rotate(-20deg) }
+#hd em{ position:absolute; right:5vw; font:13px Anton,sans-serif; font-style:normal; letter-spacing:.15em; color:var(--line) }
+
+#menu{
+  position:fixed; inset:0; z-index:30;
+  background:var(--accent); color:var(--base);
+  display:flex; flex-direction:column; justify-content:center; padding:0 9vw;
+  transform:translateY(-100%); transition:transform .8s var(--ease);
+}
+.open #menu{ transform:none }
+#menu a{ font:clamp(34px,10vw,64px)/1.25 Anton,sans-serif; letter-spacing:.06em; color:var(--base); text-decoration:none }
+#menu a small{ font:13px "Kiwi Maru"; letter-spacing:.1em; margin-left:1em }
+
+
+/* ---------- 冒頭アニメーション（#intro）→ イベント紹介（#stage） ---------- */
+#intro,#stage{ position:fixed; inset:0; height:100dvh; overflow:hidden }
+
+/* 縦の帯が下から迫り上がって画面を染める演出 */
+#intro{ z-index:50; background:var(--base); transition:transform .9s .1s var(--ease) }
+#intro.gone{ transform:translateY(-100%) } /* 演出が終わったら上へスライドして消える（#stageと同じ動き） */
+
+#blinds{ position:absolute; inset:0; display:flex }
+#blinds i{ flex:1; background:var(--accent); transform:scaleY(0); transform-origin:bottom; transition:transform .7s var(--ease) }
+#intro.on #blinds i{ transform:scaleY(1) }
+/* 7本の帯を少しずつ遅らせて、階段状に染まっていくように見せる */
+#blinds i:nth-child(1){ transition-delay:.02s }
+#blinds i:nth-child(2){ transition-delay:.09s }
+#blinds i:nth-child(3){ transition-delay:.16s }
+#blinds i:nth-child(4){ transition-delay:.23s }
+#blinds i:nth-child(5){ transition-delay:.30s }
+#blinds i:nth-child(6){ transition-delay:.37s }
+#blinds i:nth-child(7){ transition-delay:.44s }
+
+.big{
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center;
+  font:clamp(64px,24vw,220px)/.9 Anton,sans-serif; color:var(--base);
+  opacity:0; transition:opacity .5s .8s;
+}
+#intro.on .big{ opacity:1 }
+.big small{ position:absolute; bottom:9%; font:12px "Kiwi Maru"; letter-spacing:.3em; color:var(--base) }
+
+.runner{ position:absolute; bottom:20%; width:min(26vw,220px); left:-26vw; opacity:0; transition:left 1.15s .35s var(--ease), opacity .1s .35s }
+#intro.on .runner{ left:112vw; opacity:1 }
+.runner .leg{ transform-origin:38px 62px; animation:swing .3s infinite alternate ease-in-out }
+@keyframes swing{ to{ transform:rotate(-30deg) } }
+
+#stage{ background:var(--base); z-index:10; transition:transform .9s var(--ease) }
+#stage.up{ transform:translateY(-100%) }
+
+/* 数秒スライドを見たあとに現れる「本文へ進む」ボタン */
+.stage-next{
+  position:absolute; left:50%; bottom:max(14px,env(safe-area-inset-bottom)); transform:translate(-50%,10px);
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  background:none; border:0; padding:10px; cursor:pointer; z-index:5;
+  font:10px Anton,sans-serif; letter-spacing:.3em; color:var(--line);
+  opacity:0; transition:opacity .5s var(--ease), transform .5s var(--ease);
+}
+#stage.show-next .stage-next{ opacity:1; transform:translate(-50%,0) }
+.stage-next svg{ width:18px; height:18px; animation:bob 1.4s ease-in-out infinite }
+@keyframes bob{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(6px) } }
+
+/* イベントスライド1枚分。.slide-cur=表示中 / .slide-prev=一つ前 / .slide-next=次 / .slide-far=それ以外 */
+.slide{ position:absolute; inset:0 }
+.event-photo{
+  position:absolute; left:calc(50% - min(31vw,240px)); top:45%;
+  width:min(62vw,480px); aspect-ratio:16/10; border-radius:3px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--base);
+  box-shadow:0 30px 60px -30px #0008;
+  transition:transform 1.1s cubic-bezier(.2,.8,.2,1);
+  overflow:hidden;
+  background-size:cover; 
+  background-position:center;
+}
+.event-photo b{ font:400 clamp(56px,15vw,120px)/1 Anton,sans-serif; letter-spacing:.06em }
+.event-photo small{ font:11px Anton,sans-serif; letter-spacing:.3em; opacity:.7 }
+.slide-cur  .event-photo{ transform:translateY(-50%) rotate(-3deg) }
+.slide-prev .event-photo{ transform:translate(42vw,-46vh) rotate(9deg) }
+.slide-next .event-photo{ transform:translate(-55vw,42vh) rotate(-9deg) }
+.slide-far  .event-photo{ transform:translate(-100vw,80vh) rotate(-9deg) }
+
+/* 2枚組にしたいスライド用：同じ比率(4:5)の写真を並べる。
+   使うのは EVENTS の該当データに photos:2 を指定したスライドだけ（既定は1枚）。 */
+.event-photo.is-a,
+.event-photo.is-b{ width:min(37vw,270px); aspect-ratio:4/5; top:auto }
+.event-photo.is-a{ left:calc(50% - min(33vw,250px)); top:40% }
+.event-photo.is-b{ left:calc(50% + min(3vw,14px));   top:54% }
+.event-photo.is-b svg{ width:44%; height:44%; color:var(--base) }
+.slide-cur .event-photo.is-a{ transform:translateY(-50%) rotate(-6deg) }
+.slide-cur .event-photo.is-b{ transform:translateY(-38%) rotate(5deg) }
+.event-photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;   /* background-size:cover と同じ挙動 */
+  display:block;
+}
+
+.event-num,.event-text{ opacity:0; filter:blur(10px); transition:opacity .6s,filter .6s }
+.slide-cur .event-num, .slide-cur .event-text{ opacity:1; filter:none; transition-delay:.4s }
+.event-num{ position:absolute; left:5vw; top:72px; font:300 clamp(48px,13vw,104px)/1 "Helvetica Neue",Arial,sans-serif; letter-spacing:-.02em; color:var(--accent) }
+.event-num small{ font-size:.2em; margin-left:.5em; color:var(--line); letter-spacing:0 }
+.event-text{ position:absolute; left:0; right:0; top:68%; text-align:center; padding:0 8vw }
+.event-text i{ font:normal 12px "Kiwi Maru"; color:var(--line); letter-spacing:.14em }
+.event-text h2{ margin:.35em 0 .5em; font-size:clamp(22px,5.6vw,36px); font-weight:500; color:var(--line); letter-spacing:.06em }
+.event-text p{ margin:0 auto; max-width:27em; font-size:13px; line-height:1.9; color:var(--line) }
+
+
+/* ---------- 本文セクション ---------- */
+main{ position:relative; z-index:1; padding-top:56px }
+section{ padding:96px 0; scroll-margin-top:56px }
+.inner{ width:86%; max-width:760px; margin:auto }
+
+/* スクロールでふわっと現れる */
+.reveal{ opacity:0; transform:translateY(28px); transition:opacity .9s,transform .9s var(--ease) }
+.reveal.on{ opacity:1; transform:none }
+
+.section-label{ display:flex; align-items:baseline; gap:14px; margin-bottom:18px; font:14px Anton,sans-serif; letter-spacing:.2em }
+.section-label::after{ content:""; flex:1; height:1px; background:currentColor; opacity:.4 }
+section h2{ font-size:clamp(26px,6vw,38px); font-weight:500; margin:0 0 .7em; letter-spacing:.05em }
+p,li,summary{ line-height:2; font-size:16px }
+p{ margin:0 }
+ul{ list-style:none; padding:0; margin:0 }
+li{ display:flex; gap:18px; padding:14px 0; border-top:1px solid rgba(84,44,35,.4) }
+li:last-child{ border-bottom:1px solid rgba(84,44,35,.4) }
+li b{ min-width:5em; font-weight:500 }
+
+/* セクションごとの背景は base / accent / sub の3色を使い回す */
+.section-light{ background:var(--line); color:var(--base) } /* About, Parts */
+.section-sub  { background:var(--sub);  color:#fff }         /* Weekly, Q&A */
+.section-dark { background:var(--base); color:var(--line) }  /* Year, Visit */
+
+.grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+.card{ background:var(--base); color:var(--line); padding:22px 18px; border-radius:4px }
+.card h3{ margin:0 0 6px; font-weight:500; color:var(--accent); font-size:17px }
+.card p{ font-size:14px; line-height:1.8 }
+
+details{ border-top:1px solid rgba(84,44,35,.4); padding:8px 0 }
+details:last-child{ border-bottom:1px solid rgba(84,44,35,.4) }
+summary{ cursor:pointer; font-weight:500; list-style:none; display:flex; justify-content:space-between }
+summary::after{ content:"+"; font-family:Anton }
+details[open] summary::after{ content:"–" }
+details p{ padding:4px 0 12px; font-size:15px }
+
+/* Instagram 最新投稿（テキストのみ／取得時点のスナップショット） */
+.insta-list{ display:flex; flex-direction:column; gap:0 }
+.insta-item{ display:flex; gap:14px; padding:18px 0; border-top:1px solid rgba(255,255,255,.25); text-decoration:none; color:inherit }
+.insta-list a:last-child{ border-bottom:1px solid rgba(255,255,255,.25) }
+.insta-thumb{ width:76px; height:76px; border-radius:4px; object-fit:cover; flex-shrink:0; background:rgba(255,255,255,.15) }
+.insta-body{ min-width:0 }
+.insta-date{ font:12px Anton,sans-serif; letter-spacing:.1em; opacity:.75 }
+.insta-cap{ margin-top:6px; font-size:14px; line-height:1.6;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden }
+.insta-more{ margin-top:6px; font-size:12px; text-decoration:underline; opacity:.8 }
+.insta-note{ font-size:12px; margin-top:8px; opacity:.7; line-height:1.8 }
+
+.btn{
+  display:inline-block; margin-top:26px; background:var(--accent); color:#fff;
+  padding:15px 38px; border-radius:99px; text-decoration:none; font-weight:500; letter-spacing:.1em;
+  transition:transform .4s;
+}
+.btn:hover{ transform:translateY(-3px) }
+
+footer{ background:var(--base); color:var(--line); text-align:center; padding:36px; font-size:12px; letter-spacing:.1em; border-top:1px solid rgba(224,77,102,.5) }
+
+@media(prefers-reduced-motion:reduce){ *{ animation-duration:.01s!important; transition-duration:.01s!important } }
+@media(min-width:768px){
+  .event-text{ top:70% }
+  .event-photo{ width:min(40vw,520px); left:calc(50% - min(20vw,260px)) }
+}
+</style>
+</head>
+<body>
+
+<div id="hd">
+  <button id="menu-btn" aria-label="メニュー"><i></i><i></i></button>
+  <span class="an">SEIHO♪</span>
+  <em>2027</em>
+</div>
+
+<nav id="menu">
+  <a href="#top">EVENTS<small>行事</small></a>
+  <a href="#about">ABOUT<small>部の魅力</small></a>
+  <a href="#week">WEEKLY<small>活動日</small></a>
+  <a href="#year">YEAR<small>年間予定</small></a>
+  <a href="#parts">PARTS<small>パート</small></a>
+  <a href="#insta">INSTAGRAM<small>最新投稿</small></a>
+  <a href="#qa">Q&amp;A<small>質問</small></a>
+  <a href="#visit">VISIT<small>見学</small></a>
+</nav>
+
+<!-- 冒頭アニメーション：帯が染まって校名が出る -->
+<div id="intro">
+  <div id="blinds"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="big">
+    <span>SEIHO</span><span>BRASS</span>
+    <small>木曽青峰高校 吹奏楽部</small>
+  </div>
+  <svg class="runner" viewBox="0 0 100 100">
+    <g stroke="#542c23" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="58" cy="20" r="9" fill="#542c23"/>
+      <path d="M48 14q10-9 20 0" fill="#542c23"/>
+      <path d="M38 62L52 32M52 34L86 42M50 36L84 30M38 62L56 80L54 96"/>
+      <g class="leg"><path d="M38 62L58 78L74 90"/></g>
+    </g>
+  </svg>
+</div>
+
+<!-- イベント紹介スライド：中身は下の <script> で生成 -->
+<div id="stage">
+  <button id="stage-next" class="stage-next" aria-label="本文へ進む">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg>
+    DOWN
+  </button>
+</div>
+
+<main>
+
+<section id="about" class="section-light">
+  <div class="inner reveal">
+    <div class="section-label">01 ABOUT</div>
+    <h2>部の魅力と雰囲気</h2>
+    <p>金賞を目指して、仲間と一緒に音楽をつくる部活です。年間を通して発表の機会があり、練習の成果をたくさんの方に届けています。初心者の方も、先輩が丁寧にサポートします。（部員数・学年別・パート別の内訳をここに入れます）</p>
+  </div>
+</section>
+
+<section id="week" class="section-sub">
+  <div class="inner reveal">
+    <div class="section-label">02 WEEKLY</div>
+    <h2>1週間の活動</h2>
+    <!-- ▼▼ TODO: 実際の曜日別スケジュールに差し替えてください。
+         去年のサイト(seihosuisogaku.morinosugi.com)にも活動日カードがありましたが、
+         今回渡していただいた内容には曜日ごとの具体的な時間割が含まれていなかったため、
+         現時点は仮の内容のままです。 -->
+    <ul>
+      <li><b>月・火</b>全体練習（仮）</li>
+      <li><b>水・木</b>パート練習（仮）</li>
+      <li><b>金</b>合奏（仮）</li>
+      <li><b>土・日</b>活動日は都度お知らせします（仮）</li>
+    </ul>
+  </div>
+</section>
+
+<section id="year" class="section-dark">
+  <div class="inner reveal">
+    <div class="section-label">03 YEAR</div>
+    <h2>年間スケジュール</h2>
+    <!-- Instagram の投稿から実際の活動日を反映しています -->
+    <ul>
+      <li><b>4月</b>新入生歓迎演奏</li>
+      <li><b>7月</b>定期演奏会（木曽文化ホール）</li>
+      <li><b>8月</b>吹奏楽コンクール（長野市・B編成）</li>
+      <li><b>9月</b>木曽吹奏楽フェスティバル／地域イベント出演（手仕事市 ほか）</li>
+      <li><b>通年</b>木曽ウィンドアンサンブルなど地域の団体との合同練習・演奏</li>
+    </ul>
+  </div>
+</section>
+
+<section id="parts" class="section-light">
+  <div class="inner reveal">
+    <div class="section-label">04 PARTS</div>
+    <h2>パート紹介</h2>
+    <div class="grid">
+      <div class="card"><h3>木管</h3><p>先輩の一言（仮）</p></div>
+      <div class="card"><h3>金管</h3><p>先輩の一言（仮）</p></div>
+      <div class="card"><h3>パーカッション</h3><p>先輩の一言（仮）</p></div>
+      <div class="card"><h3>迷っている方へ</h3><p>入部後に、一緒にパートを決めましょう。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="insta" class="section-sub">
+  <div class="inner reveal">
+    <div class="section-label">05 INSTAGRAM</div>
+    <h2>最新の活動報告</h2>
+    <!-- 自前API（suibu-insta-api.sugiko-morinosugi.workers.dev）から毎回取得します -->
+    <div class="insta-list" id="insta-list"><p class="insta-note">読み込み中…</p></div>
+  </div>
+</section>
+
+<section id="qa" class="section-dark">
+  <div class="inner reveal">
+    <div class="section-label">06 Q&amp;A</div>
+    <h2>よくある質問</h2>
+    <details><summary>勉強やアルバイトと両立できますか？</summary><p>（回答を入れます）</p></details>
+    <details><summary>楽器を持っていなくても大丈夫ですか？</summary><p>（回答を入れます）</p></details>
+    <details><summary>テスト期間中はお休みですか？</summary><p>（回答を入れます）</p></details>
+  </div>
+</section>
+
+<section id="visit" class="section-light">
+  <div class="inner reveal">
+    <div class="section-label" style="color:var(--accent)">07 VISIT</div>
+    <h2>見学・体験入部</h2>
+    <ul>
+      <li><b>日程</b>（未定）</li>
+      <li><b>場所</b>音楽室</li>
+      <li><b>持ち物</b>（未定）</li>
+    </ul>
+    <!-- ▼▼ TODO: 「お問い合わせ」の行き先が決まっていません。
+         Googleフォーム／メールアドレス／Instagram DM のどれにするか教えてください。
+         決まるまでは仮に「#」のままにしています。 -->
+    <a class="btn" href="#">お問い合わせ（仮リンク）</a>
+  </div>
+</section>
+
+<footer>© 木曽青峰高校吹奏楽部</footer>
+</main>
+
+<script>
+/* ============================================================
+   1) イベント紹介スライドのデータ
+   ============================================================ */
+// photos: 1枚 or 2枚。2枚にすると同じ比率(4:5)の写真を並べて表示します。
+// （すべてのスライドを2枚にする必要はないので、載せたいイベントだけ 2 にしてください）
+const EVENTS = [
+  { tag:'ARP',  cat:'4月 · Welcome Party',  title:'新入生歓迎', photos:2,
+    body:'新入生の皆さん一緒に楽しみましょう。',
+    img1:'2027/event/Welcome_Party.jpg', alt1:'Welcome', img2:'2027/event/Kodamano_Party.jpg',alt2:'Party' },
+  { tag:'JUN',  cat:'6月 · Concert',  title:'三岳里テラスさん', photos:1,
+    body:'Love So Sweetや小さな恋のうた、アイデアやピースサインなど合わせて7曲演奏しました ',
+    img:'2027/event/Satoterasu.jpg' },
+  { tag:'AUG',  cat:'8月 · Contest',          title:'吹奏楽コンクール', photos:1,
+    body:'長野市でのB編成コンクール。金賞を目指して、全員で音を合わせます。',
+    img:'<path d="M12 3l2.2 4.5 5 .7-3.6 3.5.9 5-4.5-2.4-4.5 2.4.9-5L4.8 8.2l5-.7z"/>' },
+  { tag:'SEP',  cat:'9月 · Festival',         title:'木曽吹奏楽フェスティバル', photos:2,
+    body:'地域のイベントに出演し、たくさんの方へ音楽を届けています。',
+    img:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5" opacity=".35"/>' },
+  { tag:'YEAR', cat:'通年 · Community',       title:'地域との合同演奏', photos:1,
+    body:'木曽ウィンドアンサンブルなど、地域の団体と一緒に練習・演奏する機会があります。',
+    img:'<rect x="6" y="25" width="38" height="9" rx="4" transform="scale(.24)"/><path d="M2.6 3.6q7.2 1 7.2 3.6t-7.2 3.6V3.6z"/>' },
+];
+
+/* ============================================================
+   2) Instagram 最新投稿（自前APIから毎回取得）
+      ※ Claudeのアーティファクト・プレビュー上では、外部APIへの
+        fetchがブロックされ読み込めません（プラットフォーム側の制限）。
+        このHTMLを自分のサーバーやホスティングに置いて開いたときは、
+        普通にfetchできるので、そちらで動作を確認してください。
+   ============================================================ */
+const INSTA_API = 'https://suibu-insta-api.sugiko-morinosugi.workers.dev/';
+const INSTA_LIMIT = 6; // 表示する投稿の件数
+
+function formatInstaDate(iso){
+  const d = new Date(iso);
+  return `${d.getFullYear()}.${d.getMonth()+1}.${d.getDate()}`;
+}
+
+async function loadInstagram(){
+  const list = document.getElementById('insta-list');
+  try{
+    const res = await fetch(INSTA_API);
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const posts = (data.media || []).slice(0, INSTA_LIMIT);
+
+    list.innerHTML = '';
+    posts.forEach(p=>{
+      const thumb = p.thumbnail_url || p.media_url; // 動画はサムネイルを使う
+      const a = document.createElement('a');
+      a.className = 'insta-item';
+      a.href = p.permalink;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.innerHTML = `
+        <img class="insta-thumb" src="${thumb}" alt="" loading="lazy">
+        <div class="insta-body">
+          <div class="insta-date">${formatInstaDate(p.timestamp)}</div>
+          <div class="insta-cap">${(p.caption || '').split('\\n')[0]}</div>
+          <div class="insta-more">投稿を見る →</div>
+        </div>`;
+      list.appendChild(a);
+    });
+  }catch(err){
+    // Claudeのプレビュー環境などfetchできない場所ではここに入ります
+    list.innerHTML = '<p class="insta-note">最新の投稿を読み込めませんでした。このページを実際のホスティング先で開くと表示されます。</p>';
+  }
+}
+loadInstagram();
+
+/* ============================================================
+   3) 冒頭アニメーション → イベントスライドの制御
+   ============================================================ */
+const introEl = document.getElementById('intro');
+const stageEl = document.getElementById('stage');
+const body    = document.body;
+
+// EVENTSのデータからスライドのDOMを組み立てる
+EVENTS.forEach((ev, idx)=>{
+  const slide = document.createElement('div');
+  slide.className = 'slide slide-far';
+  const photoHTML = ev.photos === 2
+  ? `<div class="event-photo is-a"><img src="${ev.img1}"  alt="${ev.alt1 || ''}"></div>
+     <div class="event-photo is-b"><img src="${ev.img2}" alt="${ev.alt2 || ''}"></div>`
+  : `<div class="event-photo"><img src="${ev.img}" alt="${ev.alt || ''}"></div>`;
+
+  slide.innerHTML = `
+    ${photoHTML}
+    <div class="event-num">0${idx+1}<small>/0${EVENTS.length}</small></div>
+    <div class="event-text">
+      <i>${ev.cat}</i>
+      <h2>${ev.title}</h2>
+      <p>${ev.body}</p>
+    </div>`;
+  stageEl.appendChild(slide);
+});
+
+const slides = [...stageEl.querySelectorAll('.slide')];
+let current = 0;
+let stagePhase = 'intro'; // 'intro' → 'stage'（スライド中）→ 'free'（通常スクロール）
+let inputLocked = true;
+
+body.style.overflow = 'hidden';
+
+function renderSlides(){
+  slides.forEach((s,i)=>{
+    s.className = 'slide ' + (
+      i === current ? 'slide-cur' :
+      i <  current ? 'slide-prev' :
+      i === current + 1 ? 'slide-next' : 'slide-far'
+    );
+  });
+}
+function lockInputBriefly(){ inputLocked = true; setTimeout(()=>inputLocked=false, 1100); }
+function leaveStage(){ stageEl.classList.remove('show-next'); stageEl.classList.add('up'); body.style.overflow=''; stagePhase='free'; }
+function enterStage(){ stageEl.classList.remove('up'); body.style.overflow='hidden'; stagePhase='stage'; scrollTo(0,0); scheduleStageButton(); }
+
+// スライドを数秒見たら「本文へ進む」ボタンを出す（押せばスライドを飛ばして本文へ）
+let stageButtonTimer;
+function scheduleStageButton(){
+  clearTimeout(stageButtonTimer);
+  stageButtonTimer = setTimeout(()=> stageEl.classList.add('show-next'), 2500);
+}
+document.getElementById('stage-next').onclick = ()=> leaveStage();
+
+// 冒頭アニメーション開始 → 2秒後にイベントスライドへ
+requestAnimationFrame(()=> introEl.classList.add('on'));
+setTimeout(()=>{
+  introEl.classList.add('gone');
+  renderSlides();
+  stagePhase = 'stage';
+  lockInputBriefly();
+  scheduleStageButton();
+}, 2000);
+
+// スクロール／スワイプ／矢印キーでスライドを送る
+function goSlide(direction){
+  if(inputLocked || body.classList.contains('open')) return;
+
+  if(stagePhase === 'stage'){
+    if(direction > 0 && current === slides.length - 1){
+      leaveStage(); lockInputBriefly(); return; // 最後のスライドから本文へ
+    }
+    current = Math.max(0, Math.min(slides.length - 1, current + direction));
+    renderSlides();
+    lockInputBriefly();
+  } else if(stagePhase === 'free' && direction < 0 && scrollY <= 0){
+    enterStage(); lockInputBriefly(); // ページ最上部で上スクロール→スライドに戻る
+  }
+}
+addEventListener('wheel', e=>{
+  if(stagePhase === 'stage') e.preventDefault();
+  if(Math.abs(e.deltaY) > 10) goSlide(Math.sign(e.deltaY));
+}, {passive:false});
+
+let touchStartY;
+addEventListener('touchstart', e=> touchStartY = e.touches[0].clientY, {passive:true});
+addEventListener('touchmove',  e=>{ if(stagePhase === 'stage') e.preventDefault() }, {passive:false});
+addEventListener('touchend',   e=>{
+  const diff = touchStartY - e.changedTouches[0].clientY;
+  if(Math.abs(diff) > 40) goSlide(Math.sign(diff));
+});
+addEventListener('keydown', e=>{
+  if(e.key === 'ArrowDown') goSlide(1);
+  if(e.key === 'ArrowUp')   goSlide(-1);
+});
+
+/* ============================================================
+   4) ハンバーガーメニュー
+   ============================================================ */
+document.getElementById('menu-btn').onclick = ()=>{
+  if(stagePhase !== 'intro') body.classList.toggle('open');
+};
+document.querySelectorAll('#menu a').forEach(a=>{
+  a.onclick = e=>{
+    e.preventDefault();
+    body.classList.remove('open');
+    const targetId = a.hash.slice(1);
+    if(targetId === 'top'){ enterStage(); return }
+    if(stagePhase === 'stage') leaveStage();
+    setTimeout(()=> document.getElementById(targetId).scrollIntoView({behavior:'smooth'}),
+      stagePhase === 'free' ? 350 : 0);
+  };
+});
+
+/* ============================================================
+   5) 本文セクションのスクロールイン演出
+   ============================================================ */
+const revealObserver = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on') });
+}, {threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=> revealObserver.observe(el));
+</script>
+</body>
+</html>
