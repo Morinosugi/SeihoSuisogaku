@@ -1066,7 +1066,8 @@ function renderSlides(){
   });
 }
 function lockInputBriefly(){ inputLocked = true; setTimeout(()=>inputLocked=false, 1100) }
-function leaveStage(){ body.classList.remove('stage-on'); stageEl.classList.remove('show-next'); stageEl.classList.add('up'); body.style.overflow=''; stagePhase='free' }
+function leaveStage(delay = 550){ body.classList.remove('stage-on'); stageEl.classList.remove('show-next'); stageEl.classList.add('up'); body.style.overflow=''; stagePhase='free';
+  setTimeout(armReveal, delay) }   // スライド画面が上へ抜けきる少し前（約0.55秒後）に、本文の演出を始める
 function enterStage(){ body.classList.add('stage-on'); stageEl.classList.remove('up'); body.style.overflow='hidden'; stagePhase='stage'; scrollTo(0,0); scheduleStageButton() }
 
 let stageButtonTimer;
@@ -1217,13 +1218,15 @@ const countUp = el => {                       // 数字がふわっと増える�
 document.querySelectorAll('.stagger').forEach(c => [...c.children].forEach((el,i)=> el.style.setProperty('--d', i)));
 const revealObserver = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(!e.isIntersecting) return;
+    if(!e.isIntersecting || stagePhase !== 'free') return;   // スライド画面が上にある間は、下の本文はまだ見えていないので始めない
     e.target.classList.add('on');
     e.target.querySelectorAll('.about-num,.about-stats b').forEach(countUp);
     revealObserver.unobserve(e.target);
   });
 }, {threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=> revealObserver.observe(el));
+// 本文に降りた時に呼ぶ：observe し直すと、いま画面内にあるセクションの判定が改めて行われる
+function armReveal(){ document.querySelectorAll('.reveal:not(.on)').forEach(el=>{ revealObserver.unobserve(el); revealObserver.observe(el) }) }
 
 /* ============================================================
    6) デバッグ用：URLに ?skip を付けると冒頭の演出を飛ばす（本番は何も付けなければ通常の演出）
@@ -1241,7 +1244,7 @@ function skipIntro(toMain){
   stageEl.classList.remove('up');
   renderSlides();
   body.classList.add('stage-on'); stagePhase = 'stage'; inputLocked = false;
-  if(toMain) leaveStage(); else scheduleStageButton();
+  if(toMain) leaveStage(0); else scheduleStageButton();
   requestAnimationFrame(()=> requestAnimationFrame(()=> stageEl.style.transition = ''));
   const target = document.getElementById(location.hash.slice(1));
   if(toMain && target) setTimeout(()=> target.scrollIntoView({behavior:'instant'}), 60);
