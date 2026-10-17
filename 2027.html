@@ -812,7 +812,7 @@ html.modal-open{ overflow:hidden }
         <div class="cal-grid" id="cal-grid"></div>
         <div class="cal-legend" aria-hidden="true">
           <span class="t-play"><b class="nt"><svg viewBox="0 0 24 40" aria-hidden="true"><ellipse cx="8" cy="32" rx="6.6" ry="4.8" transform="rotate(-22 8 32)" fill="currentColor"/><rect x="13" y="6" width="2" height="26.5" fill="currentColor"/></svg></b>活動日</span>
-          <span><i class="rest"></i>お休み（休符）</span>
+          <span><i class="rest"></i>お休み・活動なし（休符）</span>
           <span><i class="lg-today">12</i>今日</span>
           <span class="t-visit"><b class="nt"><svg viewBox="0 0 28 40" aria-hidden="true"><ellipse cx="8" cy="32" rx="6.6" ry="4.8" transform="rotate(-22 8 32)" fill="currentColor"/><rect x="13" y="6" width="2" height="26.5" fill="currentColor"/><path d="M15 6c0 9 9 10 7 21-1-6-4-8-7-9z" fill="currentColor"/></svg></b>見学・体験</span>
           <span class="t-concert"><b class="nt"><svg viewBox="0 0 38 40" aria-hidden="true"><ellipse cx="8" cy="32" rx="6.6" ry="4.8" transform="rotate(-22 8 32)" fill="currentColor"/><ellipse cx="28" cy="32" rx="6.6" ry="4.8" transform="rotate(-22 28 32)" fill="currentColor"/><rect x="13" y="7" width="2" height="25.5" fill="currentColor"/><rect x="33" y="7" width="2" height="25.5" fill="currentColor"/><path d="M13 6h22v6H13z" fill="currentColor"/></svg></b>演奏会</span>
@@ -1408,16 +1408,18 @@ const GCAL = { calendarId:'6408564f5ccb1c6c80a817a559239101c7b20e7a86ee8b4439145
 
   // 2) 予定を「日付 → 予定の配列」にまとめる（複数日の予定は各日に展開）
   const EV = {};
+  let gcalFailed = false, failNote = '';                     // 読み込みに失敗したか／?debug のとき画面に出す文
   const ACT = {}, ACTM = new Set();                          // 活動日（Googleカレンダーの「活動」「練習」など）と、活動日が入っている月
   function addRange(k, e, target = EV){ const to = e.to ? parse(e.to) : parse(k); for(let d = parse(k); d <= to; d.setDate(d.getDate()+1)){ (target[key(d)] = target[key(d)] || []).push(e); if(target === ACT) ACTM.add(key(d).slice(0,7)) } }
   if(!GCAL.calendarId) Object.entries(VISIT_DAYS).forEach(([k,v]) => [].concat(v).forEach(e => addRange(k,e)));   // Googleカレンダー連携中は手書きのダミーを使わない
 
   const cal = $('#cal'), grid = $('#cal-grid'), box = $('#cal-detail');
   let cur = { y:2027, m:3 }, selKey = '';
-  // その日の活動：カレンダーに「活動」があればその時間。その月に活動日が1つでも入っていれば、入っていない日はお休み。まだ入れていない月は「1週間の活動」の表どおり
+  // その日の活動：Googleカレンダーに「活動」などを入れた日だけが活動日。入れていない日は「予定なし」（休符）。
+  // 連携していない／読み込めなかったときだけ、「1週間の活動」の表どおりにする
   function actInfo(k){
     if(ACT[k]) return { off:false, time:ACT[k].map(a => a.time || a.label).join('／') };
-    if(ACTM.has(k.slice(0,7))) return { off:true };
+    if(GCAL.calendarId && !gcalFailed) return { off:true, none:true };
     const w = WEEK[parse(k).getDay()]; return w ? { off:w.off, time:w.time } : null;
   }
 
@@ -1431,7 +1433,7 @@ const GCAL = { calendarId:'6408564f5ccb1c6c80a817a559239101c7b20e7a86ee8b4439145
   // ① 今日の予定（今日の活動時間と、今日ある予定だけ。なければ活動時間だけ）
   function showToday(){
     const now = new Date(), k = key(now), wk = actInfo(k), ev = EV[k] || [];
-    $('#cal-up').innerHTML = '<div class="cal-today"><span class="tl">TODAY</span><b>'+(now.getMonth()+1)+'月'+now.getDate()+'日（'+DN[now.getDay()]+'）</b><span>'+(wk ? (wk.off ? '活動はお休みです' : '活動 '+esc(wk.time)) : '')+'</span></div>' + (ev.length ? '<ul class="cal-list">'+ev.map(e => item(k,e,false)).join('')+'</ul>' : '');
+    $('#cal-up').innerHTML = '<div class="cal-today"><span class="tl">TODAY</span><b>'+(now.getMonth()+1)+'月'+now.getDate()+'日（'+DN[now.getDay()]+'）</b><span>'+(wk ? (wk.off ? (wk.none ? '活動の予定はありません' : '活動はお休みです') : '活動 '+esc(wk.time)) : '')+'</span></div>' + (ev.length ? '<ul class="cal-list">'+ev.map(e => item(k,e,false)).join('')+'</ul>' : '') + failNote;
   }
 
   // ② 月のカレンダー
@@ -1468,7 +1470,7 @@ const GCAL = { calendarId:'6408564f5ccb1c6c80a817a559239101c7b20e7a86ee8b4439145
     const b = document.createElement('div'); b.className = 'bub' + (ev.length ? ' e-'+(ev[0].type || 'other') : '');
     b.innerHTML = '<button type="button" class="bub-x" data-back aria-label="閉じる">×</button>'
       + '<div class="bub-h">'+(d.getMonth()+1)+'月'+d.getDate()+'日（'+DN[d.getDay()]+'）</div>'
-      + '<div>'+(wk ? (wk.off ? '活動はお休みです' : '活動時間　'+esc(wk.time)) : '')+'</div>'
+      + '<div>'+(wk ? (wk.off ? (wk.none ? '活動の予定はありません' : '活動はお休みです') : '活動時間　'+esc(wk.time)) : '')+'</div>'
       + ev.map(e => '<div class="bub-row"><span class="nt t-'+(e.type || 'other')+'">'+SVG[e.type || 'other']+'</span><span><b>'+esc(e.label)+'</b><br>'+esc([e.time, e.place].filter(Boolean).join('　'))+'</span></div>').join('');
     grid.appendChild(b);                                      // 吹き出しは重ねて出す（下の五線譜を押し下げない）
     const gw = grid.clientWidth, bw = Math.min(gw, 330), cx = cell.offsetLeft + cell.offsetWidth / 2, bl = Math.max(0, Math.min(gw - bw, cx - bw / 2));
@@ -1493,12 +1495,13 @@ const GCAL = { calendarId:'6408564f5ccb1c6c80a817a559239101c7b20e7a86ee8b4439145
   $('#cal-next').onclick = () => { cur.m++; if(cur.m>11){ cur.m=0; cur.y++ } selKey=''; render(true) };
 
   // 5) Googleカレンダー連携（GCAL が空なら何もしない）
-  function gcalFail(msg){ console.warn('Googleカレンダー連携に失敗:', msg); if(location.search.indexOf('debug') >= 0) $('#cal-up').insertAdjacentHTML('beforeend', '<p class="cal-empty">Googleカレンダーを読み込めませんでした：'+esc(msg)+'</p>') }   // URLの最後に ?debug を付けると、原因が画面に出る
+  function gcalFail(msg){ gcalFailed = true; console.warn('Googleカレンダー連携に失敗:', msg); if(location.search.indexOf('debug') >= 0) failNote = '<p class="cal-empty">Googleカレンダーを読み込めませんでした：'+esc(msg)+'</p>' }   // URLの最後に ?debug を付けると、原因が画面に出る
   async function loadGcal(){
     if(!GCAL.calendarId || !GCAL.apiKey) return;
     try{
       const q = new URLSearchParams({ key:GCAL.apiKey, singleEvents:'true', orderBy:'startTime', maxResults:'250', timeMin:RANGE_FROM.toISOString(), timeMax:new Date(2028,3,1).toISOString() });
-      const r = await fetch('https://www.googleapis.com/calendar/v3/calendars/'+encodeURIComponent(GCAL.calendarId)+'/events?'+q); if(!r.ok){ const j = await r.json().catch(() => ({})); gcalFail(r.status+' '+((j.error && j.error.message) || '')); return }
+      const ctl = new AbortController(), tm = setTimeout(() => ctl.abort(), 8000);   // 8秒で打ち切る
+      const r = await fetch('https://www.googleapis.com/calendar/v3/calendars/'+encodeURIComponent(GCAL.calendarId)+'/events?'+q, { signal:ctl.signal }); clearTimeout(tm); if(!r.ok){ const j = await r.json().catch(() => ({})); gcalFail(r.status+' '+((j.error && j.error.message) || '')); return }
       ((await r.json()).items || []).forEach(it => {
         const s = (it.start.date || it.start.dateTime || '').slice(0,10); if(!s) return;
         let e = it.end ? (it.end.date || it.end.dateTime || '').slice(0,10) : s;
@@ -1510,15 +1513,18 @@ const GCAL = { calendarId:'6408564f5ccb1c6c80a817a559239101c7b20e7a86ee8b4439145
         const ev = { type, label:title, time, place:it.location || '', to:e > s ? e : null };
         type === 'play' ? addRange(s, ev, ACT) : addRange(s, ev);
       });
-      showToday(); render(false);
     }catch(err){ gcalFail(String(err)) }   // 読み込めなくても、カレンダー自体は動く
   }
 
   // 6) 開始：予定があれば最初の予定の月、なければ2027年4月
   cur = clampMonth(new Date());                               // 開いたときは、今の月
-  showToday(); render(false); loadGcal();
+  let seen = false;                                           // 五線の動きを見せ終えた（画面に入った）か
+  if(GCAL.calendarId && GCAL.apiKey){                         // 連携中：予定を読み込んでから描く
+    grid.innerHTML = '<p class="cal-empty">予定を読み込んでいます…</p>';
+    loadGcal().then(() => { showToday(); render(seen) });
+  } else { showToday(); render(false) }
   // 画面に入ったとき、五線と音符の動きを1回見せる
-  if('IntersectionObserver' in window) new IntersectionObserver((en, ob) => { if(en[0].isIntersecting){ cal.classList.add('go'); ob.disconnect() } }, { rootMargin:'0px 0px -30% 0px', threshold:.1 }).observe(grid);
+  if('IntersectionObserver' in window) new IntersectionObserver((en, ob) => { if(en[0].isIntersecting){ seen = true; cal.classList.add('go'); ob.disconnect() } }, { rootMargin:'0px 0px -30% 0px', threshold:.1 }).observe(grid);
 })();
 </script>
 </body>
