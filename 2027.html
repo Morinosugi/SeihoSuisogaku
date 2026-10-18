@@ -457,7 +457,7 @@ button.cal-item::after{ content:"›"; margin-left:auto; font-size:26px; opacity
 .dn{ position:absolute; left:50%; bottom:var(--db,8px); transform:translateX(-50%); min-width:30px; height:26px; line-height:26px; text-align:center; border-radius:13px; font:16px Anton,sans-serif; letter-spacing:.03em; transition:background .25s,color .25s }
 .cd:not(.out):hover .dn{ background:rgba(84,44,35,.1) } .cd:not(.out):hover .nt{ translate:0 -3px }
 .cd.today .dn{ background:var(--accent); color:#fff; box-shadow:0 0 0 3px rgba(224,77,102,.28) }
-.cd.today::before{ content:""; position:absolute; left:14%; right:14%; bottom:-4px; height:4px; border-radius:2px; background:var(--accent) }   /* 今日：赤い丸＋足元の赤い線 */
+.cd.today .dn::after{ content:"今日"; position:absolute; left:50%; bottom:100%; margin-bottom:3px; transform:translateX(-50%); padding:1px 6px; border-radius:6px; background:var(--accent); color:#fff; font:500 10px/1.4 "Kiwi Maru",serif; white-space:nowrap }   /* 今日：赤い丸＋上に「今日」の札 */
 .lg-today{ display:inline-block; min-width:22px; height:20px; line-height:20px; text-align:center; border-radius:10px; background:var(--accent); color:#fff; font:12px Anton,sans-serif; font-style:normal }
 .cd.has .dn{ color:var(--ec); font-size:18px }
 .cd.sel .dn{ background:var(--base); color:#f6efe2 } .cd.sel .nt{ scale:1.12 }
@@ -468,7 +468,7 @@ button.cal-item::after{ content:"›"; margin-left:auto; font-size:26px; opacity
 .cal-legend{ display:flex; flex-wrap:wrap; align-items:center; gap:6px 16px; margin-top:10px; padding-top:12px; border-top:1px solid rgba(84,44,35,.2); font-size:12px }
 .cal-legend span{ display:inline-flex; align-items:center; gap:5px } .cal-legend .nt{ --h:22 } .cal-legend .rest{ position:static; margin:0 }
 /* ③ 日付を押したとき：その日の活動時間と予定 */
-.cal-detail{ margin-top:16px; min-height:70px; font-size:14px; line-height:1.8 }
+.cal-detail{ margin-top:14px; font-size:14px; line-height:1.8 }
 .cal-day{ padding:4px 4px 10px } .cal-day b{ font-size:17px }
 .cal-hint{ margin:0; padding:10px 4px; opacity:.8 }
 .cal-back{ margin-top:10px; font:13px "Kiwi Maru",serif; color:var(--base); background:none; border:0; border-bottom:1px solid var(--base); padding:2px 0; cursor:pointer }
@@ -491,9 +491,11 @@ button.cal-item::after{ content:"›"; margin-left:auto; font-size:26px; opacity
 @keyframes lineIn{ from{ transform:scaleX(0) } }
 @keyframes noteIn{ from{ opacity:0; translate:0 12px; scale:.88 } }
 @keyframes halo{ from{ opacity:.7; scale:.5 } to{ opacity:0; scale:1.3 } }
-.cal-detail > *{ animation:slide .35s cubic-bezier(.22,1,.36,1) }
 @keyframes slide{ from{ opacity:0; translate:0 6px } }
-@media(prefers-reduced-motion:reduce){ .cal *{ animation:none!important; transition:none!important } }
+.cal:not(.ready) .ln{ transform:scaleX(0) }   /* 動きが始まるまでは隠しておく（先にふつうに見えてしまわないように） */
+.cal:not(.ready) .cd .nt,.cal:not(.ready) .rest,.cal:not(.ready) .dn,.cal:not(.ready) .cal-today,.cal:not(.ready) .cal-hint,.cal:not(.ready) .cal-legend{ opacity:0 }
+.cal.go .cal-today,.cal.go .cal-hint,.cal.go .cal-legend{ animation:slide .6s cubic-bezier(.22,1,.36,1) .9s both }   /* 今日の行・案内・凡例も、五線のあとに浮かぶ */
+@media(prefers-reduced-motion:reduce){ .cal *{ animation:none!important; transition:none!important } .cal:not(.ready) .ln{ transform:none!important } .cal:not(.ready) .cd .nt,.cal:not(.ready) .rest,.cal:not(.ready) .dn,.cal:not(.ready) .cal-today,.cal:not(.ready) .cal-hint,.cal:not(.ready) .cal-legend{ opacity:1!important } }
 #visit .section-label{ grid-column:1/13; grid-row:1 }
 #visit h2{ grid-column:1/13; grid-row:2 }
 .visit-info{ grid-column:1/6; grid-row:3 }
@@ -625,6 +627,38 @@ html.modal-open{ overflow:hidden }
   .event-text{ top:64% }
   .event-photo{ width:min(40vw,520px); left:calc(50% - min(20vw,260px)) }
 }
+
+/* ===== GOAL：一音入魂。音符を長押しして「魂をこめる」。面の色はアクセントのピンクを少し深くした色（白い文字のコントラスト比 約4.8） ===== */
+.section-accent{ background:#c44659; color:#fff; --dot:rgba(255,255,255,.14) }
+#goal .mark::after{ background:#950452; opacity:.65 }
+.gs-stage{ position:relative; display:block; width:100%; max-width:760px; margin:6px 0 0; padding:0; color:#fff; background:none; border:0; cursor:pointer; touch-action:pan-y; -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; -webkit-tap-highlight-color:transparent }
+.gs-stage:focus-visible{ outline:2px solid #fff; outline-offset:6px }
+.gs-stage svg{ position:relative; display:block; width:100%; height:auto; overflow:visible }
+.gs-kanji{ position:absolute; inset:0; display:flex; align-items:center; justify-content:space-between; padding:0 2%; font:500 clamp(72px,21vw,170px)/1 "Kiwi Maru",serif; pointer-events:none }
+.gs-kanji span{ opacity:.16 }
+.gs-line,.gs-bar{ fill:none; stroke:#fff; stroke-width:1.6; stroke-linecap:round }
+.gs-note ellipse,.gs-note rect{ fill:#fff }
+.gs-track,.gs-ring,.gs-pulse{ fill:none; stroke:#fff }
+.gs-track{ stroke-width:2; opacity:.3; animation:breathe 3.2s ease-in-out infinite }   /* 「ここを押す」の合図：輪がゆっくり息をする */
+.gs-ring{ stroke-width:3.5; stroke-linecap:round; transform:rotate(-90deg); transform-origin:200px 75px; stroke-dasharray:238.8; stroke-dashoffset:238.8 }
+.gs-pulse{ stroke-width:2; transform-box:fill-box; transform-origin:center; animation:gsPulse 1.2s ease-out forwards; pointer-events:none }
+@keyframes breathe{ 50%{ opacity:.6 } }
+@keyframes gsPulse{ from{ opacity:.85; transform:scale(1) } to{ opacity:0; transform:scale(3.2) } }
+.gs-hint{ margin:12px 0 0; min-height:1.8em; font:500 14px "Kiwi Maru",serif; letter-spacing:.1em; text-align:left }
+.goal-grid{ display:grid; grid-template-columns:1fr; gap:6px; margin-top:34px }
+.goal-lede{ font-size:15px; line-height:2.2 }
+.goal-rows{ margin-top:18px; border-top:1px solid rgba(255,255,255,.5) }
+.goal-row{ display:flex; align-items:baseline; gap:18px; padding:15px 0; border-bottom:1px solid rgba(255,255,255,.45) }
+.goal-row b{ flex-shrink:0; width:2.4em; font:400 30px Anton,sans-serif }
+.goal-row strong{ display:block; font:500 24px "Kiwi Maru",serif; letter-spacing:.06em }
+.goal-row span{ display:block; margin-top:2px; font-size:13px; letter-spacing:.18em }
+.goal-end{ margin-top:30px }
+.goal-call{ font-size:15px; line-height:2.2; text-align:left }
+.goal-link{ display:inline-block; margin-top:14px; padding-bottom:3px; border-bottom:2px solid #fff; color:inherit; text-decoration:none; font:500 15px "Kiwi Maru",serif }
+.goal-link span{ display:inline-block; transition:transform .35s var(--ease) }
+.goal-link:hover span{ transform:translateX(5px) }
+@media(min-width:760px){ .goal-grid{ grid-template-columns:1fr 1fr; gap:clamp(30px,6vw,64px); align-items:start } .goal-rows{ margin-top:0 } }
+@media(prefers-reduced-motion:reduce){ .gs-track{ animation:none } }
 </style>
 </head>
 <body class="loading">
@@ -637,6 +671,7 @@ html.modal-open{ overflow:hidden }
 <nav id="menu">
   <a href="#top">EVENTS<small>行事紹介</small></a>
   <a href="#about">ABOUT<small>部の魅力</small></a>
+  <a href="#goal">GOAL<small>目標</small></a>
   <a href="#week">WEEKLY<small>活動日</small></a>
   <a href="#year">YEAR<small>年間予定</small></a>
   <a href="#achievements">RESULTS<small>実績</small></a>
@@ -680,7 +715,7 @@ html.modal-open{ overflow:hidden }
 </div>
 
 <section id="about" class="section-light">
-<div class="folio r">01<small>/08</small></div>
+<div class="folio r">01<small>/09</small></div>
   <div class="inner reveal">
     <div class="section-label">01 ABOUT</div>
     <div class="about-sec">
@@ -695,11 +730,41 @@ html.modal-open{ overflow:hidden }
     </div>
   </div>
 </section>
+<section id="goal" class="section-accent">
+<div class="folio l">02<small>/09</small></div>
+  <div class="inner reveal">
+    <div class="section-label">02 GOAL</div>
+    <h2>目標</h2>
+    <!-- 一音入魂：音符を長押しして「魂をこめる」と、一音が鳴る。長く押すほど、大きく長く響き、「一音入魂」の4文字が1つずつ光る -->
+    <button type="button" class="gs-stage" id="goal-stage" aria-label="音符を長押しして、一音をならす">
+      <span class="gs-kanji" aria-hidden="true"><span>一</span><span>音</span><span>入</span><span>魂</span></span>
+      <svg viewBox="0 0 400 150" aria-hidden="true">
+        <path class="gs-bar" d="M1 35V115M392 35V115M398 35V115"/>
+        <path class="gs-line"/><path class="gs-line"/><path class="gs-line"/><path class="gs-line"/><path class="gs-line"/>
+        <circle class="gs-track" cx="200" cy="75" r="38"/>
+        <circle class="gs-ring" cx="200" cy="75" r="38"/>
+        <g class="gs-note"><ellipse cx="200" cy="75" rx="14" ry="10" transform="rotate(-22 200 75)"/><rect x="211.6" y="14" width="3.2" height="62"/></g>
+      </svg>
+    </button>
+    <p class="gs-hint" id="goal-hint" aria-live="polite">音符を長押しして、魂をこめてください</p>
+    <div class="goal-grid">
+      <p class="goal-lede">私たちは、部活目標「一音入魂」を掲げ、地域での演奏会や12月に行われるアンサンブルコンテスト地区大会に向けて活動しています。また、来年度のコンクールでは東海大会出場を目標にしています。</p>
+      <div class="goal-rows stagger">
+        <div class="goal-row"><b>01</b><div><strong>一音入魂</strong><span>部活目標</span></div></div>
+        <div class="goal-row"><b>02</b><div><strong>東海大会出場</strong><span>来年度のコンクール</span></div></div>
+      </div>
+    </div>
+    <div class="goal-end">
+      <p class="goal-call">有難いことに、木曽地域で沢山演奏の機会をいただいております。<span class="mark">ぜひ聞きに来てください！！</span></p>
+      <a class="goal-link" href="#visit"><span>演奏・見学の予定を見る →</span></a>
+    </div>
+  </div>
+</section>
 
 <section id="week" class="section-sub">
-<div class="folio l">02<small>/08</small></div>
+<div class="folio r">03<small>/09</small></div>
   <div class="inner reveal">
-    <div class="section-label">02 WEEKLY</div>
+    <div class="section-label">03 WEEKLY</div>
     <h2>1週間の活動</h2>
     <div class="week-rows stagger">
       <div class="week-row"><div class="wr-days">月</div><div class="wr-body">4:30~6:30 (理普7限あり)</div></div>
@@ -713,9 +778,9 @@ html.modal-open{ overflow:hidden }
 </section>
 
 <section id="year" class="section-light">
-<div class="folio r">03<small>/08</small></div>
+<div class="folio l">04<small>/09</small></div>
   <div class="inner reveal">
-    <div class="section-label">03 YEAR</div>
+    <div class="section-label">04 YEAR</div>
     <h2>年間スケジュール</h2>
     <p>（予定）は昨年度の予定。日付は今年度決まっているものです。横にスクロールできます →</p>
     <div class="year-scroll-wrap">
@@ -736,9 +801,9 @@ html.modal-open{ overflow:hidden }
 </section>
 
 <section id="achievements" class="section-dark">
-<div class="folio l">04<small>/08</small></div>
+<div class="folio r">05<small>/09</small></div>
   <div class="inner reveal">
-    <div class="section-label">04 RESULTS</div>
+    <div class="section-label">05 RESULTS</div>
     <h2>実績</h2>
     <div class="ach-hero">
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.3 6.7L21 11l-6.7 2.3L12 20l-2.3-6.7L3 11l6.7-2.3z"/></svg>
@@ -753,9 +818,9 @@ html.modal-open{ overflow:hidden }
 </section>
 
 <section id="qa" class="section-sub">
-<div class="folio r">05<small>/08</small></div>
+<div class="folio l">06<small>/09</small></div>
   <div class="inner reveal">
-    <div class="section-label">05 Q&amp;A</div>
+    <div class="section-label">06 Q&amp;A</div>
     <h2>よくある質問</h2>
     <div class="qa-list stagger">
       <div class="qa-row q"><div class="qa-avatar">新</div><div class="bubble">僕、未経験なんですが、、</div></div>
@@ -784,9 +849,9 @@ html.modal-open{ overflow:hidden }
 </section>
 
 <section id="visit" class="section-light">
-<div class="folio l">06<small>/08</small></div>
+<div class="folio r">07<small>/09</small></div>
   <div class="inner reveal">
-    <div class="section-label">06 VISIT</div>
+    <div class="section-label">07 VISIT</div>
     <h2>見学・体験入部</h2>
     <div class="visit-info">
       <ul>
@@ -819,7 +884,7 @@ html.modal-open{ overflow:hidden }
           <span class="t-contest"><b class="nt"><svg viewBox="0 0 32 40" aria-hidden="true"><path d="M16 6l3.6 8.6 9.2.8-7 6.1 2.2 9L16 25.5 8 30.5l2.2-9-7-6.1 9.2-.8z" fill="currentColor"/></svg></b>コンクール</span>
           <span class="t-other"><b class="nt"><svg viewBox="0 0 24 40" aria-hidden="true"><ellipse cx="8" cy="32" rx="6.2" ry="4.4" transform="rotate(-22 8 32)" fill="none" stroke="currentColor" stroke-width="2.2"/><rect x="13" y="6" width="2" height="26.5" fill="currentColor"/></svg></b>その他</span>
         </div>
-        <div class="cal-detail" id="cal-detail" aria-live="polite"></div>
+        <div class="cal-detail" id="cal-detail"><p class="cal-hint">日付を押すと、その日の活動時間や予定が吹き出しで見られます。色のついた日が予定のある日です。</p></div>
       </div>
     </div>
 
@@ -843,9 +908,9 @@ html.modal-open{ overflow:hidden }
 </section>
 
 <section id="instruments" class="section-light">
-<div class="folio r">07<small>/08</small></div>
+<div class="folio l">08<small>/09</small></div>
   <div class="inner reveal">
-    <div class="section-label">07 INSTRUMENTS</div>
+    <div class="section-label">08 INSTRUMENTS</div>
     <h2>楽器紹介</h2>
     <p>木管・金管・パーカッション、いろいろな楽器があります。ガチャをまわして、<span class="mark">どの楽器が出るか</span>、ためしてみてください。</p>
     <div class="gacha" id="gacha">
@@ -867,9 +932,9 @@ html.modal-open{ overflow:hidden }
 </section>
 
 <section id="insta" class="section-dark">
-<div class="folio l">08<small>/08</small></div>
+<div class="folio r">09<small>/09</small></div>
   <div class="inner reveal">
-    <div class="section-label">08 INSTAGRAM</div>
+    <div class="section-label">09 INSTAGRAM</div>
     <h2>最新の活動報告</h2>
     <a class="insta-follow" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.7 0 3.06.01 4.12.06 1.07.05 1.79.22 2.43.46.66.26 1.21.6 1.76 1.15.55.55.89 1.1 1.15 1.76.24.64.41 1.36.46 2.43.05 1.06.06 1.42.06 4.14s-.01 3.08-.06 4.14c-.05 1.07-.22 1.79-.46 2.43-.26.66-.6 1.21-1.15 1.76-.55.55-1.1.89-1.76 1.15-.64.24-1.36.41-2.43.46-1.06.05-1.42.06-4.14.06s-3.08-.01-4.14-.06c-1.07-.05-1.79-.22-2.43-.46-.66-.26-1.21-.6-1.76-1.15-.55-.55-.89-1.1-1.15-1.76-.24-.64-.41-1.36-.46-2.43C2.01 15.08 2 14.72 2 12s.01-3.08.06-4.14c.05-1.07.22-1.79.46-2.43.26-.66.6-1.21 1.15-1.76.55-.55 1.1-.89 1.76-1.15.64-.24 1.36-.41 2.43-.46C8.92 2.01 9.28 2 12 2zm0 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm5.25-3.5a1.17 1.17 0 1 0 0 2.34 1.17 1.17 0 0 0 0-2.34z"/></svg>
@@ -1456,14 +1521,14 @@ const GCAL = { calendarId:'6408564f5ccb1c6c80a817a559239101c7b20e7a86ee8b4439145
     $('#cal-title').textContent = cur.y+'年'+(cur.m+1)+'月';
     const ix = cur.y*12 + cur.m;
     $('#cal-prev').disabled = ix <= RANGE_FROM.getFullYear()*12 + RANGE_FROM.getMonth(); $('#cal-next').disabled = ix >= RANGE_TO.getFullYear()*12 + RANGE_TO.getMonth();
-    cal.classList.remove('go'); if(anim){ void cal.offsetWidth; cal.classList.add('go') }
+    cal.classList.remove('go'); if(anim){ void cal.offsetWidth; cal.classList.add('go','ready') }
     selKey ? showDay(selKey) : showHint();
   }
 
   // ③ 日付を押したとき
-  function showHint(){ grid.querySelectorAll('.bub').forEach(b => b.remove()); box.innerHTML = '<p class="cal-hint">日付を押すと、その日の活動時間や予定が吹き出しで見られます。色のついた日が予定のある日です。</p>' }
+  function showHint(){ grid.querySelectorAll('.bub').forEach(b => b.remove()) }   // 案内文（HTMLに固定）は消さない
   function showDay(k){                                        // 押した日の週のすぐ下に、吹き出しを出す
-    grid.querySelectorAll('.bub').forEach(b => b.remove()); box.innerHTML = '';
+    grid.querySelectorAll('.bub').forEach(b => b.remove());
     const cell = grid.querySelector('[data-d="'+k+'"]'); if(!cell) return;
     const wkEl = cell.parentElement;
     const d = parse(k), wk = actInfo(k), ev = EV[k] || [];
@@ -1491,6 +1556,9 @@ const GCAL = { calendarId:'6408564f5ccb1c6c80a817a559239101c7b20e7a86ee8b4439145
   });
   box.addEventListener('click', e => { if(e.target.closest('[data-back]')){ selKey = ''; render(false) } });
   addEventListener('resize', () => { if(selKey) showDay(selKey) });
+  function closeDay(){ selKey = ''; grid.querySelectorAll('.sel').forEach(c => c.classList.remove('sel')); showHint() }
+  document.addEventListener('click', e => { if(selKey && !e.target.closest('.bub') && !e.target.closest('.cd[data-d]')) closeDay() });   // 吹き出しと日付以外を押したら閉じる
+  document.addEventListener('keydown', e => { if(e.key === 'Escape' && selKey) closeDay() });
   $('#cal-prev').onclick = () => { cur.m--; if(cur.m<0){ cur.m=11; cur.y-- } selKey=''; render(true) };
   $('#cal-next').onclick = () => { cur.m++; if(cur.m>11){ cur.m=0; cur.y++ } selKey=''; render(true) };
 
@@ -1524,8 +1592,88 @@ const GCAL = { calendarId:'6408564f5ccb1c6c80a817a559239101c7b20e7a86ee8b4439145
     loadGcal().then(() => { showToday(); render(seen) });
   } else { showToday(); render(false) }
   // 画面に入ったとき、五線と音符の動きを1回見せる
-  if('IntersectionObserver' in window) new IntersectionObserver((en, ob) => { if(en[0].isIntersecting){ seen = true; cal.classList.add('go'); ob.disconnect() } }, { rootMargin:'0px 0px -30% 0px', threshold:.1 }).observe(grid);
+  if('IntersectionObserver' in window) new IntersectionObserver((en, ob) => { if(en[0].isIntersecting){ seen = true; cal.classList.add('go','ready'); ob.disconnect() } }, { rootMargin:'0px 0px -30% 0px', threshold:.1 }).observe(grid); else { seen = true; cal.classList.add('go','ready') }
 })();
+/* ============ GOAL：一音入魂（音符を長押しして、魂をこめる） ============
+   長押し＝「溜め」。輪が満ちて、4文字が順に光る。はなすと一音が鳴り、五線が弦のように震える。長く押すほど、大きく長く響く。 */
+(function(){
+  const stage = document.getElementById('goal-stage'); if(!stage) return;
+  const hint = document.getElementById('goal-hint'), svg = stage.querySelector('svg');
+  const lines = [...stage.querySelectorAll('.gs-line')], ring = stage.querySelector('.gs-ring'), note = stage.querySelector('.gs-note'), kan = [...stage.querySelectorAll('.gs-kanji span')];
+  const W = 400, Y = [35,55,75,95,115], CIRC = 2*Math.PI*38, CHARGE_MS = 1800;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const IDLE = '音符を長押しして、魂をこめてください';
+  let holding = false, t0 = 0, charge = 0, peak = 0, amp = 0, dur = 1, t1 = 0, sc = 1, raf = 0, ac;
+  const clamp = (v,a,b) => Math.min(b, Math.max(a,v));
+
+  function frame(now){
+    raf = 0;
+    if(holding){
+      charge = clamp((now - t0) / CHARGE_MS, 0, 1);
+      const m = charge >= 1 ? '魂、こもりました。はなしてください' : charge > .5 ? 'もうすこし…' : 'こめています…';
+      if(hint.textContent !== m) hint.textContent = m;
+    }
+    let wave = 0, env = 0;
+    if(!holding && amp > 0){ env = Math.exp(-3.2 * (now - t1) / 1000 / dur); if(env < .02) amp = 0; else wave = amp * env }   // 余韻：だんだん小さくなる
+    const lit = holding ? charge : peak * env;
+    lines.forEach((p,i) => {                                  // 五線：弦のように震える（溜めている間は小さく細かく）
+      let d = 'M0 ' + Y[i];
+      for(let x = 8; x <= W; x += 8){
+        const s = Math.sin(Math.PI * x / W);
+        let y = Y[i] + wave * s * Math.sin(now / 1000 * 20 + i * .6);
+        if(holding && !reduce) y += (Math.random() - .5) * 3.2 * charge * s;
+        d += 'L' + x + ' ' + y.toFixed(1);
+      }
+      p.setAttribute('d', d);
+    });
+    sc += ((holding ? 1 + .25 * charge : 1) - sc) * .25;       // 音符：溜めるほど少し大きく
+    note.setAttribute('transform', 'translate(200 75) scale(' + sc.toFixed(3) + ') translate(-200 -75)');
+    ring.style.strokeDashoffset = (CIRC * (1 - charge)).toFixed(1);
+    kan.forEach((s,i) => { s.style.opacity = (.16 + .84 * clamp(lit * 4 - i, 0, 1)).toFixed(2) });   // 一→音→入→魂 の順に光る
+    if(holding || amp > 0 || Math.abs(sc - 1) > .002 || charge > 0) raf = requestAnimationFrame(frame);
+  }
+  function play(c){                                           // 一音：吹奏楽のチューニングの音 B♭（466.16Hz）。のこぎり波をフィルターで丸めて、管楽器のような音色に。こもるほど大きく、長く、ビブラートも
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)(); ac.resume();
+    const t = ac.currentTime, d = 1.2 + 2.4 * c, v = .12 + .2 * c;
+    const flt = ac.createBiquadFilter(); flt.type = 'lowpass'; flt.Q.value = 1.2;   // 音のはじめは丸く、少し開いて、また閉じる（管楽器の吹き込み）
+    flt.frequency.setValueAtTime(600, t); flt.frequency.linearRampToValueAtTime(1400 + 1600 * c, t + .14); flt.frequency.exponentialRampToValueAtTime(500, t + d);
+    flt.connect(ac.destination);
+    [[233.08,'sine',.5],[466.16,'sawtooth',.55],[932.33,'triangle',.06 + .22 * c]].forEach(([f,type,g], k) => {   // B♭3（1オクターブ下）／B♭4／B♭5
+      const o = ac.createOscillator(), n = ac.createGain(); o.type = type; o.frequency.value = f;
+      n.gain.setValueAtTime(0, t); n.gain.linearRampToValueAtTime(v * g, t + .07); n.gain.exponentialRampToValueAtTime(.0001, t + d);
+      if(k === 1){ const l = ac.createOscillator(), lg = ac.createGain(); l.frequency.value = 5.5; lg.gain.value = 2 + 6 * c; l.connect(lg); lg.connect(o.frequency); l.start(t); l.stop(t + d + .05) }
+      o.connect(n); n.connect(flt); o.start(t); o.stop(t + d + .05);
+    });
+  }
+  function pulses(c){                                         // 音符から広がる輪（こもるほど数が増える）
+    for(let i = 0; i < 1 + Math.round(c * 2); i++){
+      const e = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      e.setAttribute('class', 'gs-pulse'); e.setAttribute('cx', 200); e.setAttribute('cy', 75); e.setAttribute('r', 38);
+      e.style.animationDelay = (i * .18) + 's'; e.addEventListener('animationend', () => e.remove()); svg.appendChild(e);
+    }
+  }
+  function start(){
+    if(holding) return; holding = true; t0 = performance.now(); charge = 0;
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)(); ac.resume();   // 音は、触った瞬間に使えるようにしておく
+    if(!raf) raf = requestAnimationFrame(frame);
+  }
+  function release(){
+    if(!holding) return; holding = false; const c = charge; charge = 0; peak = c;
+    dur = 1.2 + 2.4 * c; amp = reduce ? 0 : 5 + 16 * c; t1 = performance.now();
+    play(c); pulses(c);
+    hint.textContent = c < .35 ? 'もっと長く押すと、もっとこもります。' : c < .9 ? 'いい音。いっぱいまで押すと…？' : '一音入魂！ 吹奏楽のチューニングの音、B♭です。';
+    if(!raf) raf = requestAnimationFrame(frame);
+  }
+  function cancel(){ if(!holding) return; holding = false; charge = 0; hint.textContent = IDLE }   // スクロールなどで中断：音は鳴らさない
+  stage.addEventListener('pointerdown', e => { if(e.button > 0) return; if(stage.setPointerCapture) stage.setPointerCapture(e.pointerId); start() });
+  stage.addEventListener('pointerup', release);
+  stage.addEventListener('pointercancel', cancel);
+  stage.addEventListener('contextmenu', e => e.preventDefault());
+  stage.addEventListener('keydown', e => { if((e.key === ' ' || e.key === 'Enter') && !e.repeat){ e.preventDefault(); start() } });
+  stage.addEventListener('keyup', e => { if(e.key === ' ' || e.key === 'Enter'){ e.preventDefault(); release() } });
+  frame(performance.now());                                   // 最初の五線を描く
+})();
+
 </script>
 </body>
 </html>
