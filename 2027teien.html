@@ -1,0 +1,802 @@
+<title>木曽青峰高校吹奏楽部 20周年記念定期演奏会</title>
+<meta name="description" content="木曽青峰高校吹奏楽部の20周年記念定期演奏会。2027年7月25日、木曽文化公園文化ホール。海を進むように、20年のあゆみをたどる特設ページ。">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kiwi+Maru:wght@400;500&family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: one full-screen sea drawn on the GPU (WebGL shaders). Intro (particle "20") -> click -> a current of light drifts sideways; one ring per year 2007-2027 (DOM buttons riding the current), ring tint = best contest result. At the end the sea calms and announces the concert; scrolling on reveals the real information. */
+:root{
+  --brown:#542c23; --coral:#e04d66; --sky:#31a6f6; --foam:#a1d3e3; --kelp:#c9cf9d; --wine:#950452; --sand:#cf9a5e; --deep:#0288d9; --abyss:#010a1c;
+  --ink:#fff; --ink-soft:rgba(255,255,255,.82);
+  --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --num:Anton,Impact,"Arial Narrow",sans-serif;
+  --R:34px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{overflow:hidden;scrollbar-gutter:stable}
+html.free{overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
+body{background:linear-gradient(180deg,#2b86cb,#0273bd);color:var(--ink);font-family:var(--gothic);-webkit-font-smoothing:antialiased}
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;touch-action:none;cursor:grab}
+body.drag #gl{cursor:grabbing}
+body.atend #gl,body.atend .mk .ring{touch-action:pan-y}
+
+/* year rings (DOM, moved by transform from the render loop) */
+.mks{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity 1.2s .5s;overflow:hidden}
+.mks.on{opacity:1}
+.mk{position:absolute;left:0;top:0;width:0;height:0;will-change:transform;visibility:hidden;--n:0;--k:1;--tint:255,255,255;--h:72px}
+.mk.g{--tint:224,77,102}.mk.s{--tint:161,211,227}.mk.big{--k:1.28}
+.mk .ring{pointer-events:auto;position:absolute;left:calc(var(--R)*var(--k)*-1);top:calc(var(--R)*var(--k)*-1);width:calc(var(--R)*var(--k)*2);height:calc(var(--R)*var(--k)*2);border-radius:50%;border:1.4px solid rgba(255,255,255,.92);background:rgba(var(--tint),0);padding:0;cursor:pointer;color:#fff;transition:transform .3s,background .3s;touch-action:none}
+.mk.g .ring,.mk.s .ring{background:rgba(var(--tint),.2)}
+.mk.big .ring{background:rgba(var(--tint),.3)}
+.mk .ring::before,.mk .ring::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(var(--tint),.42);pointer-events:none;animation:pulse 3.4s ease-in-out infinite}
+.mk .ring::before{inset:-8px}
+.mk .ring::after{inset:-16px;border-color:rgba(var(--tint),.22);animation-delay:-1.2s}
+@keyframes pulse{50%{transform:scale(1.07);opacity:.6}}
+.mk .ring:hover,.mk .ring:focus-visible{transform:scale(1.1)}
+.mk .ring:focus-visible{outline:2px solid #fff;outline-offset:6px}
+.mk.sel .ring{background:rgba(161,211,227,.38)}
+.mk .core{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;border:1px solid rgba(255,255,255,.9);pointer-events:none}
+.mk .core::after{content:"";position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px 0 0 -2px;border-radius:50%;background:rgb(var(--tint))}
+.mk .stem{position:absolute;left:0;bottom:calc(var(--R)*var(--k));width:1px;height:var(--h);background:linear-gradient(transparent,rgba(255,255,255,.55));pointer-events:none}
+.mk .stem::after{content:"";position:absolute;left:-2.5px;top:-3px;width:6px;height:6px;border-radius:50%;background:rgb(var(--tint))}
+.mk .lb{position:absolute;left:0;bottom:calc(var(--R)*var(--k) + var(--h) + 10px);transform:translateX(-50%);text-align:center;white-space:nowrap;pointer-events:none;opacity:calc(.62 + .38*var(--n));text-shadow:0 1px 10px rgba(0,25,60,.55)}
+.mk .lb b{display:block;font:400 20px/1.1 var(--num);letter-spacing:.1em;transform:scale(calc(1 + .15*var(--n)))}
+.mk.big .lb b{font-size:26px}
+.mk .lb em{display:block;font-style:normal;font-size:12px;letter-spacing:.1em;margin-top:4px;color:rgba(255,255,255,.88)}
+.mk.g .lb em{color:#ffc2cc}.mk.s .lb em{color:var(--foam)}
+
+.head{transition:opacity .5s;position:fixed;left:0;right:0;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;
+  padding:calc(24px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) 0 max(24px,env(safe-area-inset-left,0px));pointer-events:none}
+body.deep .head{opacity:0;pointer-events:none}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--mincho);font-weight:700;font-size:16px;letter-spacing:.06em;line-height:1.3;text-shadow:0 1px 10px rgba(0,30,70,.45)}
+.brand small{display:block;font-family:var(--num);font-weight:400;font-size:11px;letter-spacing:.24em;opacity:.9;margin-top:3px}
+.mark{position:relative;width:34px;height:34px;flex:none;display:grid;place-items:center}
+.mark svg{width:34px;height:30px}
+.mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.snd{pointer-events:auto;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(1,10,28,.18);color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .2s}
+.snd:hover{background:rgba(255,255,255,.18)}
+.snd:focus-visible,.about:focus-visible,.close:focus-visible,#intro:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.snd svg{width:20px;height:20px}
+.snd .off{display:none}.snd.muted .on{display:none}.snd.muted .off{display:block}
+
+#intro{position:fixed;inset:0;z-index:3;display:grid;place-items:center;cursor:pointer;transition:opacity 1s ease,visibility 1s}
+#intro.gone{opacity:0;visibility:hidden;pointer-events:none}
+.intro-text{position:relative;text-align:center;display:grid;gap:.7em;padding:0 max(18px,env(safe-area-inset-left,0px));margin-top:-2vh;text-shadow:0 2px 22px rgba(0,25,60,.55)}
+.intro-text p{margin:0;line-height:1.45;text-wrap:balance}
+.l1{font-family:var(--mincho);font-weight:500;font-size:clamp(14px,1.9vw,24px);letter-spacing:.12em}
+.l2{font-family:var(--gothic);font-weight:300;font-size:clamp(28px,5.2vw,72px);letter-spacing:.01em;line-height:1.25!important}
+.l3{font-family:var(--mincho);font-weight:500;font-size:clamp(14px,1.9vw,24px);letter-spacing:.1em}
+.ch{display:inline-block;white-space:pre;opacity:0;filter:blur(10px);animation:chin 1.1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--d) * 1ms)}
+@keyframes chin{to{opacity:1;filter:blur(0)}}
+.g .ch{animation:none;opacity:0}
+.cta{position:absolute;left:0;right:0;bottom:calc(48px + env(safe-area-inset-bottom,0px));display:grid;justify-items:center;gap:18px;font-family:var(--num);font-size:12px;letter-spacing:.34em;opacity:0;animation:chin 1.2s 3.4s forwards}
+.g .cta{animation:none}
+.cta svg{width:190px;height:26px;overflow:visible}
+.cta path{stroke:#fff;fill:none;stroke-width:1.2;stroke-dasharray:6 400;animation:flow 3.2s ease-in-out infinite}
+@keyframes flow{0%{stroke-dasharray:0 400}60%,100%{stroke-dasharray:400 0}}
+
+#ui{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity 1.2s .4s}
+#ui.on{opacity:1}
+.hint{position:absolute;left:50%;bottom:calc(66px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);text-align:center;font-family:var(--num);font-size:11px;letter-spacing:.3em;line-height:1.9;display:grid;justify-items:center;gap:10px;width:max-content;max-width:90vw;text-shadow:0 1px 8px rgba(0,30,70,.5)}
+.hint .knob{display:flex;align-items:center}
+.hint .knob i{display:block;width:44px;height:1px;background:rgba(255,255,255,.65)}
+.hint .knob b{display:block;width:12px;height:20px;border-radius:7px;border:1px solid #fff;margin:0 8px;position:relative}
+.hint .knob b::after{content:"";position:absolute;left:50%;top:4px;width:2px;height:4px;margin-left:-1px;background:#fff;border-radius:1px;animation:wheel 1.8s infinite}
+@keyframes wheel{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(7px)}}
+.legend{position:absolute;left:max(24px,env(safe-area-inset-left,0px));bottom:calc(52px + env(safe-area-inset-bottom,0px));display:grid;gap:7px;font-size:11px;letter-spacing:.08em;color:var(--ink-soft)}
+.legend span{display:flex;align-items:center;gap:8px}
+.legend i{display:block;width:12px;height:12px;border-radius:50%;border:1.5px solid #fff}
+.legend .g{background:var(--coral);border-color:var(--coral)}
+.legend .s{background:var(--foam);border-color:var(--foam)}
+.bar{position:absolute;left:max(24px,env(safe-area-inset-left,0px));right:max(24px,env(safe-area-inset-right,0px));bottom:calc(24px + env(safe-area-inset-bottom,0px));height:18px;display:flex;align-items:flex-end;justify-content:space-between;font-family:var(--num);font-size:11px;letter-spacing:.2em}
+.bar .track{position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(255,255,255,.28)}
+.bar .fill{position:absolute;left:0;right:0;bottom:0;height:1px;background:#fff;transform:scaleX(0);transform-origin:left}
+.bar span{position:relative;top:-4px}
+.about{pointer-events:auto;position:absolute;right:max(24px,env(safe-area-inset-right,0px));bottom:calc(44px + env(safe-area-inset-bottom,0px));background:none;border:0;color:#fff;font-family:var(--num);font-size:13px;letter-spacing:.28em;cursor:pointer;padding:6px 0}
+.about:hover{text-decoration:underline;text-underline-offset:6px}
+
+.panel{position:fixed;top:0;bottom:0;right:0;z-index:8;width:min(470px,100%);padding:calc(56px + env(safe-area-inset-top,0px)) max(28px,env(safe-area-inset-right,0px)) calc(36px + env(safe-area-inset-bottom,0px)) 36px;
+  background:rgba(1,16,40,.7);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);border-left:1px solid rgba(161,211,227,.3);
+  transform:translateX(102%);transition:transform .6s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;gap:16px;overflow:auto}
+.panel.open{transform:none}
+.panel .tag{font-family:var(--num);font-size:12px;letter-spacing:.28em;color:var(--foam)}
+.panel .yr{font-family:var(--num);font-size:clamp(64px,10vw,100px);line-height:1;letter-spacing:.03em;color:var(--foam)}
+.panel .yr.gold{color:var(--coral)}
+.panel h2{margin:0;font-family:var(--mincho);font-weight:700;font-size:clamp(20px,2.8vw,26px);line-height:1.55;text-wrap:balance}
+.panel p{margin:0;font-size:15px;line-height:2;color:var(--ink-soft);max-width:34em}
+.sea{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;border:1px solid var(--kelp);color:var(--kelp);font-size:12px;letter-spacing:.14em}
+.panel dl{margin:0;display:grid;grid-template-columns:7em 1fr;gap:0}
+.panel dl>div{display:contents}
+.panel dt,.panel dd{padding:12px 0;border-top:1px solid rgba(161,211,227,.25);font-size:14.5px;line-height:1.7}
+.panel dt{color:var(--foam);letter-spacing:.1em;font-size:12.5px;padding-top:14px}
+.panel dd{margin:0;color:#fff}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:-1px}
+.dot.g{background:var(--coral)}.dot.s{background:var(--foam)}.dot.n{background:var(--sand)}
+.close{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;cursor:pointer;font-size:20px;line-height:1}
+.close:hover{background:rgba(255,255,255,.16)}
+.nav{margin-top:auto;display:flex;gap:12px;padding-top:12px}
+.nav button{flex:1;padding:12px 14px;border-radius:999px;border:1px solid rgba(161,211,227,.5);background:transparent;color:#fff;font-family:var(--num);font-size:12px;letter-spacing:.2em;cursor:pointer}
+.nav button:hover{background:rgba(49,166,246,.28)}
+.nav button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.nav button[disabled]{opacity:.35;cursor:default;background:transparent}
+.src{font-size:11.5px!important;color:rgba(255,255,255,.6)!important;line-height:1.8!important}
+
+.endcap{position:fixed;z-index:2;left:38%;right:5%;top:17%;display:grid;gap:10px;justify-items:start;opacity:0;transform:translateY(14px);transition:opacity 1s,transform 1s;pointer-events:none;text-shadow:0 2px 18px rgba(0,20,50,.6)}
+.endcap.on{opacity:1;transform:none}
+.endcap .e1{margin:0;font-family:var(--num);font-size:14px;letter-spacing:.34em;color:var(--coral)}
+.endcap .e2{margin:0;font-family:var(--mincho);font-weight:700;font-size:clamp(28px,4.6vw,62px);line-height:1.35;letter-spacing:.04em}
+.endcap .e3{margin:0;font-family:var(--num);font-size:clamp(44px,7vw,100px);line-height:1;letter-spacing:.03em;color:var(--foam)}
+.endcap .e3 small{font-size:.4em;letter-spacing:.2em;color:#fff}
+.endcap .e4{margin:0;font-size:15px;letter-spacing:.1em}
+.endbtn{margin-top:8px;padding:12px 28px;border-radius:999px;border:1px solid #fff;background:rgba(1,10,28,.25);color:#fff;font-family:var(--mincho);font-weight:500;font-size:15px;letter-spacing:.12em;cursor:pointer}
+.endcap.on .endbtn{pointer-events:auto}
+.endbtn:hover{background:rgba(255,255,255,.2)}
+.endbtn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+.stage{height:calc(100svh + 170px)}
+#info{position:relative;z-index:4;background:var(--abyss);color:#fff;font-family:var(--gothic)}
+#info::before{content:"";position:absolute;left:0;right:0;top:-170px;height:170px;background:linear-gradient(180deg,rgba(1,10,28,0),#010a1c);pointer-events:none}
+.bubs{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.bub{position:absolute;border-radius:50%;border:1px solid rgba(161,211,227,.32);background:radial-gradient(circle at 32% 30%,rgba(161,211,227,.2),rgba(161,211,227,.03) 70%);animation:bob 10s ease-in-out infinite}
+@keyframes bob{50%{translate:0 -24px}}
+.iw{position:relative;max-width:980px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.isec{position:relative;padding-block:84px}
+.isec p{margin:0;font-size:15.5px;line-height:2.05;color:rgba(255,255,255,.84);max-width:36em}
+.isec p+p{margin-top:16px}
+.sh{margin:0;font-family:var(--mincho);font-weight:700;font-size:clamp(24px,4.2vw,36px);line-height:1.5}
+.sh .en{display:block;font:400 13px var(--num);letter-spacing:.34em;color:var(--foam);margin-bottom:10px}
+.sh .en::before{content:"";display:inline-block;width:28px;height:2px;background:var(--coral);vertical-align:middle;margin-right:12px}
+.lead{text-align:center;padding-top:30px;padding-bottom:72px}
+.lead p{max-width:none;margin-inline:auto}
+.lead .e1{font:400 14px var(--num);letter-spacing:.34em;color:var(--coral)}
+.lead .lh{margin:16px 0 0;font-family:var(--mincho);font-weight:700;font-size:clamp(28px,5.6vw,58px);line-height:1.45;letter-spacing:.04em;text-wrap:balance}
+.lead .big{font:400 clamp(120px,32vw,300px)/.92 var(--num)!important;letter-spacing:.02em;color:var(--foam)!important;margin-top:28px;text-shadow:0 0 60px rgba(49,166,246,.35)}
+.lead .dt{font-family:var(--mincho);font-weight:500;font-size:clamp(16px,2.6vw,22px)!important;letter-spacing:.1em;color:#fff!important}
+.pill{display:inline-block;margin-top:18px;padding:6px 20px;border-radius:999px;background:var(--coral);color:#fff;font-weight:500;font-size:14px;letter-spacing:.2em}
+.lead .lc{margin-top:22px;font-family:var(--mincho);font-size:18px!important;color:#fff!important}
+.jump{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:36px}
+.jump a{padding:9px 18px;border:1px solid rgba(161,211,227,.5);border-radius:999px;color:var(--foam);text-decoration:none;font:400 12px var(--num);letter-spacing:.2em}
+.jump a:hover{background:rgba(49,166,246,.25);color:#fff}
+.jump a:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.rows{margin:30px 0 0}
+.rows>div{display:grid;grid-template-columns:9.5em 1fr;gap:16px;padding:16px 0;border-top:1px solid rgba(161,211,227,.25)}
+.rows dt{color:var(--foam);font-size:13px;letter-spacing:.14em;padding-top:2px}
+.rows dd{margin:0;font-size:15.5px;line-height:1.8}
+.ph{background:rgba(224,77,102,.24);border-bottom:2px solid var(--coral);padding:0 2px}
+.two{display:grid;gap:40px}
+.isec .vt{font-family:'Kiwi Maru',serif;color:var(--foam);font-size:clamp(44px,12vw,64px);line-height:1.3;max-width:none;letter-spacing:.2em;text-align:center;margin:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px 0 28px}
+.stats div{border-top:1px solid rgba(161,211,227,.3);padding-top:14px}
+.stats b{display:block;font:400 clamp(48px,9vw,76px)/1 var(--num);color:var(--foam);letter-spacing:.03em}
+.stats span{display:block;font-size:13px;letter-spacing:.14em;margin-top:6px}
+.prog{list-style:none;padding:0;margin:30px 0 0}
+.prog li{display:flex;gap:20px;padding:22px 0;border-top:1px solid rgba(161,211,227,.25)}
+.prog b{font:400 40px/1 var(--num);color:var(--foam);letter-spacing:.04em}
+.prog h3,.tier h3{margin:0 0 4px;font-family:var(--mincho);font-weight:700;font-size:18px}
+.prog p,.tier p{font-size:14.5px!important}
+.tier{list-style:none;padding:0;margin:30px 0 0}
+.tier li{padding:22px 0;border-top:1px solid rgba(161,211,227,.25)}
+.btn{display:inline-block;margin:24px 12px 0 0;padding:.85em 2.2em;border:1px solid var(--foam);border-radius:999px;color:#fff;text-decoration:none;background:rgba(49,166,246,.2);font-family:var(--mincho);letter-spacing:.1em}
+.btn:hover{background:rgba(49,166,246,.42)}
+.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.fin{text-align:center;padding-block:110px 70px}
+.fin p{max-width:none;margin-inline:auto;font-family:var(--mincho);font-weight:700;font-size:clamp(24px,5vw,44px);line-height:1.6;color:#fff}
+.ifoot{position:relative;border-top:1px solid rgba(161,211,227,.2);padding-block:40px calc(40px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--foam);font-size:12.5px;line-height:2}
+.ifoot p{max-width:none;margin:0 auto;font-size:12.5px;color:var(--foam)}
+.ifoot a{color:var(--foam)}
+.ifoot button{margin-top:14px;background:none;border:1px solid rgba(161,211,227,.5);border-radius:999px;color:var(--foam);font:400 12px var(--num);letter-spacing:.2em;padding:9px 22px;cursor:pointer}
+.ifoot button:hover{background:rgba(49,166,246,.25);color:#fff}
+@media (min-width:760px){
+  .two{grid-template-columns:1fr auto;gap:56px}
+  .isec .vt{writing-mode:vertical-rl;text-align:left}
+  .tier{display:grid;grid-template-columns:repeat(3,1fr)}
+  .tier li{border-top:0;border-left:1px solid rgba(161,211,227,.25);padding:6px 24px}
+  .tier li:first-child{border-left:0;padding-left:0}
+}
+@media (max-width:700px){
+  .endcap{left:20px;right:20px;top:13%;justify-items:center;text-align:center}
+  .rows>div{grid-template-columns:1fr;gap:4px}
+}
+@media (max-width:600px){
+  .brand{font-size:13px}.mark{width:28px}
+  .legend{display:none}
+  .about{bottom:calc(42px + env(safe-area-inset-bottom,0px))}
+  .hint{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  .panel{padding-left:24px}
+  .panel dl{grid-template-columns:6em 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  .ch,.cta{animation-duration:.01s;animation-delay:0s}
+  .panel,.endcap{transition-duration:.01s}
+  .bub,.mk .ring::before,.mk .ring::after{animation:none}
+}
+</style>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="mks" id="mks"></div>
+
+<header class="head">
+  <div class="brand">
+    <span class="mark" aria-hidden="true">
+      <svg viewBox="0 0 34 30" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 12c4-5 7-5 11 0s7 5 11 0 6-4 8-2"/><path d="M2 19c4-5 7-5 11 0s7 5 11 0 6-4 8-2"/><path d="M2 26c4-5 7-5 11 0s7 5 11 0 6-4 8-2"/></svg>
+      <img src="favicon.svg" alt="" onload="this.previousElementSibling.style.display='none'" onerror="this.remove()">
+    </span>
+    <div><span>木曽青峰高校吹奏楽部</span><small>20TH ANNIVERSARY CONCERT</small></div>
+  </div>
+  <button class="snd muted" id="snd" aria-label="サウンドを切り替え" aria-pressed="false">
+    <svg class="on" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg>
+    <svg class="off" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
+  </button>
+</header>
+
+<section id="intro" role="button" tabindex="0" aria-label="クリックして20年のあゆみを見る">
+  <div class="intro-text" id="introText">
+    <p class="l1">木曽青峰高校吹奏楽部　20周年記念定期演奏会</p>
+    <p class="l2">Twenty years, one sea of sound</p>
+    <p class="l3">2027年7月25日（日）　木曽文化公園文化ホール</p>
+  </div>
+  <div class="cta">
+    <svg viewBox="0 0 190 26" aria-hidden="true"><path d="M2 14 C 30 14, 50 4, 80 12 S 130 24, 188 12"/></svg>
+    <span>CLICK TO DISCOVER</span>
+  </div>
+</section>
+
+<div id="ui">
+  <div class="legend" aria-hidden="true"><span><i class="g"></i>金賞</span><span><i class="s"></i>銀賞</span><span><i></i>記録なし</span></div>
+  <div class="hint"><div class="knob"><i></i><b></b><i></i></div><div id="hintTxt">DRAG OR SCROLL<br>TO NAVIGATE</div></div>
+  <button class="about" id="aboutBtn">INFORMATION ↓</button>
+  <div class="bar" aria-hidden="true"><span>2007</span><div class="track"></div><div class="fill" id="fill"></div><span>2027</span></div>
+</div>
+
+<aside class="panel" id="panel" role="dialog" aria-modal="false" aria-labelledby="pt" aria-hidden="true">
+  <button class="close" id="close" aria-label="閉じる">×</button>
+  <div class="tag" id="ptag">MILESTONE</div>
+  <div class="yr" id="py"></div>
+  <h2 id="pt"></h2>
+  <span class="sea" id="psea" hidden>〜 海にちなんだ曲</span>
+  <p id="pd" hidden></p>
+  <dl id="pdl" hidden></dl>
+  <p class="src" id="psrc" hidden>出典：Musica Bella 吹奏楽コンクールデータベース（長野県木曽青峰高等学校）をもとに作成</p>
+  <div class="nav"><button id="prev">← PREV</button><button id="next">NEXT →</button></div>
+</aside>
+
+<div class="endcap" id="endcap">
+  <p class="e1">20TH ANNIVERSARY CONCERT</p>
+  <h2 class="e2">20周年記念定期演奏会</h2>
+  <p class="e3">2027.7.25 <small>SUN</small></p>
+  <p class="e4">木曽文化公園文化ホール　入場無料</p>
+  <button class="endbtn" id="endGo">開催のご案内へ <span aria-hidden="true">↓</span></button>
+</div>
+
+<div class="stage" aria-hidden="true"></div>
+
+<main id="info">
+  <div class="bubs" aria-hidden="true">
+    <i class="bub" style="left:-60px;top:140px;width:220px;height:220px"></i>
+    <i class="bub" style="right:-40px;top:900px;width:170px;height:170px;animation-delay:-3s"></i>
+    <i class="bub" style="left:6%;top:1900px;width:120px;height:120px;animation-delay:-6s"></i>
+    <i class="bub" style="right:8%;top:2900px;width:200px;height:200px;animation-delay:-2s"></i>
+    <i class="bub" style="left:-30px;top:3900px;width:150px;height:150px;animation-delay:-5s"></i>
+  </div>
+
+  <section class="isec lead"><div class="iw">
+    <p class="e1">20TH ANNIVERSARY CONCERT</p>
+    <h2 class="lh">木曽青峰高校吹奏楽部<br>20周年記念定期演奏会</h2>
+    <p class="big">7.25</p>
+    <p class="dt">2027年 日曜日　木曽文化公園文化ホール</p>
+    <p><span class="pill">入場無料</span></p>
+    <p class="lc">ぜひ、聞きに来てください。</p>
+    <nav class="jump" aria-label="ページ内リンク"><a href="#i-info">INFORMATION</a><a href="#i-msg">MESSAGE</a><a href="#i-band">BAND</a><a href="#i-prog">PROGRAM</a><a href="#i-sponsor">SPONSORS</a><a href="#i-access">ACCESS</a></nav>
+  </div></section>
+
+  <section class="isec" id="i-info"><div class="iw">
+    <h2 class="sh"><span class="en">INFORMATION</span>開催のご案内</h2>
+    <p style="margin-top:24px">木曽文化公園文化ホールで開く、私たち主催の演奏会です。これまでの定期演奏会では、フレンドシップバンドの皆さんとも演奏ステージを開きました。</p>
+    <dl class="rows">
+      <div><dt>開催日</dt><dd>2027年7月25日（日）</dd></div>
+      <div><dt>開場・開演</dt><dd><span class="ph">【開場○時／開演○時】</span></dd></div>
+      <div><dt>会場</dt><dd>木曽文化公園文化ホール</dd></div>
+      <div><dt>住所</dt><dd>〒399-6101 長野県木曽郡木曽町日義4898-37</dd></div>
+      <div><dt>入場料</dt><dd>無料</dd></div>
+      <div><dt>整理券・申し込み</dt><dd><span class="ph">【必要／不要。必要な場合は入手方法】</span></dd></div>
+    </dl>
+  </div></section>
+
+  <section class="isec" id="i-msg"><div class="iw two">
+    <div>
+      <h2 class="sh"><span class="en">MESSAGE</span>感謝をこめて</h2>
+      <p style="margin-top:24px">木曽青峰高校吹奏楽部は、おかげさまで20周年を迎えます。木曽地域の皆さまから、地域での演奏会など多くの演奏の機会をいただいてきました。心より感謝申し上げます。</p>
+      <p>部活目標のとおり、ひとつひとつの音に気持ちをこめて練習を重ねています。来年度のコンクールでは東海大会出場をめざし、12月にはアンサンブルコンテストの地区大会にも挑戦します。</p>
+      <p>地域の皆さま、保護者の皆さま、中学生のみなさん、どなたでもお楽しみいただける演奏会にします。ぜひ聞きに来てください。部員一同、心をこめて演奏いたします。</p>
+    </div>
+    <p class="vt" aria-hidden="true">一音入魂</p>
+  </div></section>
+
+  <section class="isec" id="i-band"><div class="iw">
+    <h2 class="sh"><span class="en">BAND</span>木曽青峰高校吹奏楽部</h2>
+    <p style="margin-top:24px">長野県木曽青峰高等学校の吹奏楽部です。金賞を目指して、日々練習しています。</p>
+    <div class="stats">
+      <div><b>7</b><span>1年生</span></div>
+      <div><b>6</b><span>2年生</span></div>
+      <div><b>3</b><span>顧問</span></div>
+    </div>
+    <p>音楽室は、大体育館の前です。いつでも入れます。私たちの目印は音です。</p>
+    <a class="btn" href="https://seihosuisogaku.morinosugi.com/" target="_blank" rel="noopener">部の公式サイトへ</a>
+    <a class="btn" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagram @shwo._.official</a>
+    <p class="src" style="margin-top:22px;font-size:12px;color:rgba(255,255,255,.55)">人数は、部の公式サイト「新入生歓迎2027」の記載にもとづきます。</p>
+  </div></section>
+
+  <section class="isec" id="i-prog"><div class="iw">
+    <h2 class="sh"><span class="en">PROGRAM</span>プログラム</h2>
+    <ol class="prog">
+      <li><b>01</b><div><h3><span class="ph">【1部のステージ名】</span></h3><p><span class="ph">【曲名・作曲者】</span></p></div></li>
+      <li><b>02</b><div><h3><span class="ph">【2部のステージ名】</span></h3><p><span class="ph">【曲名・作曲者】</span></p></div></li>
+      <li><b>03</b><div><h3><span class="ph">【3部のステージ名】</span></h3><p><span class="ph">【曲名・作曲者】</span></p></div></li>
+    </ol>
+    <dl class="rows"><div><dt>見どころ・ゲスト</dt><dd><span class="ph">【20周年ならではの企画、ゲストの紹介】</span></dd></div></dl>
+  </div></section>
+
+  <section class="isec" id="i-sponsor"><div class="iw">
+    <h2 class="sh"><span class="en">SPONSORS</span>ご協賛のお願い</h2>
+    <p style="margin-top:24px">木曽青峰高校吹奏楽部は、20周年記念定期演奏会を、地域の皆さまとともに迎えたいと考えています。演奏会の運営や記念の企画には、多くの準備が必要です。そこで、趣旨にご賛同いただける企業・団体・個人の皆さまに、ご協賛をお願いしております。</p>
+    <p>いただいたご支援は、<span class="ph">【使いみち：会場費・記念プログラム作成など】</span>に大切に使わせていただきます。</p>
+    <ul class="tier">
+      <li><h3><span class="ph">【コース名】</span></h3><p>協賛金：<span class="ph">【金額】</span><br>特典：<span class="ph">【プログラム掲載、会場掲示など】</span></p></li>
+      <li><h3><span class="ph">【コース名】</span></h3><p>協賛金：<span class="ph">【金額】</span><br>特典：<span class="ph">【特典】</span></p></li>
+      <li><h3><span class="ph">【コース名】</span></h3><p>協賛金：<span class="ph">【金額】</span><br>特典：<span class="ph">【特典】</span></p></li>
+    </ul>
+    <dl class="rows">
+      <div><dt>募集期間</dt><dd><span class="ph">【○月○日まで】</span></dd></div>
+      <div><dt>お名前の掲載</dt><dd><span class="ph">【掲載場所】</span>に掲載させていただきます。</dd></div>
+      <div><dt>お申し込み</dt><dd><span class="ph">【申し込み先（フォームのURL・連絡先）】</span></dd></div>
+    </dl>
+  </div></section>
+
+  <section class="isec" id="i-access"><div class="iw">
+    <h2 class="sh"><span class="en">ACCESS</span>アクセス・ご来場のみなさまへ</h2>
+    <a class="btn" style="margin-left:0" href="https://www.google.com/maps/search/?api=1&query=%E6%9C%A8%E6%9B%BD%E6%96%87%E5%8C%96%E5%85%AC%E5%9C%92%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB" target="_blank" rel="noopener">地図を見る（Google マップ）</a>
+    <dl class="rows">
+      <div><dt>アクセス</dt><dd><span class="ph">【最寄り駅・バス・車での行き方、帰りの交通手段】</span></dd></div>
+      <div><dt>駐車場</dt><dd><span class="ph">【台数・場所・無料か有料か】</span></dd></div>
+      <div><dt>持ち物</dt><dd><span class="ph">【整理券、上ばきなど】</span></dd></div>
+      <div><dt>撮影・録音</dt><dd><span class="ph">【ルールを書いてください】</span></dd></div>
+      <div><dt>車いすなどの配慮</dt><dd><span class="ph">【席の場所、付き添いの方への案内】</span></dd></div>
+      <div><dt>雨天・荒天時</dt><dd><span class="ph">【中止や変更のときの連絡方法】</span></dd></div>
+    </dl>
+  </div></section>
+
+  <section class="isec fin"><div class="iw">
+    <p>ぜひ、聞きに来てください。</p>
+    <a class="btn" style="margin-top:26px" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagram @shwo._.official</a>
+  </div></section>
+
+  <footer class="ifoot"><div class="iw">
+    <p>主催：木曽青峰高校吹奏楽部 <span class="ph">【後援：○○】</span></p>
+    <p>年表の出典：Musica Bella 吹奏楽コンクールデータベース（長野県木曽青峰高等学校）をもとに作成しました。</p>
+    <p><a href="https://seihosuisogaku.morinosugi.com/" target="_blank" rel="noopener">部の公式サイト</a>　© 木曽青峰高校吹奏楽部</p>
+    <button id="toTop">ページの先頭へ ↑</button>
+  </div></footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ============ 年表データ ============
+   Musica Bella 吹奏楽コンクールデータベース（長野県木曽青峰高等学校）の記録を転記したものです。
+   lv: 3=金賞あり / 2=銀賞あり / 0=記録なし   k=課題曲  p=自由曲  a=作曲者  r=[大会名, 結果]
+   memo: ここに思い出の一文を書くと、その年のパネルに表示されます。 */
+const EVENTS = [
+  {y:2007,lv:0,start:true},
+  {y:2008,lv:0},
+  {y:2009,lv:2,k:'II コミカル★パレード（島田尚美）',p:'「ペルセウス」―大空を翔る英雄の戦い',a:'八木澤教司',r:[['中南信地区大会','銀賞']]},
+  {y:2010,lv:2,k:'II オーディナリー・マーチ（高橋宏樹）',p:'アブサロン',a:'アッペルモント',r:[['中南信地区大会','銀賞']]},
+  {y:2011,lv:2,k:'I マーチ「ライヴリー アヴェニュー」（堀田庸元）',p:'元禄',a:'櫛田胅之扶',r:[['中南信地区大会','銀賞']]},
+  {y:2012,lv:3,p:'いつも風 巡り会う空',a:'福島弘和',r:[['中南信地区大会','金賞・代表'],['長野県大会','金賞・代表・藤森章音楽賞'],['東海大会','金賞']]},
+  {y:2013,lv:2,sea:1,k:'IV エンターテインメント・マーチ（川北栄樹）',p:'海のフォルトゥナ',a:'樽屋雅徳',r:[['中南信地区大会','銀賞']]},
+  {y:2014,lv:2,p:'バレエ音楽《青銅の騎士》',a:'グリエール（編曲：森田一浩）',r:[['長野県大会','銀賞']]},
+  {y:2015,lv:2,p:'カルカソンヌの城',a:'広瀬勇人',r:[['長野県大会','銀賞']]},
+  {y:2016,lv:2,p:'3つのアメリカの風景',a:'広瀬勇人',r:[['長野県大会','銀賞']]},
+  {y:2017,lv:2,p:'フィールズ・オーバーチュア',a:'高橋宏樹',r:[['長野県大会','銀賞']]},
+  {y:2018,lv:2,sea:1,p:'吹奏楽のための音詩「輝きの海へ」',a:'八木澤教司',r:[['長野県大会','銀賞']]},
+  {y:2019,lv:0},{y:2020,lv:0},{y:2021,lv:0},{y:2022,lv:0},
+  {y:2023,lv:2,sea:1,p:'遙遠の海 〜アウロラを求めて〜',a:'田村修平',r:[['中南信地区大会','銀賞・代表'],['長野県大会','銀賞']]},
+  {y:2024,lv:2,p:'悠久慕情譜 ～静御前の涙に寄せて～',a:'八木澤教司',r:[['長野県大会','銀賞']]},
+  {y:2025,lv:3,p:'女化稲荷月朧夜 ～狐の恩返し伝説による幻想曲～',a:'阿部勇一',r:[['長野県大会','金賞・奨励賞']]},
+  {y:2026,lv:3,p:'水神龍蛙 龍ケ崎、雨蛙フク伝説による幻想曲',a:'阿部勇一',r:[['長野県大会','金賞']]},
+  {y:2027,lv:9,concert:1}
+];
+const CONCERT = [["日時","2027年7月25日（日）　開場・開演は決まり次第お知らせします"],["会場","木曽文化公園文化ホール"],["住所","〒399-6101 長野県木曽郡木曽町日義4898-37"],["入場料","無料"],["モットー","一音入魂"]];
+/* ===================================================== */
+
+(() => {
+'use strict';
+const $=s=>document.querySelector(s);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const coarse=matchMedia("(pointer: coarse)").matches;
+const root=document.documentElement;
+const G=window.gsap||null, ST=G&&window.ScrollTrigger||null;
+if(G){try{if(ST)G.registerPlugin(ST);root.classList.add("g")}catch(e){root.classList.remove("g")}}
+if(coarse)$("#hintTxt").innerHTML="SWIPE<br>TO NAVIGATE";
+const lerp=(a,b,t)=>a+(b-a)*t, rnd=(a,b)=>a+Math.random()*(b-a);
+const sm=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t)};
+const N=EVENTS.length;
+
+/* ---------- intro letters ---------- */
+(()=>{let n=0;document.querySelectorAll("#introText p").forEach(p=>{const t=p.textContent;p.textContent="";
+  [...t].forEach(c=>{const s=document.createElement("span");s.className="ch";s.textContent=c;s.style.setProperty("--d",(500+n*30+Math.random()*150)|0);n++;p.appendChild(s)})})})();
+if(root.classList.contains("g")){try{
+  G.fromTo(".ch",{opacity:0,filter:"blur(10px)"},{opacity:1,filter:"blur(0px)",duration:1.1,ease:"power2.out",stagger:.03,delay:.5});
+  G.fromTo(".cta",{opacity:0},{opacity:1,duration:1.2,delay:3.2});
+}catch(e){root.classList.remove("g")}}
+
+/* ---------- state ---------- */
+let W=0,H=0,DPR=1;
+const S={state:"intro",off:0,target:0,spacing:520,pad:0,maxOff:0,leaveT:0,introStart:0};
+let drag=false,moved=0,sx0=0,off0=0,openIdx=-1,active=0,atEndNow=false,endShown=false;
+const mx=i=>S.pad+i*S.spacing;
+const sc=()=>H/900;
+function cyJS(x){const c=H*.5+Math.sin(x*.0042+.6)*H*.07+Math.sin(x*.0013+2)*H*.085,xe=mx(N-1);return lerp(c,H*.66,sm(xe-W*.25,xe+W*.02,x))}
+const clamp=v=>Math.max(0,Math.min(S.maxOff,v));
+const atEnd=()=>S.maxOff>0&&S.target>=S.maxOff-2;
+
+/* ---------- WebGL (plain GLSL, everything on the GPU) ---------- */
+const canvas=$("#gl");
+let gl=null;
+try{gl=canvas.getContext("webgl",{antialias:false,alpha:false,powerPreference:"high-performance"})}catch(e){}
+if(!gl)root.classList.add("nogl");
+const U={uRes:[1,1],uDpr:1,uTime:0,uOff:0,uXe:0,uSp:500,uTL:0,uD:0,uC1:[.17,.53,.8],uC2:[0,.45,.74],uIT:0,uOut:-1};
+const COMMON=`precision highp float;
+uniform vec2 uRes;uniform float uDpr,uTime,uOff,uXe,uSp,uTL,uIT,uOut;
+float SC(){return uRes.y/900.;}
+float CY(float x){float H=uRes.y,W=uRes.x;float c=H*.5+sin(x*.0042+.6)*H*.07+sin(x*.0013+2.)*H*.085;return mix(c,H*.66,smoothstep(uXe-W*.25,uXe+W*.02,x));}
+float ENV(float x){float W=uRes.x;return (8.+78.*pow(abs(sin(x*.0016+.5)),1.4))*SC()*(1.-.8*smoothstep(uXe-W*.1,uXe+W*.3,x));}
+vec4 NDC(vec2 p){return vec4(p.x/uRes.x*2.-1.,1.-p.y/uRes.y*2.,0.,1.);}
+`;
+const FSPRE="#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n";
+const SH={};
+SH.bg={vs:`attribute vec2 aPos;void main(){gl_Position=vec4(aPos,0.,1.);}`,
+fs:`uniform vec2 uRes;uniform float uDpr,uTime,uOff,uTL,uD;uniform vec3 uC1,uC2;
+void main(){
+  vec2 fc=vec2(gl_FragCoord.x,uRes.y*uDpr-gl_FragCoord.y)/uDpr;
+  vec3 col=mix(uC1,uC2,fc.y/uRes.y);
+  for(int i=0;i<6;i++){float fi=float(i);
+    float r1=fract(sin(fi*12.9898)*43758.5453),r2=fract(sin(fi*78.233)*12345.6789);
+    float w=(.06+.08*r1)*uRes.x*.5;
+    float cx=(fi/5.*1.2-.1)*uRes.x*1.2-uOff*(.1+.2*r2)*.2+sin(uTime*.15+fi*2.)*40.+fc.y*.16;
+    float wv=w*(1.+fc.y/uRes.y*.6);
+    float ray=smoothstep(wv,0.,abs(fc.x-cx))*(1.-clamp(fc.y/(uRes.y*.9),0.,1.));
+    col+=vec3(.63,.83,.89)*ray*(.05+.05*r2)*(1.-.85*uD)*(.7+.3*sin(uTime*.4+fi*3.))*uTL;
+  }
+  for(int L=0;L<2;L++){float fl=float(L);
+    float par=L==0?.28:.5;float base=uRes.y*(L==0?.9:.93);float amp=uRes.y*(L==0?.045:.035);
+    float wx=fc.x+uOff*par;
+    float yb=base-amp*(sin(wx*.006+fl*2.)*.6+sin(wx*.017+fl)*.4)-amp;
+    float cov=smoothstep(yb-1.,yb+1.,fc.y);
+    vec3 lc=L==0?vec3(.812,.604,.369):vec3(.329,.173,.137);
+    col=mix(col,lc,cov*(L==0?.3:.88)*uTL);
+  }
+  col+=(fract(sin(dot(fc,vec2(12.9898,78.233)))*43758.5453)-.5)/255.;
+  gl_FragColor=vec4(col,1.);
+}`};
+SH.snow={vs:COMMON+`attribute vec4 aQ;attribute vec2 aP;varying float vA;
+void main(){float x=mod(aQ.x*uRes.x*1.6-uOff*aP.x*.5,uRes.x*1.6)-uRes.x*.3;float y=mod(aQ.y+uTime*.006*aP.x,1.)*uRes.y;
+vA=aQ.w*(.6+.4*sin(uTime*1.2+aP.y))*uTL;gl_Position=NDC(vec2(x,y));gl_PointSize=aQ.z*uDpr;}`,
+fs:`varying float vA;void main(){float d=length(gl_PointCoord-.5)*2.;gl_FragColor=vec4(.847,.933,.969,vA*(1.-smoothstep(.5,1.,d)));}`};
+SH.glow={vs:COMMON+`attribute float aI;varying float vA;
+void main(){float st=14.;float sx=aI*st-mod(uOff,st)-st;float wx=sx+uOff;vA=.036*uTL;gl_Position=NDC(vec2(sx,CY(wx)));gl_PointSize=70.*SC()*uDpr;}`,
+fs:`varying float vA;void main(){float d=length(gl_PointCoord-.5)*2.;gl_FragColor=vec4(.63,.83,.89,vA*exp(-d*d*3.)*(1.-smoothstep(.85,1.,d)));}`};
+SH.rib={vs:COMMON+`attribute float aI,aV,aP;varying vec4 vC;
+void main(){float st=3.8;float sx=aI*st-mod(uOff,st)-st;float wx=sx+uOff;
+float e=ENV(wx);float y=CY(wx)+e*(aV+.32*sin(wx*.005+uTime*.7+aV*3.2));
+float edge=1.-abs(aV)*.55;
+vec3 c=aP>.5?vec3(.878,.302,.4):vec3(.59+.41*edge,.8+.18*edge,.88+.12*edge);
+float a=aP>.5?.85:(.36+.5*edge);vC=vec4(c,a*uTL);
+gl_Position=NDC(vec2(sx,y));gl_PointSize=1.9*uDpr;}`,
+fs:`varying vec4 vC;void main(){float d=length(gl_PointCoord-.5)*2.;gl_FragColor=vec4(vC.rgb,vC.a*(1.-smoothstep(.5,1.,d)));}`};
+SH.pearl={vs:COMMON+`attribute vec4 aQ;attribute vec2 aR;varying vec3 vCol;varying float vA;
+void main(){float wx=aQ.x*(uSp/330.)+sin(uTime*.3*aQ.w+aQ.z)*18.;float sx=wx-uOff;
+float y=CY(wx)+ENV(wx)*aQ.y*(1.+.25*sin(uTime*aQ.w+aQ.z))+sin(uTime*.8+aQ.z)*5.;
+vCol=aR.y>.5?vec3(.878,.302,.4):vec3(.63,.83,.89);vA=uTL;gl_Position=NDC(vec2(sx,y));gl_PointSize=aR.x*4.8*uDpr;}`,
+fs:`varying vec3 vCol;varying float vA;void main(){float d=length(gl_PointCoord-.5)*2.;
+vec3 c=mix(vCol,vec3(1.),.35*(1.-smoothstep(0.,.4,d)));
+gl_FragColor=vec4(c,vA*(1.-smoothstep(.6,1.,d))*(.35+.65*exp(-d*d*3.)));}`};
+SH.bub={vs:COMMON+`attribute vec4 aQ;attribute vec2 aP;attribute vec2 aC;varying vec2 vU;varying float vR;
+void main(){float span=uRes.x*1.5;
+float x=mod(aQ.x*span-uOff*aP.x*.45,span)-uRes.x*.25+sin(uTime*.9*aQ.w+aP.y)*10.;
+float y=mod(aQ.y-uTime*.012*aQ.w,1.)*(uRes.y*1.1)-uRes.y*.05;
+vU=aC;vR=aQ.z;gl_Position=NDC(vec2(x,y)+aC*aQ.z);}`,
+fs:`varying vec2 vU;varying float vR;uniform float uTL;
+void main(){float d=length(vU);if(d>1.)discard;
+float hl=1.-smoothstep(0.,1.2,length(vU-vec2(-.35,-.35)));
+float fill=mix(.03,.26,hl);
+float ring=smoothstep(1.-1.6/vR,1.-.6/vR,d)*.55;
+float a=atan(vU.y,vU.x);
+float arc=smoothstep(.07,0.,abs(d-.68))*smoothstep(.55,0.,abs(a+2.3))*.75;
+float al=(fill+ring)*uTL;
+vec3 c=mix(vec3(.63,.83,.89),vec3(1.),arc);
+gl_FragColor=vec4(c,max(al,arc*uTL));}`};
+SH.intro={vs:COMMON+`attribute vec2 aT,aR,aVel;attribute vec3 aM;varying vec4 vC;
+void main(){float k=clamp((uIT-aM.x-.2)/1.7,0.,1.);float e=1.-pow(1.-k,3.);
+vec2 p=mix(aR,aT,e)+vec2(sin(uTime*.7+aM.y),cos(uTime*.9+aM.y))*1.5*e;
+float fade=1.;if(uOut>=0.){p+=aVel*uOut;fade=max(0.,1.-uOut/.9);}
+float sh=.5+.5*sin((aT.x*.9+aT.y*.55)*.045-uTime*.8);
+vec3 c=aM.z>.5?vec3(.878,.302,.4):vec3(.63+.37*sh,.83+.17*sh,.89+.11*sh);
+vC=vec4(c,(.3+.6*sh)*fade*(.2+.8*smoothstep(0.,.3,k)));
+gl_Position=NDC(p);gl_PointSize=1.9*uDpr;}`,
+fs:`varying vec4 vC;void main(){float d=length(gl_PointCoord-.5)*2.;gl_FragColor=vec4(vC.rgb,vC.a*(1.-smoothstep(.5,1.,d)));}`};
+
+function compile(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
+  if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s}
+function program(def){const p=gl.createProgram();gl.attachShader(p,compile(gl.VERTEX_SHADER,def.vs));gl.attachShader(p,compile(gl.FRAGMENT_SHADER,FSPRE+def.fs));
+  gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));return {p,loc:{}}}
+function mesh(prog,attrs,count,mode,blend){const m={prog,count,mode,blend,bufs:[],visible:true};
+  for(const k in attrs){const [arr,size]=attrs[k];const b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,arr,gl.STATIC_DRAW);
+    m.bufs.push({b,size,loc:gl.getAttribLocation(prog.p,k)})}return m}
+function draw(m){if(!m.visible)return;gl.useProgram(m.prog.p);
+  for(const k in U){let l=m.prog.loc[k];if(l===undefined)l=m.prog.loc[k]=gl.getUniformLocation(m.prog.p,k);if(l===null)continue;
+    const v=U[k];if(typeof v==="number")gl.uniform1f(l,v);else if(v.length===2)gl.uniform2fv(l,v);else gl.uniform3fv(l,v)}
+  for(const a of m.bufs){if(a.loc<0)continue;gl.bindBuffer(gl.ARRAY_BUFFER,a.b);gl.enableVertexAttribArray(a.loc);gl.vertexAttribPointer(a.loc,a.size,gl.FLOAT,false,0,0)}
+  if(m.blend==="add"){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE)}
+  else if(m.blend==="alpha"){gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA)}
+  else gl.disable(gl.BLEND);
+  gl.drawArrays(m.mode,0,m.count);
+  for(const a of m.bufs)if(a.loc>=0)gl.disableVertexAttribArray(a.loc)}
+function free(m){if(!m)return;m.bufs.forEach(a=>gl.deleteBuffer(a.b))}
+
+let P={},M={bg:null,snow:null,glow:null,rib:null,pearl:null,bub:null,intro:null};
+function initGL(){
+  for(const k in SH)P[k]=program(SH[k]);
+  gl.disable(gl.DEPTH_TEST);
+  M.bg=mesh(P.bg,{aPos:[new Float32Array([-1,-1,3,-1,-1,3]),2]},3,gl.TRIANGLES,"none");
+  // marine snow
+  const ns=150,q=new Float32Array(ns*4),p=new Float32Array(ns*2);
+  for(let i=0;i<ns;i++){q.set([Math.random(),Math.random(),rnd(.6,1.7),rnd(.25,.8)],i*4);p.set([rnd(.4,.9),Math.random()*6],i*2)}
+  M.snow=mesh(P.snow,{aQ:[q,4],aP:[p,2]},ns,gl.POINTS,"add");
+  // pearls
+  const np=60,pq=new Float32Array(np*4),pr=new Float32Array(np*2);
+  for(let j=0;j<np;j++){pq.set([j*150+rnd(0,120),rnd(-.5,.5),Math.random()*6,rnd(.4,1)],j*4);pr.set([rnd(4.5,8.5),j%7===3?1:0],j*2)}
+  M.pearl=mesh(P.pearl,{aQ:[pq,4],aR:[pr,2]},np,gl.POINTS,"add");
+  // bubbles: 6 vertices per bubble. every 4th one is big.
+  const nb=20,bq=new Float32Array(nb*6*4),bp=new Float32Array(nb*6*2),bc=new Float32Array(nb*6*2);
+  const corners=[[-1,-1],[1,-1],[-1,1],[-1,1],[1,-1],[1,1]];
+  for(let i=0;i<nb;i++){const big=i%4===0,r=big?rnd(34,64):rnd(9,30),s=big?rnd(.3,.6):rnd(.5,1.3),x=Math.random(),y=Math.random(),par=rnd(.3,.9),ph=Math.random()*6;
+    for(let v=0;v<6;v++){const o=i*6+v;bq.set([x,y,r,s],o*4);bp.set([par,ph],o*2);bc.set(corners[v],o*2)}}
+  M.bub=mesh(P.bub,{aQ:[bq,4],aP:[bp,2],aC:[bc,2]},nb*6,gl.TRIANGLES,"alpha");
+  buildRibbon();
+}
+function buildRibbon(){
+  free(M.rib);free(M.glow);
+  const st=3.8,Mi=Math.ceil((W+2*st)/st)+3,Sn=coarse?34:46,n=Mi*Sn;
+  const aI=new Float32Array(n),aV=new Float32Array(n),aP=new Float32Array(n);let o=0;
+  for(let k=0;k<Sn;k++)for(let i=0;i<Mi;i++){aI[o]=i;aV[o]=(k/(Sn-1))*2-1;aP[o]=k%13===6?1:0;o++}
+  M.rib=mesh(P.rib,{aI:[aI,1],aV:[aV,1],aP:[aP,1]},n,gl.POINTS,"add");
+  const g=Math.ceil((W+28)/14)+3,gI=new Float32Array(g);for(let i=0;i<g;i++)gI[i]=i;
+  M.glow=mesh(P.glow,{aI:[gI,1]},g,gl.POINTS,"add");
+}
+let introTok=0;
+async function buildIntro(){
+  if(!gl)return;
+  const tok=++introTok;
+  try{await document.fonts.load("400 200px Anton")}catch(e){}
+  if(tok!==introTok)return;
+  const oc=document.createElement("canvas");oc.width=W;oc.height=H;const o=oc.getContext("2d",{willReadFrequently:true});
+  const fs=Math.min(H*.86,W*.7);
+  o.fillStyle="#fff";o.font=`400 ${fs}px Anton, Impact, sans-serif`;o.textAlign="center";o.textBaseline="middle";o.fillText("20",W/2,H*.5);
+  const d=o.getImageData(0,0,W,H).data,step=Math.max(3,Math.round(Math.sqrt((W*H*.2)/26000)));
+  const xs=[],ys=[];let y0=1e9,y1=-1e9;
+  for(let y=0;y<H;y+=step)for(let x=0;x<W;x+=step)if(d[(y*W+x)*4+3]>128){xs.push(x+rnd(-1,1));ys.push(y+rnd(-1,1));if(y<y0)y0=y;if(y>y1)y1=y}
+  const n=xs.length,shift=H*.47-(y0+y1)/2;
+  const aT=new Float32Array(n*2),aR=new Float32Array(n*2),aVel=new Float32Array(n*2),aM=new Float32Array(n*3);
+  for(let i=0;i<n;i++){const ty=ys[i]+shift,a=Math.random()*6.283,r=Math.max(W,H)*rnd(.2,.7);
+    aT.set([xs[i],ty],i*2);aR.set([W/2+Math.cos(a)*r,H/2+Math.sin(a)*r],i*2);
+    const b=Math.atan2(ty-H/2,xs[i]-W/2)+rnd(-.5,.5),s=rnd(.4,2.6)*60;aVel.set([Math.cos(b)*s,Math.sin(b)*s-30],i*2);
+    aM.set([(xs[i]/W)*.9+Math.random()*.5,Math.random()*6.283,Math.random()<.07?1:0],i*3)}
+  free(M.intro);M.intro=mesh(P.intro,{aT:[aT,2],aR:[aR,2],aVel:[aVel,2],aM:[aM,3]},n,gl.POINTS,"add");
+  S.introStart=performance.now();
+}
+
+/* ---------- layout / resize ---------- */
+function layout(){
+  S.spacing=Math.max(300,Math.min(560,W*.36));S.pad=W*.3;
+  S.maxOff=Math.max(0,S.pad+(N-1)*S.spacing-(W<700?.5:.2)*W);
+  S.off=Math.min(S.off,S.maxOff);S.target=Math.min(S.target,S.maxOff);
+  U.uSp=S.spacing;U.uXe=mx(N-1);
+  const k=Math.max(.8,H/900);root.style.setProperty("--R",(34*k).toFixed(1)+"px");
+  MK.forEach((m,i)=>m.el.style.setProperty("--h",((72+(i%2)*28)*k).toFixed(1)+"px"));
+}
+function size(){
+  DPR=Math.min(devicePixelRatio||1,coarse?1.5:1.75);W=root.clientWidth||innerWidth;H=innerHeight;
+  if(gl){canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);gl.viewport(0,0,canvas.width,canvas.height);U.uRes=[W,H];U.uDpr=DPR}
+  layout();if(gl){if(P.rib)buildRibbon();buildIntro()}
+}
+
+/* ---------- year rings (DOM) ---------- */
+function subLabel(ev){
+  if(ev.concert)return"7.25　定期演奏会";
+  if(ev.start)return"木曽青峰として始動";
+  if(!ev.r)return"";
+  const r=ev.r[ev.r.length-1];return r[0].replace("中南信","")+" "+r[1].split("・")[0];
+}
+const mksEl=$("#mks");
+const MK=EVENTS.map((ev,i)=>{
+  const d=document.createElement("div");
+  d.className="mk"+(ev.concert?" big g":ev.lv===3?" g":ev.lv===2?" s":"");
+  d.innerHTML=`<i class="stem"></i><button class="ring" type="button" aria-label="${ev.y}年の${ev.concert?"演奏会情報":"記録"}を開く"><span class="core"></span></button><div class="lb"><b>${ev.y}</b><em>${subLabel(ev)}</em></div>`;
+  d.querySelector(".ring").addEventListener("click",()=>{if(moved>6)return;openPanel(i)});
+  mksEl.appendChild(d);return {el:d,vis:false,n:-1};
+});
+function updMarkers(){
+  let best=1e9;
+  for(let i=0;i<N;i++){
+    const m=MK[i],wx=mx(i),sx=wx-S.off;
+    if(sx<-180||sx>W+180){if(m.vis){m.el.style.visibility="hidden";m.vis=false}continue}
+    if(!m.vis){m.el.style.visibility="visible";m.vis=true}
+    m.el.style.transform=`translate3d(${sx.toFixed(1)}px,${cyJS(wx).toFixed(1)}px,0)`;
+    const dc=Math.abs(sx-W/2),near=Math.max(0,1-dc/(W*.45));
+    if(dc<best){best=dc;active=i}
+    if(Math.abs(near-m.n)>.02){m.n=near;m.el.style.setProperty("--n",near.toFixed(2))}
+  }
+}
+
+/* ---------- navigation ---------- */
+const inUI=t=>t&&t.closest&&t.closest(".panel,.snd,.about,.endbtn,#info,.head");
+function setTarget(v){S.target=clamp(v)}
+function goTo(i){setTarget(mx(i)-W*.32)}
+addEventListener("pointerdown",e=>{
+  if(S.state!=="out"||scrollY>1||(inUI(e.target)&&!e.target.closest(".ring")))return;
+  drag=true;moved=0;sx0=e.clientX;off0=S.target;document.body.classList.add("drag")});
+addEventListener("pointermove",e=>{if(!drag)return;const dx=e.clientX-sx0;moved=Math.max(moved,Math.abs(dx));setTarget(off0-dx*1.2)});
+const endDrag=()=>{drag=false;document.body.classList.remove("drag")};
+addEventListener("pointerup",endDrag);addEventListener("pointercancel",endDrag);
+let lastWheel=0;
+addEventListener("wheel",e=>{
+  if(S.state!=="out"||scrollY>1||(e.target.closest&&e.target.closest(".panel,#info")))return;
+  const nw=performance.now(),gap=nw-lastWheel;lastWheel=nw;
+  // end of the sea: after a short pause the next scroll moves the page down (momentum from the same flick is absorbed)
+  if(e.deltaY>0&&Math.abs(e.deltaY)>=Math.abs(e.deltaX)&&atEnd()&&gap>450)return;
+  e.preventDefault();setTarget(S.target+(Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY)*1.1)},{passive:false});
+addEventListener("keydown",e=>{
+  if(e.key==="Escape"){closePanel();return}
+  if(S.state!=="out"||scrollY>1)return;
+  if(e.key==="ArrowRight")setTarget(S.target+S.spacing*.5);
+  else if(e.key==="ArrowLeft")setTarget(S.target-S.spacing*.5);
+  else if((e.key==="ArrowDown"||e.key==="PageDown")&&atEnd())goInfo();
+  else if(e.key==="Enter"&&document.activeElement===document.body)openPanel(active);
+});
+
+/* ---------- intro -> sea ---------- */
+function leaveIntro(){
+  if(S.state!=="intro")return;S.state="out";S.leaveT=performance.now();U.uOut=0;
+  $("#intro").classList.add("gone");$("#ui").classList.add("on");mksEl.classList.add("on");root.classList.add("free");
+  if(G){try{G.to(U,{uTL:1,duration:1.8,delay:.3,ease:"power2.inOut"})}catch(e){U.uTL=1}}else U.uTL=1;
+}
+$("#intro").addEventListener("click",leaveIntro);
+$("#intro").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();leaveIntro()}});
+
+/* ---------- panel ---------- */
+const panel=$("#panel");
+function setDL(rows){const dl=$("#pdl");dl.innerHTML="";if(!rows||!rows.length){dl.hidden=true;return}dl.hidden=false;
+  for(const [k,v,cls] of rows){const w=document.createElement("div"),a=document.createElement("dt"),b=document.createElement("dd");
+    a.textContent=k;if(cls){const d=document.createElement("span");d.className="dot "+cls;b.appendChild(d)}b.appendChild(document.createTextNode(v));w.append(a,b);dl.appendChild(w)}}
+function setText(el,s){el.textContent=s||"";el.hidden=!s}
+function markSel(){MK.forEach((m,j)=>m.el.classList.toggle("sel",j===openIdx))}
+function openPanel(i){
+  openIdx=i;const ev=EVENTS[i];let rows=[],desc="",title="";
+  $("#py").textContent=ev.y;$("#py").classList.toggle("gold",ev.lv===3||!!ev.concert);
+  if(ev.concert){$("#ptag").textContent="CONCERT · 20TH ANNIVERSARY";title="20周年記念定期演奏会";desc="20年のあゆみに、感謝をこめて。ぜひ聞きに来てください。";rows=CONCERT}
+  else{
+    $("#ptag").textContent=`MILESTONE · ${i+1} / ${N}`;
+    if(ev.p){title=ev.p;if(ev.k)rows.push(["課題曲",ev.k]);rows.push(["自由曲",ev.p]);rows.push(["作曲",ev.a]);
+      for(const [st,pz] of ev.r)rows.push([st,pz,pz.includes("金")?"g":pz.includes("銀")?"s":"n"])}
+    else if(ev.start){title="木曽青峰高校として、スタート";desc="木曽青峰高校吹奏楽部としての歩みが始まった年。"}
+    else{title="この年の記録は掲載なし";desc="データベースには、この年のコンクール出場記録が載っていません。"}
+    if(ev.memo)desc=(desc?desc+"\n":"")+ev.memo;
+  }
+  setText($("#pt"),title);setText($("#pd"),desc);$("#pd").style.whiteSpace="pre-line";setDL(rows);
+  $("#psea").hidden=!ev.sea;$("#psrc").hidden=!!ev.concert||!ev.p;
+  $("#prev").disabled=i===0;$("#next").disabled=i===N-1;
+  panel.classList.add("open");panel.setAttribute("aria-hidden","false");goTo(i);markSel();chime(ev.lv);
+}
+function closePanel(){openIdx=-1;panel.classList.remove("open");panel.setAttribute("aria-hidden","true");markSel()}
+function goInfo(){closePanel();$("#i-info").scrollIntoView({behavior:reduce?"auto":"smooth"})}
+$("#close").onclick=closePanel;$("#aboutBtn").onclick=goInfo;$("#endGo").onclick=goInfo;
+$("#toTop").onclick=()=>scrollTo({top:0,behavior:reduce?"auto":"smooth"});
+$("#prev").onclick=()=>openIdx>0&&openPanel(openIdx-1);
+$("#next").onclick=()=>openIdx>=0&&openIdx<N-1&&openPanel(openIdx+1);
+
+/* ---------- end-of-sea announcement ---------- */
+const endcap=$("#endcap"),endKids=[...endcap.children];
+function setEnd(on){
+  if(on===endShown)return;endShown=on;endcap.classList.toggle("on",on);
+  if(G){try{if(on)G.fromTo(endKids,{y:22,opacity:0},{y:0,opacity:1,duration:.9,ease:"power3.out",stagger:.1,overwrite:true});
+    else G.to(endKids,{opacity:0,duration:.3,overwrite:true})}catch(e){}}
+}
+
+/* ---------- sound: a few soft flute-like notes and a very quiet low pad. Off until the viewer turns it on. ---------- */
+let ac=null,master=null,soundOn=false,tick=null;
+const PENTA=[523.25,587.33,659.25,783.99,880,1046.5];
+function ensureAudio(){if(ac)return true;try{
+  ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=0;
+  const lp=ac.createBiquadFilter();lp.type="lowpass";lp.frequency.value=2600;master.connect(lp);lp.connect(ac.destination);
+  [130.81,196].forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain(),l=ac.createOscillator(),lg=ac.createGain();
+    o.type="sine";o.frequency.value=f;g.gain.value=.012;l.frequency.value=.07+i*.04;lg.gain.value=.006;l.connect(lg);lg.connect(g.gain);o.connect(g);g.connect(master);o.start();l.start()});
+  return true}catch(e){return false}}
+function note(f,delay=0,dur=1.5,vol=.05){
+  const t=ac.currentTime+delay,o=ac.createOscillator(),o2=ac.createOscillator(),g=ac.createGain(),g2=ac.createGain(),v=ac.createOscillator(),vg=ac.createGain();
+  o.type="sine";o.frequency.value=f;o2.type="sine";o2.frequency.value=f*2;g2.gain.value=.12;
+  v.frequency.value=5;vg.gain.value=f*.004;v.connect(vg);vg.connect(o.frequency);
+  o.connect(g);o2.connect(g2);g2.connect(g);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.12);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  g.connect(master);[o,o2,v].forEach(x=>{x.start(t);x.stop(t+dur+.1)})}
+function setSound(on){soundOn=on;const b=$("#snd");b.classList.toggle("muted",!on);b.setAttribute("aria-pressed",on);
+  clearInterval(tick);
+  if(on&&ensureAudio()){ac.resume();master.gain.cancelScheduledValues(ac.currentTime);master.gain.linearRampToValueAtTime(.9,ac.currentTime+2);
+    tick=setInterval(()=>{if(!document.hidden)note(PENTA[Math.random()*PENTA.length|0],0,2.2,.028)},3200)}
+  else if(master){master.gain.cancelScheduledValues(ac.currentTime);master.gain.linearRampToValueAtTime(0,ac.currentTime+.6)}}
+function chime(lv){if(!soundOn||!ac)return;
+  if(lv===9)[523.25,659.25,783.99,1046.5].forEach((f,i)=>note(f,i*.16,1.8,.055));
+  else if(lv===3){note(783.99,0,1.4,.05);note(1046.5,.14,1.6,.045)}
+  else if(lv===2)note(659.25,0,1.3,.045);
+  else note(523.25,0,1.2,.04)}
+$("#snd").onclick=()=>setSound(!soundOn);
+
+/* ---------- info reveals (GSAP + ScrollTrigger; content is visible without them) ---------- */
+function setupScroll(){
+  if(!G||!ST||reduce)return;
+  try{
+    document.querySelectorAll("#info .iw > *").forEach(el=>G.from(el,{y:34,opacity:0,duration:1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%",once:true}}));
+    document.querySelectorAll(".bub").forEach((b,i)=>G.to(b,{y:-140-i*30,ease:"none",scrollTrigger:{trigger:"#info",start:"top bottom",end:"bottom bottom",scrub:.6}}));
+    G.to("#gl",{opacity:.25,ease:"none",scrollTrigger:{trigger:".stage",start:"top top",end:"bottom top",scrub:true}});
+  }catch(e){}
+}
+
+/* ---------- loop ---------- */
+let last=performance.now(),t0=last,lastD=-1;
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(document.hidden)return;
+  if(S.state==="out"){
+    S.off+=(S.target-S.off)*(reduce?1:1-Math.exp(-dt*(drag?16:7)));
+    if(Math.abs(S.target-S.off)<.05)S.off=S.target;
+  }
+  const covered=scrollY>H*1.02;
+  if(gl&&!covered){
+    const D=S.maxOff?S.off/S.maxOff:0,ab=[1,10,28],sky=[49,166,246],dp=[2,136,217];
+    const k1=.2+.7*D,k2=.28+.66*D;
+    U.uC1=[(lerp(sky[0],ab[0],k1))/255,(lerp(sky[1],ab[1],k1))/255,(lerp(sky[2],ab[2],k1))/255];
+    U.uC2=[(lerp(dp[0],ab[0],k2))/255,(lerp(dp[1],ab[1],k2))/255,(lerp(dp[2],ab[2],k2))/255];
+    U.uD=D;U.uOff=S.off;U.uTime=(now-t0)/1000;U.uIT=(now-S.introStart)/1000;
+    if(S.state==="out"){U.uOut=(now-S.leaveT)/1000;if(M.intro&&U.uOut>1.2)M.intro.visible=false}
+    gl.clearColor(.004,.04,.11,1);gl.clear(gl.COLOR_BUFFER_BIT);
+    draw(M.bg);
+    if(S.state==="out"||U.uTL>0){draw(M.snow);draw(M.glow);draw(M.rib);draw(M.pearl);draw(M.bub)}
+    if(M.intro)draw(M.intro);
+  }
+  if(S.state==="out"){
+    const D=S.maxOff?S.off/S.maxOff:0;
+    if(!covered){updMarkers();if(Math.abs(D-lastD)>.001){lastD=D;$("#fill").style.transform=`scaleX(${D.toFixed(4)})`}}
+    const end=atEnd()&&S.off>=S.maxOff-8;
+    if(end!==atEndNow){atEndNow=end;document.body.classList.toggle("atend",end)}
+    setEnd(end&&scrollY<H*.5);
+    document.body.classList.toggle("deep",scrollY>H*.5);
+  }
+}
+
+/* ---------- boot ---------- */
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(size,120)});
+if(gl){
+  gl.canvas.addEventListener("webglcontextlost",e=>{e.preventDefault();root.classList.add("nogl")});
+  try{initGL()}catch(err){console.warn("WebGL init failed:",err);gl=null;root.classList.add("nogl")}
+}
+size();
+setupScroll();
+addEventListener("load",()=>{if(ST)try{ST.refresh()}catch(e){}});
+if(!gl){/* no WebGL: show the rings on the plain gradient */ $("#intro").addEventListener("click",()=>{},{once:true})}
+requestAnimationFrame(frame);
+})();
+</script>
