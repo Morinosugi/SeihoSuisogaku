@@ -1,17 +1,45 @@
-<title>木曽青峰高校吹奏楽部 20周年記念定期演奏会</title>
-<meta name="description" content="木曽青峰高校吹奏楽部の20周年記念定期演奏会。2027年7月25日、木曽文化公園文化ホール。海を進むように、20年のあゆみをたどる特設ページ。">
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2b86cb">
+<meta name="format-detection" content="telephone=no">
+<title>木曽青峰高校20周年記念定期演奏会</title>
+<meta name="description" content="木曽青峰高校吹奏楽部の20周年記念定期演奏会。2027年7月25日、木曽文化公園文化ホール。山から川へ、そして海へ。20年のあゆみをたどる特設ページ。">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<!-- 書き換え：公開するURLが決まったら、canonical と og:url、og:image（1200×630px）を足してください -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:title" content="木曽青峰高校20周年記念定期演奏会">
+<meta property="og:description" content="2027年7月25日、木曽文化公園文化ホール。入場無料。山から川へ、そして海へ。20年のあゆみをたどる特設ページです。">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Event",
+"name":"木曽青峰高校20周年記念定期演奏会",
+"startDate":"2027-07-25",
+"eventStatus":"https://schema.org/EventScheduled",
+"eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+"inLanguage":"ja",
+"location":{"@type":"Place","name":"木曽文化公園文化ホール","address":{"@type":"PostalAddress","postalCode":"399-6101","addressRegion":"長野県","addressLocality":"木曽郡木曽町","streetAddress":"日義4898-37","addressCountry":"JP"}},
+"description":"木曽青峰高校吹奏楽部の20周年記念定期演奏会です。入場無料。",
+"organizer":{"@type":"Organization","name":"木曽青峰高校吹奏楽部"},
+"isAccessibleForFree":true,
+"offers":{"@type":"Offer","price":"0","priceCurrency":"JPY"}}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Kiwi+Maru:wght@400;500&family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 /* Layout concept: one full-screen sea drawn on the GPU (WebGL shaders). Intro (particle "20") -> click -> a current of light drifts sideways; one ring per year 2007-2027 (DOM buttons riding the current), ring tint = best contest result. At the end the sea calms and announces the concert; scrolling on reveals the real information. */
 :root{
   --brown:#542c23; --coral:#e04d66; --sky:#31a6f6; --foam:#a1d3e3; --kelp:#c9cf9d; --wine:#950452; --sand:#cf9a5e; --deep:#0288d9; --abyss:#010a1c;
   --ink:#fff; --ink-soft:rgba(255,255,255,.82);
-  --mincho:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
-  --gothic:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
-  --num:Anton,Impact,"Arial Narrow",sans-serif;
+  /* フォント：見出し=Zen Maru Gothic（やわらかい丸ゴシック）／本文=Zen Kaku Gothic New／数字・英字=Jost（細い幾何学的な書体）。Anton は「20」の粒の形にだけ使います */
+  --mincho:"ten-mincho","a-otf-ryumin-pr6n","Hiragino Mincho ProN","Yu Mincho",serif;
+  --mincho-s:"a-otf-ryumin-pr6n","ten-mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --gothic:"fot-tsukuardgothic-std","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --num:Jost,"Zen Kaku Gothic New",system-ui,sans-serif;
   --R:34px;
   color-scheme:dark;
 }
@@ -44,21 +72,28 @@ body.atend #gl,body.atend .mk .ring{touch-action:pan-y}
 .mk .stem{position:absolute;left:0;bottom:calc(var(--R)*var(--k));width:1px;height:var(--h);background:linear-gradient(transparent,rgba(255,255,255,.55));pointer-events:none}
 .mk .stem::after{content:"";position:absolute;left:-2.5px;top:-3px;width:6px;height:6px;border-radius:50%;background:rgb(var(--tint))}
 .mk .lb{position:absolute;left:0;bottom:calc(var(--R)*var(--k) + var(--h) + 10px);transform:translateX(-50%);text-align:center;white-space:nowrap;pointer-events:none;opacity:calc(.62 + .38*var(--n));text-shadow:0 1px 10px rgba(0,25,60,.55)}
-.mk .lb b{display:block;font:400 20px/1.1 var(--num);letter-spacing:.1em;transform:scale(calc(1 + .15*var(--n)))}
-.mk.big .lb b{font-size:26px}
+.mk .lb b{display:block;font:300 34px/1.1 var(--num);letter-spacing:.1em;transform:scale(calc(1 + .5*var(--n)));transform-origin:50% 100%;will-change:transform}
+.mk.big .lb b{font-size:40px}
 .mk .lb em{display:block;font-style:normal;font-size:12px;letter-spacing:.1em;margin-top:4px;color:rgba(255,255,255,.88)}
 .mk.g .lb em{color:#ffc2cc}.mk.s .lb em{color:var(--foam)}
 
 .head{transition:opacity .5s;position:fixed;left:0;right:0;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;
   padding:calc(24px + env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-right,0px)) 0 max(24px,env(safe-area-inset-left,0px));pointer-events:none}
 body.deep .head{opacity:0;pointer-events:none}
-.brand{display:flex;align-items:center;gap:12px;font-family:var(--mincho);font-weight:700;font-size:16px;letter-spacing:.06em;line-height:1.3;text-shadow:0 1px 10px rgba(0,30,70,.45)}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--mincho);font-weight:500;font-size:16px;letter-spacing:.06em;line-height:1.3;text-shadow:0 1px 10px rgba(0,30,70,.45)}
 .brand small{display:block;font-family:var(--num);font-weight:400;font-size:11px;letter-spacing:.24em;opacity:.9;margin-top:3px}
 .mark{position:relative;width:34px;height:34px;flex:none;display:grid;place-items:center}
 .mark svg{width:34px;height:30px}
 .mark img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-.snd{pointer-events:auto;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(1,10,28,.18);color:#fff;display:grid;place-items:center;cursor:pointer;transition:background .2s}
-.snd:hover{background:rgba(255,255,255,.18)}
+.ctl{display:flex;gap:10px;align-items:center}
+.snd{pointer-events:auto;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;cursor:pointer;padding:0}
+.ap{pointer-events:auto;width:48px;height:48px;border-radius:50%;display:none;place-items:center;cursor:pointer;padding:0}
+.ap{display:none!important}
+.ap svg{width:20px;height:20px}
+.ap .i-play,.ap .i-replay{display:none}
+.ap[data-s=play] .i-pause,.ap[data-s=replay] .i-pause{display:none}
+.ap[data-s=play] .i-play,.ap[data-s=replay] .i-replay{display:block}
+body.deep .snd,body.deep .ap{pointer-events:none}
 .snd:focus-visible,.about:focus-visible,.close:focus-visible,#intro:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .snd svg{width:20px;height:20px}
 .snd .off{display:none}.snd.muted .on{display:none}.snd.muted .off{display:block}
@@ -66,9 +101,10 @@ body.deep .head{opacity:0;pointer-events:none}
 #intro{position:fixed;inset:0;z-index:3;display:grid;place-items:center;cursor:pointer;transition:opacity 1s ease,visibility 1s}
 #intro.gone{opacity:0;visibility:hidden;pointer-events:none}
 .intro-text{position:relative;text-align:center;display:grid;gap:.7em;padding:0 max(18px,env(safe-area-inset-left,0px));margin-top:-2vh;text-shadow:0 2px 22px rgba(0,25,60,.55)}
-.intro-text p{margin:0;line-height:1.45;text-wrap:balance}
+.intro-text::before{content:"";position:absolute;inset:-14% -10%;z-index:-1;background:radial-gradient(closest-side,rgba(8,36,96,.34),transparent);pointer-events:none}
+.intro-text p,.intro-text h1{margin:0;line-height:1.45;text-wrap:balance}
 .l1{font-family:var(--mincho);font-weight:500;font-size:clamp(14px,1.9vw,24px);letter-spacing:.12em}
-.l2{font-family:var(--gothic);font-weight:300;font-size:clamp(28px,5.2vw,72px);letter-spacing:.01em;line-height:1.25!important}
+.l2{font-family:var(--num);font-weight:200;font-size:clamp(26px,4.6vw,64px);letter-spacing:.02em;line-height:1.3!important}
 .l3{font-family:var(--mincho);font-weight:500;font-size:clamp(14px,1.9vw,24px);letter-spacing:.1em}
 .ch{display:inline-block;white-space:pre;opacity:0;filter:blur(10px);animation:chin 1.1s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:calc(var(--d) * 1ms)}
 @keyframes chin{to{opacity:1;filter:blur(0)}}
@@ -81,6 +117,7 @@ body.deep .head{opacity:0;pointer-events:none}
 
 #ui{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:0;transition:opacity 1.2s .4s}
 #ui.on{opacity:1}
+body.nohint .hint,body.atend .hint,body.atend .legend,body.atend .about{opacity:0!important;pointer-events:none!important;transition:opacity .6s}
 .hint{position:absolute;left:50%;bottom:calc(66px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);text-align:center;font-family:var(--num);font-size:11px;letter-spacing:.3em;line-height:1.9;display:grid;justify-items:center;gap:10px;width:max-content;max-width:90vw;text-shadow:0 1px 8px rgba(0,30,70,.5)}
 .hint .knob{display:flex;align-items:center}
 .hint .knob i{display:block;width:44px;height:1px;background:rgba(255,255,255,.65)}
@@ -96,19 +133,17 @@ body.deep .head{opacity:0;pointer-events:none}
 .bar .track{position:absolute;left:0;right:0;bottom:0;height:1px;background:rgba(255,255,255,.28)}
 .bar .fill{position:absolute;left:0;right:0;bottom:0;height:1px;background:#fff;transform:scaleX(0);transform-origin:left}
 .bar span{position:relative;top:-4px}
-.about{pointer-events:auto;position:absolute;right:max(24px,env(safe-area-inset-right,0px));bottom:calc(44px + env(safe-area-inset-bottom,0px));background:none;border:0;color:#fff;font-family:var(--num);font-size:13px;letter-spacing:.28em;cursor:pointer;padding:6px 0}
-.about:hover{text-decoration:underline;text-underline-offset:6px}
+.about{pointer-events:auto;position:absolute;right:max(24px,env(safe-area-inset-right,0px));bottom:calc(44px + env(safe-area-inset-bottom,0px));font-family:var(--num);font-size:12px;letter-spacing:.24em;cursor:pointer;padding:13px 22px;border-radius:999px}
 
 .panel{position:fixed;top:0;bottom:0;right:0;z-index:8;width:min(470px,100%);padding:calc(56px + env(safe-area-inset-top,0px)) max(28px,env(safe-area-inset-right,0px)) calc(36px + env(safe-area-inset-bottom,0px)) 36px;
-  background:rgba(1,16,40,.7);backdrop-filter:blur(18px) saturate(1.2);-webkit-backdrop-filter:blur(18px) saturate(1.2);border-left:1px solid rgba(161,211,227,.3);
+  background:linear-gradient(180deg,#06305c,#041f40);box-shadow:-20px 0 60px rgba(0,10,30,.35);border-left:1px solid rgba(161,211,227,.3);
   transform:translateX(102%);transition:transform .6s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;gap:16px;overflow:auto}
 .panel.open{transform:none}
 .panel .tag{font-family:var(--num);font-size:12px;letter-spacing:.28em;color:var(--foam)}
-.panel .yr{font-family:var(--num);font-size:clamp(64px,10vw,100px);line-height:1;letter-spacing:.03em;color:var(--foam)}
+.panel .yr{font-family:var(--num);font-weight:300;font-size:clamp(64px,10vw,100px);line-height:1;letter-spacing:.03em;color:var(--foam)}
 .panel .yr.gold{color:var(--coral)}
-.panel h2{margin:0;font-family:var(--mincho);font-weight:700;font-size:clamp(20px,2.8vw,26px);line-height:1.55;text-wrap:balance}
+.panel h2{margin:0;font-family:var(--mincho);font-weight:500;font-size:clamp(20px,2.8vw,26px);line-height:1.55;text-wrap:balance}
 .panel p{margin:0;font-size:15px;line-height:2;color:var(--ink-soft);max-width:34em}
-.sea{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;padding:5px 14px;border-radius:999px;border:1px solid var(--kelp);color:var(--kelp);font-size:12px;letter-spacing:.14em}
 .panel dl{margin:0;display:grid;grid-template-columns:7em 1fr;gap:0}
 .panel dl>div{display:contents}
 .panel dt,.panel dd{padding:12px 0;border-top:1px solid rgba(161,211,227,.25);font-size:14.5px;line-height:1.7}
@@ -116,90 +151,223 @@ body.deep .head{opacity:0;pointer-events:none}
 .panel dd{margin:0;color:#fff}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px;vertical-align:-1px}
 .dot.g{background:var(--coral)}.dot.s{background:var(--foam)}.dot.n{background:var(--sand)}
-.close{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:transparent;color:#fff;cursor:pointer;font-size:20px;line-height:1}
-.close:hover{background:rgba(255,255,255,.16)}
+.close{position:absolute;top:calc(16px + env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:20px;line-height:1;padding:0}
 .nav{margin-top:auto;display:flex;gap:12px;padding-top:12px}
-.nav button{flex:1;padding:12px 14px;border-radius:999px;border:1px solid rgba(161,211,227,.5);background:transparent;color:#fff;font-family:var(--num);font-size:12px;letter-spacing:.2em;cursor:pointer}
-.nav button:hover{background:rgba(49,166,246,.28)}
+.nav button{flex:1;padding:14px;min-height:48px;border-radius:999px;font-family:var(--num);font-size:12px;letter-spacing:.2em;cursor:pointer}
 .nav button:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.nav button[disabled]{opacity:.35;cursor:default;background:transparent}
+.nav button[disabled]{opacity:.4;cursor:default}
 .src{font-size:11.5px!important;color:rgba(255,255,255,.6)!important;line-height:1.8!important}
 
 .endcap{position:fixed;z-index:2;left:38%;right:5%;top:17%;display:grid;gap:10px;justify-items:start;opacity:0;transform:translateY(14px);transition:opacity 1s,transform 1s;pointer-events:none;text-shadow:0 2px 18px rgba(0,20,50,.6)}
 .endcap.on{opacity:1;transform:none}
 .endcap .e1{margin:0;font-family:var(--num);font-size:14px;letter-spacing:.34em;color:var(--coral)}
-.endcap .e2{margin:0;font-family:var(--mincho);font-weight:700;font-size:clamp(28px,4.6vw,62px);line-height:1.35;letter-spacing:.04em}
-.endcap .e3{margin:0;font-family:var(--num);font-size:clamp(44px,7vw,100px);line-height:1;letter-spacing:.03em;color:var(--foam)}
+.endcap .e2{margin:0;font-family:var(--mincho);font-weight:500;font-size:clamp(28px,4.6vw,62px);line-height:1.35;letter-spacing:.04em}
+.endcap .e3{margin:0;font-family:var(--num);font-weight:300;font-size:clamp(44px,7vw,100px);line-height:1;letter-spacing:.03em;color:var(--foam)}
 .endcap .e3 small{font-size:.4em;letter-spacing:.2em;color:#fff}
 .endcap .e4{margin:0;font-size:15px;letter-spacing:.1em}
-.endbtn{margin-top:8px;padding:12px 28px;border-radius:999px;border:1px solid #fff;background:rgba(1,10,28,.25);color:#fff;font-family:var(--mincho);font-weight:500;font-size:15px;letter-spacing:.12em;cursor:pointer}
+.endbtn{margin-top:8px;padding:14px 30px;min-height:50px;border-radius:999px;font-family:var(--mincho);font-weight:500;font-size:15px;letter-spacing:.12em;cursor:pointer}
 .endcap.on .endbtn{pointer-events:auto}
-.endbtn:hover{background:rgba(255,255,255,.2)}
 .endbtn:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
 .stage{height:calc(100svh + 170px)}
-#info{position:relative;z-index:4;background:var(--abyss);color:#fff;font-family:var(--gothic)}
+#info{position:relative;z-index:4;color:#fff;font-family:var(--gothic);
+  background:linear-gradient(180deg,#010a1c 0,#06336a 7%,#0b5598 20%,#1067ae 38%,#1572bd 56%,#1169b0 74%,#0b5493 90%,#094a85 100%)}
 #info::before{content:"";position:absolute;left:0;right:0;top:-170px;height:170px;background:linear-gradient(180deg,rgba(1,10,28,0),#010a1c);pointer-events:none}
+#info [hidden]{display:none!important}
+.rays{position:absolute;left:0;right:0;top:0;height:1000px;pointer-events:none;opacity:.6;
+  background:conic-gradient(from 160deg at 50% -10%,transparent 0 2%,rgba(214,238,247,.12) 3.5%,transparent 5%,transparent 7%,rgba(214,238,247,.08) 8.5%,transparent 10%,transparent 12%,rgba(214,238,247,.10) 13.5%,transparent 15%,transparent 100%);
+  -webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent)}
 .bubs{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.bub{position:absolute;border-radius:50%;border:1px solid rgba(161,211,227,.32);background:radial-gradient(circle at 32% 30%,rgba(161,211,227,.2),rgba(161,211,227,.03) 70%);animation:bob 10s ease-in-out infinite}
+.bub{position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:radial-gradient(circle at 32% 30%,rgba(255,255,255,.22),rgba(255,255,255,.03) 70%);animation:bob 10s ease-in-out infinite}
 @keyframes bob{50%{translate:0 -24px}}
-.iw{position:relative;max-width:980px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
-.isec{position:relative;padding-block:84px}
-.isec p{margin:0;font-size:15.5px;line-height:2.05;color:rgba(255,255,255,.84);max-width:36em}
+.iw{position:relative;max-width:1040px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+
+/* 区画：色の帯で区切る（濃い帯／ふつう を交互に） */
+.isec{position:relative;padding-block:clamp(72px,11vw,124px)}
+.isec.alt{background:linear-gradient(180deg,rgba(2,28,62,.36),rgba(2,28,62,.22));box-shadow:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(255,255,255,.1)}
+.isec p{margin:0;font-size:clamp(15.5px,1.1vw + 11px,17px);line-height:2.05;color:rgba(255,255,255,.95);max-width:36em;overflow-wrap:anywhere;line-break:strict}
 .isec p+p{margin-top:16px}
-.sh{margin:0;font-family:var(--mincho);font-weight:700;font-size:clamp(24px,4.2vw,36px);line-height:1.5}
-.sh .en{display:block;font:400 13px var(--num);letter-spacing:.34em;color:var(--foam);margin-bottom:10px}
-.sh .en::before{content:"";display:inline-block;width:28px;height:2px;background:var(--coral);vertical-align:middle;margin-right:12px}
-.lead{text-align:center;padding-top:30px;padding-bottom:72px}
-.lead p{max-width:none;margin-inline:auto}
-.lead .e1{font:400 14px var(--num);letter-spacing:.34em;color:var(--coral)}
-.lead .lh{margin:16px 0 0;font-family:var(--mincho);font-weight:700;font-size:clamp(28px,5.6vw,58px);line-height:1.45;letter-spacing:.04em;text-wrap:balance}
-.lead .big{font:400 clamp(120px,32vw,300px)/.92 var(--num)!important;letter-spacing:.02em;color:var(--foam)!important;margin-top:28px;text-shadow:0 0 60px rgba(49,166,246,.35)}
-.lead .dt{font-family:var(--mincho);font-weight:500;font-size:clamp(16px,2.6vw,22px)!important;letter-spacing:.1em;color:#fff!important}
-.pill{display:inline-block;margin-top:18px;padding:6px 20px;border-radius:999px;background:var(--coral);color:#fff;font-weight:500;font-size:14px;letter-spacing:.2em}
-.lead .lc{margin-top:22px;font-family:var(--mincho);font-size:18px!important;color:#fff!important}
-.jump{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:36px}
-.jump a{padding:9px 18px;border:1px solid rgba(161,211,227,.5);border-radius:999px;color:var(--foam);text-decoration:none;font:400 12px var(--num);letter-spacing:.2em}
-.jump a:hover{background:rgba(49,166,246,.25);color:#fff}
-.jump a:focus-visible{outline:2px solid #fff;outline-offset:3px}
-.rows{margin:30px 0 0}
-.rows>div{display:grid;grid-template-columns:9.5em 1fr;gap:16px;padding:16px 0;border-top:1px solid rgba(161,211,227,.25)}
-.rows dt{color:var(--foam);font-size:13px;letter-spacing:.14em;padding-top:2px}
-.rows dd{margin:0;font-size:15.5px;line-height:1.8}
-.ph{background:rgba(224,77,102,.24);border-bottom:2px solid var(--coral);padding:0 2px}
-.two{display:grid;gap:40px}
-.isec .vt{font-family:'Kiwi Maru',serif;color:var(--foam);font-size:clamp(44px,12vw,64px);line-height:1.3;max-width:none;letter-spacing:.2em;text-align:center;margin:0}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px 0 28px}
-.stats div{border-top:1px solid rgba(161,211,227,.3);padding-top:14px}
-.stats b{display:block;font:400 clamp(48px,9vw,76px)/1 var(--num);color:var(--foam);letter-spacing:.03em}
-.stats span{display:block;font-size:13px;letter-spacing:.14em;margin-top:6px}
-.prog{list-style:none;padding:0;margin:30px 0 0}
-.prog li{display:flex;gap:20px;padding:22px 0;border-top:1px solid rgba(161,211,227,.25)}
-.prog b{font:400 40px/1 var(--num);color:var(--foam);letter-spacing:.04em}
-.prog h3,.tier h3{margin:0 0 4px;font-family:var(--mincho);font-weight:700;font-size:18px}
-.prog p,.tier p{font-size:14.5px!important}
-.tier{list-style:none;padding:0;margin:30px 0 0}
-.tier li{padding:22px 0;border-top:1px solid rgba(161,211,227,.25)}
-.btn{display:inline-block;margin:24px 12px 0 0;padding:.85em 2.2em;border:1px solid var(--foam);border-radius:999px;color:#fff;text-decoration:none;background:rgba(49,166,246,.2);font-family:var(--mincho);letter-spacing:.1em}
-.btn:hover{background:rgba(49,166,246,.42)}
-.btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
-.fin{text-align:center;padding-block:110px 70px}
-.fin p{max-width:none;margin-inline:auto;font-family:var(--mincho);font-weight:700;font-size:clamp(24px,5vw,44px);line-height:1.6;color:#fff}
-.ifoot{position:relative;border-top:1px solid rgba(161,211,227,.2);padding-block:40px calc(40px + env(safe-area-inset-bottom,0px));text-align:center;color:var(--foam);font-size:12.5px;line-height:2}
-.ifoot p{max-width:none;margin:0 auto;font-size:12.5px;color:var(--foam)}
-.ifoot a{color:var(--foam)}
-.ifoot button{margin-top:14px;background:none;border:1px solid rgba(161,211,227,.5);border-radius:999px;color:var(--foam);font:400 12px var(--num);letter-spacing:.2em;padding:9px 22px;cursor:pointer}
-.ifoot button:hover{background:rgba(49,166,246,.25);color:#fff}
-@media (min-width:760px){
-  .two{grid-template-columns:1fr auto;gap:56px}
-  .isec .vt{writing-mode:vertical-rl;text-align:left}
-  .tier{display:grid;grid-template-columns:repeat(3,1fr)}
-  .tier li{border-top:0;border-left:1px solid rgba(161,211,227,.25);padding:6px 24px}
-  .tier li:first-child{border-left:0;padding-left:0}
+.isec .lede{font-size:clamp(18px,2vw + 8px,23px);line-height:1.8;font-weight:500;color:#fff;margin-top:6px}
+.isec strong{font-weight:700;color:#fff;background:linear-gradient(transparent 62%,rgba(224,77,102,.55) 62%)}
+.ph{color:#ffc4cf;background:rgba(224,77,102,.28);border-bottom:2px dashed #ff8da0;padding:0 2px} /* ピンクの印＝仮の文章。書き換えたら class="ph" を消す */
+
+/* 見出し：大きな番号＋英字＋日本語 */
+.shead{display:flex;align-items:flex-end;gap:clamp(14px,3vw,28px);margin-bottom:clamp(24px,4vw,40px)}
+.shead .no{font:200 clamp(64px,12vw,116px)/.78 var(--num);color:rgba(255,255,255,.4);letter-spacing:-.02em}
+.shead .en{display:block;font:500 12px var(--num);letter-spacing:.4em;color:#d6eef7;margin-bottom:8px}
+.sh{margin:0;font-family:var(--mincho);font-weight:700;font-size:clamp(28px,5vw,44px);line-height:1.35}
+.mini{margin:0 0 6px;font:500 13px var(--gothic);letter-spacing:.22em;color:#d6eef7}
+
+/* ボタンの形（すりガラスの見た目は、いちばん下でまとめて当てます） */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:54px;margin:18px 12px 0 0;padding:.8em 2.1em;border-radius:999px;text-decoration:none;font-family:var(--mincho);font-weight:700;letter-spacing:.1em;font-size:15.5px;line-height:1.4;cursor:pointer}
+.btn[disabled]{opacity:.6;cursor:default}
+.chip{padding:10px 18px;border-radius:999px;text-decoration:none;font:500 12px var(--num);letter-spacing:.2em;min-height:44px;display:inline-flex;align-items:center}
+:focus-visible{outline-color:#fff}
+
+/* 1. 開催のご案内：日付を主役に、「いつ・どこで・いくら」を大きく */
+.ticket{text-align:center;padding-top:clamp(6px,3vw,30px)}
+.ticket .e1{font:500 13px var(--num);letter-spacing:.34em;color:#ffd0d8;max-width:none;text-align:center}
+.ticket .lh{margin:14px 0 0;font-family:var(--mincho);font-weight:700;font-size:clamp(24px,5.4vw,50px);line-height:1.45;letter-spacing:.04em;text-wrap:balance}
+.dateblock{position:relative;display:grid;place-items:center;margin-top:clamp(14px,3vw,28px);isolation:isolate}
+.dateblock .big{font:200 clamp(120px,32vw,300px)/.95 var(--num);letter-spacing:.01em;color:#fff;text-shadow:0 0 60px rgba(255,255,255,.35);max-width:none;text-align:center;position:relative;z-index:1}
+.dateblock .sun{font:300 clamp(14px,2.4vw,22px) var(--num);letter-spacing:.5em;color:#d6eef7;max-width:none;text-align:center;margin-top:-6px;position:relative;z-index:1}
+.rp{position:absolute;left:50%;top:46%;width:min(76vw,540px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:1px solid rgba(255,255,255,.5);opacity:0;animation:rip 7s ease-out infinite;z-index:0}
+.rp:nth-child(2){animation-delay:-2.3s}.rp:nth-child(3){animation-delay:-4.6s}
+@keyframes rip{0%{transform:scale(.35);opacity:0}15%{opacity:.7}100%{transform:scale(1.25);opacity:0}}
+.keys{display:grid;grid-template-columns:1.1fr 1.4fr .8fr;gap:0 clamp(18px,3vw,40px);margin-top:clamp(34px,6vw,60px);text-align:left}
+.key{border-top:3px solid #fff;padding-top:16px}
+.key .k{display:block;font:500 12px var(--num);letter-spacing:.3em;color:#d6eef7}
+.key b{display:block;margin-top:10px;font:700 clamp(24px,3.2vw,36px)/1.35 var(--mincho)}
+.key em{display:block;margin-top:10px;font-style:normal;font-size:13.5px;line-height:1.8;color:rgba(255,255,255,.92)}
+.ticket .actions{margin-top:8px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:38px}
+.rows{margin:14px 0 0}
+.rows>div{display:grid;grid-template-columns:9em 1fr;gap:6px 16px;padding:16px 0;border-top:1px solid rgba(255,255,255,.32)}
+.rows>div:last-child{border-bottom:1px solid rgba(255,255,255,.32)}
+.rows dt{color:#fff;font-weight:700;font-size:13.5px;letter-spacing:.1em;padding-top:3px}
+.rows dd{margin:0;font-size:15.5px;line-height:1.85;overflow-wrap:anywhere}
+
+/* 写真の枠 */
+.shot{position:relative;margin:0;overflow:hidden;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);box-shadow:0 20px 50px rgba(0,30,80,.3)}
+.shot img{display:block;width:100%;height:100%;object-fit:cover}
+.shot::after{content:"";position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 8px rgba(255,255,255,.08);pointer-events:none}
+.shot.arch{width:100%;max-width:380px;justify-self:center;aspect-ratio:4/5;border-radius:999px 999px 28px 28px}
+.shot.round{width:100%;max-width:400px;justify-self:center;aspect-ratio:1;border-radius:50%}
+.shot.soft{aspect-ratio:4/3;border-radius:24px}
+.shot.empty{display:grid;place-items:center;text-align:center;padding:24px;color:#e8f6fb;font-size:13px;line-height:1.7;border-style:dashed}
+.shot.empty img{display:none}
+.shot.empty::before{content:attr(data-label)}
+
+/* 01 メッセージ */
+.split{display:grid;gap:34px}
+.vt{font-family:var(--mincho);font-weight:700;color:#fff;font-size:clamp(40px,11vw,60px);line-height:1.3;max-width:none!important;letter-spacing:.2em;text-align:center;opacity:.92}
+
+/* 02 部の紹介 */
+.split2{display:grid;gap:34px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin:28px 0;border-top:3px solid #fff;border-bottom:1px solid rgba(255,255,255,.32)}
+.stat{padding:20px 8px 18px;text-align:center}
+.stat+.stat{border-left:1px solid rgba(255,255,255,.32)}
+.stat b{display:block;font:300 clamp(46px,10vw,74px)/1 var(--num);color:#fff;letter-spacing:.02em}
+.stat span{display:block;font-size:13.5px;font-weight:500;letter-spacing:.14em;margin-top:8px}
+.src{font-size:12px!important;color:rgba(255,255,255,.7)!important;margin-top:22px!important;line-height:1.8!important}
+
+/* 03 プログラム */
+.stages{list-style:none;margin:0;padding:0;border-top:3px solid #fff}
+.stages li{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.32)}
+.stages .no{display:grid;place-items:center;width:62px;height:62px;border-radius:50%;border:1px solid #fff;box-shadow:0 0 0 7px rgba(255,255,255,.12);font:300 26px var(--num);letter-spacing:.04em}
+.stages h3{margin:0 0 4px;font:700 19px var(--mincho)}
+.stages p{font-size:14.5px!important}
+.scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+
+/* 04 ご協賛 */
+.steps{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:0 28px;grid-template-columns:repeat(3,1fr)}
+.steps li{padding:18px 0 0;border-top:1px solid rgba(255,255,255,.4);font-size:14.5px;line-height:1.85}
+.steps b{display:block;font:500 13px var(--num);letter-spacing:.28em;color:#ffd0d8;margin-bottom:6px}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);margin-top:36px;border-top:3px solid #fff}
+.tier{display:flex;flex-direction:column;gap:6px;padding:26px 24px;border-bottom:1px solid rgba(255,255,255,.32)}
+.tier+.tier{border-left:1px solid rgba(255,255,255,.32)}
+.tier:first-child{padding-left:0}
+.tier h3{margin:0;font:700 19px var(--mincho)}
+.tier .amt{font:300 38px/1.3 var(--num)!important;letter-spacing:.03em;color:#fff!important}
+.tier .perk{font-size:14px!important;line-height:1.85!important}
+.tier .btn{margin:14px 0 0;align-self:flex-start;min-height:46px;padding:.6em 1.4em;font-size:14px}
+.apply{display:flex;align-items:center;justify-content:space-between;gap:20px 32px;flex-wrap:wrap;margin-top:44px;padding:30px 0;border-top:3px solid #fff;border-bottom:1px solid rgba(255,255,255,.32)}
+.apply h3{margin:0;font:700 clamp(22px,3.6vw,30px) var(--mincho)}
+.apply p{font-size:14.5px!important;margin-top:6px!important}
+.apply .btn{margin:0;min-height:60px;font-size:17px}
+.rows.plain{margin-top:24px}
+
+/* 申し込みフォームのポップアップ（文章はすりガラスの上に置かず、ふつうの面にします） */
+.dlg{border:0;padding:0;background:transparent;color:#fff;max-width:min(660px,100%);width:100%;margin:auto;overflow:visible;max-height:none}
+.dlg::backdrop{background:rgba(1,12,32,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.dlg[open]{animation:dlgin .5s cubic-bezier(.2,.9,.3,1)}
+@keyframes dlgin{from{opacity:0;transform:translateY(26px) scale(.97)}}
+.dbox{max-height:min(90svh,920px);overflow:auto;overscroll-behavior:contain;border-radius:28px;padding:clamp(26px,5vw,44px);background:linear-gradient(180deg,#0e5ca3,#083d74);box-shadow:0 40px 100px rgba(0,10,40,.55),inset 0 1px 0 rgba(255,255,255,.25);font-family:var(--gothic)}
+.dclose{position:absolute;top:14px;right:14px;z-index:3;width:46px;height:46px;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;padding:0;display:grid;place-items:center}
+.dsub{font:500 12px var(--num);letter-spacing:.4em;color:#d6eef7;margin:0 0 6px;padding-right:52px}
+.dbox h2{margin:0 0 8px;font:700 clamp(24px,4vw,30px)/1.4 var(--mincho);padding-right:52px}
+.dbox p{margin:0}
+.fset{border:0;margin:28px 0 0;padding:0;min-width:0}
+.fset legend{padding:0;margin-bottom:12px;font:700 14px var(--gothic);letter-spacing:.1em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fset legend b{font:500 13px var(--num);color:#ffd0d8;letter-spacing:.2em}
+.opts{display:grid;gap:10px}
+.rad{position:relative;display:block}
+.rad input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:2}
+.rad span{display:flex;align-items:center;gap:12px;min-height:56px;padding:12px 16px;border-radius:16px;font-size:15px;line-height:1.5}
+.rad span::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;border:1.5px solid #fff;box-sizing:border-box}
+.rad input:checked+span::before{border-color:#fff;background:radial-gradient(circle,#fff 0 5px,transparent 6px)}
+.rad input:focus-visible+span{outline:2px solid #fff;outline-offset:2px}
+.row2{display:grid;gap:0 18px;grid-template-columns:1fr 1fr}
+.fld{display:grid;gap:8px;margin-top:18px;align-content:start}
+.fld label{font-size:14px;letter-spacing:.06em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;letter-spacing:.1em;padding:2px 9px;border-radius:999px;line-height:1.6}
+.tag.req{background:var(--coral);color:#fff}
+.tag.optn{border:1px solid rgba(255,255,255,.55);color:rgba(255,255,255,.9)}
+.fld input,.fld textarea{width:100%;min-height:54px;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.5);background:rgba(2,30,66,.32);color:#fff;font:16px/1.6 var(--gothic)}
+.fld textarea{min-height:130px;resize:vertical}
+.fld input:focus,.fld textarea:focus{outline:2px solid #fff;outline-offset:1px}
+.fld input::placeholder,.fld textarea::placeholder{color:rgba(255,255,255,.55)}
+.hint2{font-size:13px;color:rgba(255,255,255,.88);line-height:1.7}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.submit{width:100%;margin:30px 0 0;min-height:60px;font-size:17px}
+.fnote{margin-top:14px;font-size:12.5px;line-height:1.85;color:rgba(255,255,255,.85)}
+.status{margin-top:18px;padding:16px 18px;border-radius:16px;border:1px solid rgba(255,255,255,.5);background:rgba(2,30,66,.35);font-size:14.5px;line-height:1.9;overflow-wrap:anywhere}
+.status .btn{margin:12px 12px 0 0;min-height:46px;font-size:14px}
+html.modal{overflow:hidden!important}
+
+/* 05 アクセス */
+.mapbox{position:relative;min-height:280px;aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden;text-align:center;padding:20px;border-radius:24px;border:1px solid rgba(255,255,255,.35);background:rgba(2,30,66,.3)}
+.mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.8) brightness(.95)}
+.mapph p{max-width:none!important;text-align:center;font-weight:500}
+.mapph .btn{margin:14px 6px 0}
+
+/* おわり：山から川が流れ出す景色 */
+.fin{text-align:center;padding-block:clamp(90px,14vw,150px) 20px}
+.fin p{max-width:none;margin-inline:auto;font:700 clamp(26px,5.6vw,48px)/1.6 var(--mincho);color:#fff}
+.scene{position:relative;height:clamp(230px,36vw,400px);overflow:hidden}
+.scene svg{position:absolute;inset:0;width:100%;height:100%}
+.river-dots{stroke-dasharray:1 16;animation:flow2 5s linear infinite}
+@keyframes flow2{to{stroke-dashoffset:-85}}
+.ifoot{position:relative;background:#021a38;padding-block:36px calc(40px + env(safe-area-inset-bottom,0px));text-align:center;color:#d6eef7;font-size:12.5px;line-height:2}
+.ifoot p{max-width:none;margin:0 auto;font-size:12.5px;color:#d6eef7}
+.ifoot a{color:#d6eef7}
+.ifoot button{margin-top:14px;font:500 12px var(--num);letter-spacing:.2em;padding:12px 24px;min-height:44px;border-radius:999px;cursor:pointer}
+
+@media (min-width:860px){
+  .split{grid-template-columns:1.15fr minmax(260px,.85fr) auto;align-items:center;gap:56px}
+  .vt{writing-mode:vertical-rl}
+  .split2{grid-template-columns:minmax(240px,.8fr) 1.2fr;align-items:center;gap:56px}
+}
+@media (max-width:860px){
+  .keys,.tiers,.steps{grid-template-columns:1fr}
+  .keys{gap:26px}
+  .tier+.tier{border-left:0}
+  .tier:first-child{padding-left:24px}
+  .steps li{margin-bottom:6px}
+}
+@media (max-width:700px){
+  .scenes{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:calc(-1*max(20px,env(safe-area-inset-left,0px)));padding:4px max(20px,env(safe-area-inset-left,0px)) 12px;scrollbar-width:none}
+  .scenes .shot{flex:0 0 78%;scroll-snap-align:center}
+  .rows>div{grid-template-columns:1fr;gap:2px;padding:13px 0}
+  .row2{grid-template-columns:1fr}
+  .stages .no{width:52px;height:52px;font-size:22px}
+  .mapbox{aspect-ratio:auto;min-height:300px}
+  .btn{width:100%;margin-right:0}
+  .tier .btn{width:auto}
+  .mapph .btn{width:100%;margin:12px 0 0}
+  .apply .btn{width:100%}
+  .dlg{max-width:none;margin:auto 0 0}
+  .dbox{border-radius:28px 28px 0 0;max-height:94svh;padding-bottom:calc(30px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:600px){
+  .l1{font-size:16px}.l3{font-size:14px}.l2{font-size:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  .rp,.river-dots{animation:none}
+  .dlg[open]{animation:none}
 }
 @media (max-width:700px){
   .endcap{left:20px;right:20px;top:13%;justify-items:center;text-align:center}
-  .rows>div{grid-template-columns:1fr;gap:4px}
 }
 @media (max-width:600px){
   .brand{font-size:13px}.mark{width:28px}
@@ -214,9 +382,283 @@ body.deep .head{opacity:0;pointer-events:none}
   .panel,.endcap{transition-duration:.01s}
   .bub,.mk .ring::before,.mk .ring::after{animation:none}
 }
+/* ============ Liquid Glass：ボタンだけ。中身は透明で、色はつけない ============
+   ①うしろを歪めて見せる（レンズ）②ふちに、左上と右下で強く光る細い線 ③内側のやわらかい光 ④つやが指についてくる */
+.snd,.ap,.about,.endbtn,.close,.nav button,.btn,.chip,.rad span,.ifoot button,.dclose{
+  --x:30%;--y:20%;
+  color:#fff;isolation:isolate;border:0;font-weight:500;
+  background:radial-gradient(circle at var(--x) var(--y),rgba(255,255,255,.26),rgba(255,255,255,0) 42%),rgba(255,255,255,.07);
+  -webkit-backdrop-filter:blur(3px) brightness(1.1);backdrop-filter:blur(3px) brightness(1.1);
+  box-shadow:
+    inset 0 0 0 .5px rgba(255,255,255,.28),
+    inset 5px 5px 10px -6px rgba(255,255,255,.75),
+    inset -5px -5px 10px -6px rgba(255,255,255,.55),
+    inset 0 0 22px rgba(255,255,255,.1),
+    0 10px 28px -6px rgba(0,22,64,.34),
+    0 2px 6px rgba(0,22,64,.16);
+  text-shadow:0 1px 4px rgba(0,22,64,.4);
+  transition:transform .55s cubic-bezier(.34,1.7,.5,1),box-shadow .45s}
+@supports (backdrop-filter:url(#lens)){
+  .snd,.ap,.about,.endbtn,.close,.nav button,.btn,.chip,.rad span,.ifoot button,.dclose{-webkit-backdrop-filter:url(#lens) blur(2px) brightness(1.1);backdrop-filter:url(#lens) blur(2px) brightness(1.1)}
+}
+.snd,.endbtn,.nav button,.btn,.chip,.rad span,.ifoot button{position:relative}
+/* ふちの光：左上と右下だけ強く、ほかは消える */
+.snd::after,.ap::after,.about::after,.endbtn::after,.close::after,.nav button::after,.btn::after,.chip::after,.rad span::after,.ifoot button::after,.dclose::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(255,255,255,.12) 28%,rgba(255,255,255,0) 52%,rgba(255,255,255,.14) 72%,rgba(255,255,255,.85));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+@media (hover:hover){
+  .snd:hover,.about:hover,.endbtn:hover,.close:hover,.nav button:not([disabled]):hover,.btn:hover,.chip:hover,.rad:hover span,.ifoot button:hover,.dclose:hover{transform:translateY(-3px) scale(1.03)}
+}
+.snd:active,.about:active,.endbtn:active,.close:active,.nav button:active,.btn:active,.chip:active,.rad:active span,.ifoot button:active,.dclose:active{transform:scale(.95,.92);transition-duration:.18s}
+/* 主役のボタンも色はつけず、ふちを太くし、中をほんの少し明るくするだけ */
+.btn.solid,.chip.hot,.endbtn,.rad input:checked+span{font-weight:700;
+  background:radial-gradient(circle at var(--x) var(--y),rgba(255,255,255,.38),rgba(255,255,255,0) 50%),rgba(255,255,255,.16)}
+.btn.solid::after,.chip.hot::after,.endbtn::after,.rad input:checked+span::after{padding:2.5px}
+@media (prefers-reduced-motion:reduce){.snd,.about,.endbtn,.close,.nav button,.btn,.chip,.rad span,.ifoot button,.dclose{transition:none}}
+
+/* 固定ナビ（流行の型：ロゴ＋リンク＋右端に主役ボタン） */
+.gnav{position:sticky;top:0;z-index:7;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px max(16px,env(safe-area-inset-left,0px));background:rgba(4,40,86,.82);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.14)}
+.gnav a{color:#fff;text-decoration:none}
+.gb{display:grid;line-height:1.3}
+.gb b{font:700 15px var(--mincho);letter-spacing:.06em}
+.gb small{font:500 9.5px var(--num);letter-spacing:.3em;color:#d6eef7}
+.gl{display:none;gap:28px;font:500 14px var(--gothic);letter-spacing:.08em}
+.gl a{opacity:.9;padding:10px 0;border-bottom:2px solid transparent}
+.gl a:hover{border-color:#fff;opacity:1}
+.gcta{margin:0!important;min-height:44px!important;padding:.5em 1.3em!important;font-size:14px!important;width:auto!important}
+@media (min-width:860px){.gl{display:flex}.chips{display:none!important}}
+/* 重要情報は面（ベントー）で見せる */
+.key{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);border-top:3px solid #fff;border-radius:20px;padding:22px 22px 24px}
+.keys{gap:14px!important}
+.tier{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)!important;border-radius:20px;padding:26px 24px!important}
+.tiers{gap:14px;border-top:0!important}
+.tier+.tier{border-left:1px solid rgba(255,255,255,.2)!important}
+.about2{display:grid;gap:28px;align-items:center}
+.shot.big{max-width:none;aspect-ratio:4/3;border-radius:24px}
+@media (min-width:860px){.about2{grid-template-columns:1.1fr 1fr;gap:48px}}
+.isec{scroll-margin-top:64px}
+/* 最初の「窓」：小さな丸い窓がゆっくり開いて、海へ */
+#iris{position:fixed;inset:0;z-index:9;pointer-events:none;background:#010a1c;--r:0px;--cy:46%;
+  -webkit-mask-image:radial-gradient(circle at 50% var(--cy),transparent var(--r),#000 calc(var(--r) + 1.5px));mask-image:radial-gradient(circle at 50% var(--cy),transparent var(--r),#000 calc(var(--r) + 1.5px));transition:opacity .6s}
+#iris.off{opacity:0}
+#irisRing{position:absolute;left:50%;top:var(--cy);width:calc(var(--r)*2);height:calc(var(--r)*2);translate:-50% -50%;border-radius:50%;border:1.5px solid rgba(255,255,255,.9);box-shadow:0 0 0 7px rgba(255,255,255,.08),0 0 60px rgba(150,210,255,.35),inset 0 0 40px rgba(255,255,255,.12)}
+
+/* お知らせ：日付つきの一覧 */
+.news{list-style:none;margin:0;padding:0;border-top:3px solid #fff}
+.news li{display:grid;grid-template-columns:auto auto 1fr;gap:6px 18px;align-items:baseline;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.3)}
+.news time{font:300 22px var(--num);letter-spacing:.06em}
+.news .nt{font:500 11px var(--num);letter-spacing:.2em;padding:3px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.6)}
+.news p{font-size:15.5px!important;max-width:none!important}
+@media (max-width:600px){.news li{grid-template-columns:auto 1fr}.news p{grid-column:1/-1}}
+/* アクセス：タップで開くカード */
+.accs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px;align-items:start}
+.acc{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.22);border-radius:20px;overflow:hidden;transition:background .3s}
+.acc[open]{background:rgba(255,255,255,.16)}
+.acc summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;cursor:pointer;padding:20px 22px;min-height:68px;font:700 17px var(--mincho);-webkit-tap-highlight-color:transparent}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary i{flex:none;position:relative;width:26px;height:26px;border-radius:50%;border:1px solid #fff}
+.acc summary i::before,.acc summary i::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.5px;background:#fff;translate:-50% -50%;transition:rotate .35s}
+.acc summary i::after{rotate:90deg}
+.acc[open] summary i::after{rotate:0deg}
+.acc p{padding:0 22px 22px!important;font-size:15px!important;line-height:1.9!important;animation:accin .4s ease}
+@keyframes accin{from{opacity:0;transform:translateY(-6px)}}
+@media (max-width:700px){.accs{grid-template-columns:1fr}}
+
+/* ===== 余白と「一画面ひとこと」：参考サイトの読ませ方 ===== */
+.bgfx{position:sticky;top:0;height:100svh;margin-bottom:-100svh;z-index:-1;background:#06336a;transition:background-color 1.6s ease;pointer-events:none}
+.isec.alt{background:none!important;box-shadow:none!important}
+.isec{padding-block:clamp(120px,24vw,280px)}
+.isec.fin{padding-block:clamp(120px,20vw,220px) 20px}
+#i-info{padding-top:clamp(70px,12vw,140px)}
+.shead{margin-bottom:clamp(48px,8vw,96px)}
+.shead .no{color:rgba(255,255,255,.22)}
+.sh{font-size:clamp(30px,5.6vw,54px);letter-spacing:.04em}
+.isec p{font-size:clamp(16px,1.2vw + 12px,19px);line-height:2.3;max-width:30em}
+.isec p+p{margin-top:28px}
+.isec .lede{font-size:clamp(22px,3.4vw + 8px,36px);line-height:1.75;margin-bottom:34px}
+.key,.tier,.acc{border:0!important;background:rgba(255,255,255,.07)}
+.key{border-top:0!important}
+.stats,.stages,.news,.apply,.rows{border-color:rgba(255,255,255,.18)!important}
+.keys{margin-top:clamp(56px,9vw,100px)}
+.chips{margin-top:60px}
+.stmt{min-height:100svh;display:grid;place-items:center;padding:0 max(24px,env(safe-area-inset-left,0px));text-align:center}
+.stmt .st{margin:0;font-family:var(--mincho);font-weight:700;font-size:clamp(28px,6.4vw,68px);line-height:1.7;letter-spacing:.08em;text-wrap:balance;max-width:none!important}
+.ln{display:block;opacity:0;transform:translateY(30px);filter:blur(12px);transition:opacity 1.3s,transform 1.3s cubic-bezier(.2,.7,.2,1),filter 1.3s;transition-delay:calc(var(--i,0)*.45s)}
+.ln.in{opacity:1;transform:none;filter:none}
+@media (prefers-reduced-motion:reduce){.ln{opacity:1;transform:none;filter:none;transition:none}.bgfx{transition:none}}
+
+/* 窓が開いたあと、文字が下から浮かぶ */
+.irisjs #intro .intro-text{opacity:0}
+.irisdone #intro .intro-text{opacity:1;transition:opacity 1.8s ease}
+/* 数字の画面（2007→2027 が一気に数え上がる） */
+.numsec{min-height:90svh;display:grid;place-items:center;text-align:center;padding:60px 0}
+.numsec p{max-width:none!important;margin:0}
+.numsec .nl{font:500 13px var(--num);letter-spacing:.5em;color:#d6eef7}
+.bignum{font:200 clamp(110px,34vw,340px)/1 var(--num);letter-spacing:.02em;font-variant-numeric:tabular-nums;color:#fff;text-shadow:0 0 70px rgba(255,255,255,.3);margin:8px 0 6px!important}
+.numsec .nsub{font:300 clamp(14px,2.6vw,20px) var(--num);letter-spacing:.3em;color:#d6eef7}
+/* 写真は、スクロールで少しずつ大きくなる */
+.shot.big{will-change:transform}
+/* 一覧の行は、触れると色が変わる */
+.news li{transition:background .3s;padding-inline:10px;margin-inline:-10px;border-radius:12px}
+@media (hover:hover){.news li:hover{background:rgba(255,255,255,.08)}}
+.news li:active{background:rgba(255,255,255,.12)}
+
+/* Adobe Fonts：見出し＝貂明朝（太字にせず細いまま）、小さな見出し＝リュウミン、本文・ボタン＝筑紫A丸ゴシック */
+html{font-synthesis:none}
+.tier h3,.stages h3,.apply h3,.acc summary,.key b,.dbox h2,.gb b,.panel h2,.news p,.endcap .e4{font-family:var(--mincho-s)}
+.btn,.endbtn,.chip,.nav button,.ifoot button,.about,.dclose{font-family:var(--gothic)}
+
+/* ===== 見本の手法を白で：角のぼかし光を、くっきりした縁にそろえる＋四隅の二重の内側の線 ===== */
+.snd,.ap,.about,.endbtn,.close,.nav button,.btn,.chip,.ifoot button,.dclose{box-shadow:
+  inset 2px -2px 1px -1px rgba(255,255,255,.85),
+  inset -2px 2px 1px -1px rgba(255,255,255,.85),
+  inset 6px -6px 1px -6px rgba(255,255,255,.5),
+  inset -6px 6px 1px -6px rgba(255,255,255,.5),
+  inset 0 0 16px rgba(255,255,255,.08),
+  0 10px 26px -6px rgba(0,22,64,.34),0 2px 6px rgba(0,22,64,.16)}
+.snd::before,.ap::before,.about::before,.endbtn::before,.close::before,.nav button::before,.btn::before,.chip::before,.ifoot button::before,.dclose::before{content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;
+  background:linear-gradient(45deg,rgba(255,255,255,.95) 0%,transparent 24%,transparent 76%,rgba(255,255,255,.95) 100%);
+  filter:url(#edge);opacity:.85}
+.rad span{box-shadow:
+  inset 2px -2px 1px -1px rgba(255,255,255,.85),inset -2px 2px 1px -1px rgba(255,255,255,.85),
+  inset 6px -6px 1px -6px rgba(255,255,255,.5),inset -6px 6px 1px -6px rgba(255,255,255,.5),0 6px 18px -6px rgba(0,22,64,.3)}
+@media (prefers-reduced-motion:reduce){.snd,.ap,.about,.endbtn,.close,.nav button,.btn,.chip,.ifoot button,.dclose{transition:none}}
+
+/* 最初の画面：参考のように「細い・軽い・余白」の三段（小・大・小） */
+.intro-text{text-shadow:0 1px 16px rgba(10,10,60,.35);gap:1.1em}
+.intro-text::before{inset:-30% -14%;background:radial-gradient(closest-side,rgba(14,14,70,.5),transparent)}
+.l1,.l3{font-weight:400;letter-spacing:.2em;font-size:clamp(13px,1.6vw,20px);opacity:.92}
+.l2{font-weight:300;font-size:clamp(28px,5.2vw,70px);letter-spacing:.01em;line-height:1.25!important}
+@media (max-width:600px){.l1{font-size:14px}.l3{font-size:13px}.l2{font-size:30px}}
+
+/* 2027 の丸は「詳細を見る」ボタン */
+.mk.big .core{display:none}
+.mk .rt{display:none;position:absolute;inset:0;display:grid;place-items:center;text-align:center;font:500 12px/1.45 var(--gothic);letter-spacing:.08em;color:#fff;pointer-events:none;text-shadow:0 1px 6px rgba(80,0,30,.5)}
+
+/* 到着したら、2027 の丸が Liquid Glass のボタン「詳しく」に変わる */
+.mk.big .core{display:block}
+.mk .ring{transition:transform .3s,background .3s,opacity .7s}
+.mk .goBtn{position:absolute;left:calc(var(--R)*var(--k)*-1);top:calc(var(--R)*var(--k)*-1);width:calc(var(--R)*var(--k)*2);height:calc(var(--R)*var(--k)*2);
+  border-radius:50%;padding:0;margin:0;display:grid;place-items:center;align-content:center;text-align:center;
+  font:700 15px/1.35 var(--gothic);letter-spacing:.1em;min-height:0;opacity:0;pointer-events:none;scale:.8;
+  transition:opacity .9s ease .3s,scale .9s cubic-bezier(.34,1.56,.64,1) .3s,transform .55s cubic-bezier(.34,1.7,.5,1),box-shadow .45s}
+.mk .goBtn span{font-size:14px;display:block;animation:nudge 1.8s ease-in-out infinite}
+@keyframes nudge{50%{translate:0 4px}}
+body.atend .mk .goBtn{opacity:1;pointer-events:auto;scale:1}
+body.atend .mk.big .ring{opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.mk .goBtn span{animation:none}}
+
+/* ===== 年表の最後の画面：構図を整える ===== */
+.endglow{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 2.4s ease;
+  background:radial-gradient(55vmax 34vmax at 50% 66%,rgba(224,77,102,.2),transparent 70%),radial-gradient(70vmax 46vmax at 50% 74%,rgba(49,166,246,.2),transparent 72%),radial-gradient(40vmax 22vmax at 50% 16%,rgba(161,211,227,.1),transparent 70%)}
+body.atend .endglow{opacity:1}
+body.atend .head .brand{opacity:0;transition:opacity .8s}
+.endcap{left:0;right:0;top:calc(15% + env(safe-area-inset-top,0px));justify-items:center;text-align:center;gap:0;padding-bottom:96px}
+.endcap .e1{display:flex;align-items:center;gap:16px;font-size:12px;letter-spacing:.5em;color:#ffb3c0;margin:0 0 26px}
+.endcap .e1::before,.endcap .e1::after{content:"";width:34px;height:1px;background:rgba(255,179,192,.6)}
+.endcap .e2{font-family:var(--mincho);font-weight:400;font-size:clamp(38px,11vw,82px);line-height:1.5;letter-spacing:.16em;padding-left:.16em;text-shadow:0 0 40px rgba(161,211,227,.35)}
+.endcap::after{content:"";position:absolute;left:50%;bottom:0;width:1px;height:78px;background:linear-gradient(rgba(255,255,255,.7),transparent)}
+@media (max-width:700px){.endcap{left:0;right:0;top:calc(14% + env(safe-area-inset-top,0px))}}
+
+/* 仮の文章の印：文字は白のまま（読みやすく）、下にピンクの点線だけ。本物の文章に直したら class="ph" を消す */
+.ph{color:inherit!important;background:none!important;border-bottom:2px dotted #ff7d95;padding:0 0 1px}
+
+.mk .goBtn{text-indent:.1em}
+.mk .goBtn span{letter-spacing:0;text-indent:0;margin-top:2px}
+
+/* ===== 細部の整え直し：決まりごと =====
+   角の丸み＝3種類（12／20／丸薬）　影＝2種類　余白＝8pxの倍数　効果＝泡と光の筋は、下のページから外す */
+:root{--r-s:12px;--r-m:20px;--r-p:999px;--sh1:0 6px 18px -6px rgba(0,22,64,.3);--sh2:0 24px 60px -16px rgba(0,22,64,.45)}
+#info .bubs,#info .rays{display:none}
+/* 角の丸み */
+.shot,.shot.soft,.shot.big,.mapbox,.dbox,.acc,.key,.tier{border-radius:var(--r-m)}
+.fld input,.fld textarea,.status,.rad span{border-radius:var(--r-s)}
+.dbox{border-radius:var(--r-m);box-shadow:var(--sh2),inset 0 1px 0 rgba(255,255,255,.25)}
+@media (max-width:700px){.dbox{border-radius:var(--r-m) var(--r-m) 0 0}}
+/* 影 */
+.shot{box-shadow:var(--sh2)}
+.acc,.key,.tier{box-shadow:none}
+/* 余白は8の倍数 */
+.btn{margin:16px 8px 0 0}
+.isec .lede{margin-bottom:32px}
+.isec p+p{margin-top:24px}
+.keys{gap:16px!important;margin-top:clamp(56px,9vw,96px)}
+.tiers,.accs{gap:16px}
+.news li{padding-block:24px}
+.acc summary{padding:24px}
+.acc p{padding:0 24px 24px!important}
+.key{padding:24px}
+.tier{padding:32px 24px!important}
+.stat{padding:24px 8px}
+.stages li{padding:24px 0}
+.apply{padding:32px 0;margin-top:48px}
+.fld{margin-top:16px}
+.fset{margin-top:32px}
+.shead{gap:16px}
+/* 小さな英字ラベルは、字間を .3em にそろえる */
+.shead .en,.dsub,.mini,.key .k,.numsec .nl{letter-spacing:.3em}
+
+/* ===== パソコン向け：広い画面で、文字・余白・段組みを大きく、整える ===== */
+@media (min-width:1024px){
+  .iw{max-width:1160px;padding-inline:56px}
+  .gnav{padding:12px 56px}
+  .gb b{font-size:17px}
+  .gl{gap:36px;font-size:15px}
+  .isec p{font-size:18px;line-height:2.2}
+  .isec .lede{font-size:clamp(28px,2.4vw,38px)}
+  .sh{font-size:clamp(40px,3.6vw,56px)}
+  .shead .no{font-size:128px}
+  .ticket .lh{font-size:clamp(40px,4vw,58px)}
+  .keys{margin-top:96px}
+  .key b{font-size:clamp(26px,2.3vw,34px)}
+  .key em{font-size:14.5px}
+  .about2{grid-template-columns:1fr 1.05fr;gap:72px}
+  .steps li{font-size:15.5px}
+  .tier .amt{font-size:44px!important}
+  .tier{padding:40px 32px!important}
+  .apply{padding:40px 0}
+  .accs{gap:20px}
+  .acc summary{font-size:18px;padding:28px}
+  .acc p{padding:0 28px 28px!important}
+  .news li{grid-template-columns:140px 88px 1fr;padding-block:28px}
+  .news time{font-size:26px}
+  .news p{font-size:17px!important}
+  .stmt .st{font-size:clamp(40px,5.2vw,96px)}
+  .endcap .e2{font-size:clamp(52px,5vw,92px)}
+  .dlg{max-width:720px}
+  .dbox{padding:48px}
+  .btn{min-height:56px;font-size:16px}
+}
+@media (min-width:1600px){
+  .iw{max-width:1280px}
+}
+/* マウスで触れたとき：押せるものが分かるように */
+@media (hover:hover){
+  .acc summary:hover{background:rgba(255,255,255,.06)}
+  .gl a{transition:opacity .2s,border-color .2s}
+}
 </style>
+<script>
+  (function(d) {
+    var config = { kitId: 'ahd7ucz', scriptTimeout: 3000, async: true },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <filter id="lens" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency=".008 .014" numOctaves="2" seed="7" result="n"/>
+    <feGaussianBlur in="n" stdDeviation="3" result="nb"/>
+    <feDisplacementMap in="SourceGraphic" in2="nb" scale="46" xChannelSelector="R" yChannelSelector="G"/>
+  </filter><filter id="edge" x="-15%" y="-15%" width="130%" height="130%" color-interpolation-filters="sRGB">
+    <feGaussianBlur stdDeviation="6"/>
+    <feComponentTransfer><feFuncA type="linear" slope="2.4" intercept="-.35"/></feComponentTransfer>
+  </filter></defs></svg>
 
 <canvas id="gl" aria-hidden="true"></canvas>
+<div class="endglow" aria-hidden="true"></div>
 <div class="mks" id="mks"></div>
 
 <header class="head">
@@ -227,16 +669,20 @@ body.deep .head{opacity:0;pointer-events:none}
     </span>
     <div><span>木曽青峰高校吹奏楽部</span><small>20TH ANNIVERSARY CONCERT</small></div>
   </div>
+  <div class="ctl">
+  <button class="ap" id="ap" type="button" data-s="pause" aria-label="自動再生を止める"><svg class="i-pause" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg><svg class="i-play" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg><svg class="i-replay" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v4.5h4.5"/></svg></button>
   <button class="snd muted" id="snd" aria-label="サウンドを切り替え" aria-pressed="false">
     <svg class="on" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a8 8 0 0 1 0 11"/></svg>
     <svg class="off" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
   </button>
+  </div>
 </header>
 
+<div id="iris" aria-hidden="true"><i id="irisRing"></i></div>
 <section id="intro" role="button" tabindex="0" aria-label="クリックして20年のあゆみを見る">
   <div class="intro-text" id="introText">
-    <p class="l1">木曽青峰高校吹奏楽部　20周年記念定期演奏会</p>
-    <p class="l2">Twenty years, one sea of sound</p>
+    <h1 class="l1">木曽青峰高校20周年記念定期演奏会</h1>
+    <p class="l2">Twenty years of sound, flowing to the sea</p>
     <p class="l3">2027年7月25日（日）　木曽文化公園文化ホール</p>
   </div>
   <div class="cta">
@@ -257,7 +703,6 @@ body.deep .head{opacity:0;pointer-events:none}
   <div class="tag" id="ptag">MILESTONE</div>
   <div class="yr" id="py"></div>
   <h2 id="pt"></h2>
-  <span class="sea" id="psea" hidden>〜 海にちなんだ曲</span>
   <p id="pd" hidden></p>
   <dl id="pdl" hidden></dl>
   <p class="src" id="psrc" hidden>出典：Musica Bella 吹奏楽コンクールデータベース（長野県木曽青峰高等学校）をもとに作成</p>
@@ -266,121 +711,200 @@ body.deep .head{opacity:0;pointer-events:none}
 
 <div class="endcap" id="endcap">
   <p class="e1">20TH ANNIVERSARY CONCERT</p>
-  <h2 class="e2">20周年記念定期演奏会</h2>
-  <p class="e3">2027.7.25 <small>SUN</small></p>
-  <p class="e4">木曽文化公園文化ホール　入場無料</p>
-  <button class="endbtn" id="endGo">開催のご案内へ <span aria-hidden="true">↓</span></button>
+  <h2 class="e2">20周年記念<br>定期演奏会</h2>
 </div>
 
 <div class="stage" aria-hidden="true"></div>
 
 <main id="info">
+  <nav class="gnav" aria-label="メニュー">
+    <a class="gb" href="#i-info"><b>木曽青峰高校吹奏楽部</b><small>20TH ANNIVERSARY</small></a>
+    <div class="gl"><a href="#i-info">開催情報</a><a href="#i-msg">部について</a><a href="#i-prog">プログラム</a><a href="#i-news">お知らせ</a><a href="#i-access">アクセス</a></div>
+    <a class="btn solid gcta" href="#i-sponsor">ご協賛のお願い</a>
+  </nav>
+  <div class="bgfx" id="bgfx" aria-hidden="true"></div>
+  <div class="rays" aria-hidden="true"></div>
   <div class="bubs" aria-hidden="true">
-    <i class="bub" style="left:-60px;top:140px;width:220px;height:220px"></i>
-    <i class="bub" style="right:-40px;top:900px;width:170px;height:170px;animation-delay:-3s"></i>
-    <i class="bub" style="left:6%;top:1900px;width:120px;height:120px;animation-delay:-6s"></i>
-    <i class="bub" style="right:8%;top:2900px;width:200px;height:200px;animation-delay:-2s"></i>
-    <i class="bub" style="left:-30px;top:3900px;width:150px;height:150px;animation-delay:-5s"></i>
+    <i class="bub" style="left:-70px;top:3%;width:210px;height:210px"></i>
+    <i class="bub" style="right:-40px;top:14%;width:150px;height:150px;animation-delay:-3s"></i>
+    <i class="bub" style="right:-50px;top:80%;width:170px;height:170px;animation-delay:-4s"></i>
   </div>
 
-  <section class="isec lead"><div class="iw">
-    <p class="e1">20TH ANNIVERSARY CONCERT</p>
-    <h2 class="lh">木曽青峰高校吹奏楽部<br>20周年記念定期演奏会</h2>
-    <p class="big">7.25</p>
-    <p class="dt">2027年 日曜日　木曽文化公園文化ホール</p>
-    <p><span class="pill">入場無料</span></p>
-    <p class="lc">ぜひ、聞きに来てください。</p>
-    <nav class="jump" aria-label="ページ内リンク"><a href="#i-info">INFORMATION</a><a href="#i-msg">MESSAGE</a><a href="#i-band">BAND</a><a href="#i-prog">PROGRAM</a><a href="#i-sponsor">SPONSORS</a><a href="#i-access">ACCESS</a></nav>
-  </div></section>
-
+  <!-- 開催のご案内 -->
   <section class="isec" id="i-info"><div class="iw">
-    <h2 class="sh"><span class="en">INFORMATION</span>開催のご案内</h2>
-    <p style="margin-top:24px">木曽文化公園文化ホールで開く、私たち主催の演奏会です。これまでの定期演奏会では、フレンドシップバンドの皆さんとも演奏ステージを開きました。</p>
-    <dl class="rows">
-      <div><dt>開催日</dt><dd>2027年7月25日（日）</dd></div>
-      <div><dt>開場・開演</dt><dd><span class="ph">【開場○時／開演○時】</span></dd></div>
-      <div><dt>会場</dt><dd>木曽文化公園文化ホール</dd></div>
-      <div><dt>住所</dt><dd>〒399-6101 長野県木曽郡木曽町日義4898-37</dd></div>
-      <div><dt>入場料</dt><dd>無料</dd></div>
-      <div><dt>整理券・申し込み</dt><dd><span class="ph">【必要／不要。必要な場合は入手方法】</span></dd></div>
-    </dl>
-  </div></section>
-
-  <section class="isec" id="i-msg"><div class="iw two">
-    <div>
-      <h2 class="sh"><span class="en">MESSAGE</span>感謝をこめて</h2>
-      <p style="margin-top:24px">木曽青峰高校吹奏楽部は、おかげさまで20周年を迎えます。木曽地域の皆さまから、地域での演奏会など多くの演奏の機会をいただいてきました。心より感謝申し上げます。</p>
-      <p>部活目標のとおり、ひとつひとつの音に気持ちをこめて練習を重ねています。来年度のコンクールでは東海大会出場をめざし、12月にはアンサンブルコンテストの地区大会にも挑戦します。</p>
-      <p>地域の皆さま、保護者の皆さま、中学生のみなさん、どなたでもお楽しみいただける演奏会にします。ぜひ聞きに来てください。部員一同、心をこめて演奏いたします。</p>
+    <div class="ticket" data-rv>
+      <p class="e1">20TH ANNIVERSARY CONCERT</p>
+      <h2 class="lh">木曽青峰高校<br>20周年記念定期演奏会</h2>
+      <div class="dateblock"><i class="rp"></i><i class="rp"></i><i class="rp"></i><p class="big">7.25</p><p class="sun">2027 · SUNDAY</p></div>
+      <div class="keys">
+        <div class="key"><span class="k">WHEN　日時</span><b>2027年7月25日（日）</b><em>開場・開演は未定です。決まり次第、このページでお知らせします。</em></div>
+        <div class="key"><span class="k">WHERE　会場</span><b>木曽文化公園<br>文化ホール</b><em>〒399-6101 長野県木曽郡木曽町日義4898-37</em></div>
+        <div class="key"><span class="k">ADMISSION　入場</span><b>無料</b><em>整理券：<span class="ph">不要（先着順・自由席）</span></em></div>
+      </div>
+      <div class="actions"><a class="btn" href="#i-access">アクセスを見る</a><a class="btn solid" href="#i-sponsor">ご協賛のお願い</a></div>
+      <nav class="chips" aria-label="ページ内リンク"><a class="chip" href="#i-info">INFORMATION</a><a class="chip" href="#i-msg">ABOUT</a><a class="chip" href="#i-prog">PROGRAM</a><a class="chip hot" href="#i-sponsor">SPONSORS</a><a class="chip" href="#i-access">ACCESS</a></nav>
     </div>
-    <p class="vt" aria-hidden="true">一音入魂</p>
   </div></section>
 
-  <section class="isec" id="i-band"><div class="iw">
-    <h2 class="sh"><span class="en">BAND</span>木曽青峰高校吹奏楽部</h2>
-    <p style="margin-top:24px">長野県木曽青峰高等学校の吹奏楽部です。金賞を目指して、日々練習しています。</p>
-    <div class="stats">
-      <div><b>7</b><span>1年生</span></div>
-      <div><b>6</b><span>2年生</span></div>
-      <div><b>3</b><span>顧問</span></div>
+  <section class="stmt"><p class="st"><span class="ln" style="--i:0">木曽の山あいで、</span><span class="ln" style="--i:1">20年、音を重ねてきました。</span></p></section>
+
+  <!-- 01 部について（メッセージと紹介） -->
+  <section class="isec alt" id="i-msg"><div class="iw">
+    <header class="shead" data-rv><span class="no">01</span><div><span class="en">ABOUT</span><h2 class="sh">感謝をこめて</h2></div></header>
+    <div class="about2">
+      <div class="txt">
+        <p class="lede" data-rv>木曽青峰高校吹奏楽部は、おかげさまで<strong>20周年</strong>を迎えます。</p>
+        <p data-rv>木曽地域の皆さまから、地域での演奏会など多くの演奏の機会をいただいてきました。心より感謝申し上げます。</p>
+        <p data-rv>部活目標のとおり、ひとつひとつの音に気持ちをこめて練習を重ねています。来年度のコンクールでは東海大会出場をめざし、12月にはアンサンブルコンテストの地区大会にも挑戦します。</p>
+        <p data-rv><strong>ぜひ聞きに来てください。</strong>部員一同、心をこめて演奏いたします。</p>
+      </div>
+      <!-- 写真：このファイルと同じ場所に photos フォルダを作り、01.jpg などの名前で入れてください。alt（写真の説明）も書き換えてください。写真がないときは、仮の画像が出ます -->
+      <figure class="shot soft big" data-rv data-label="【写真】部員の集合写真（photos/01.jpg）"><img src="photos/01.jpg" alt="【書き換え】木曽青峰高校吹奏楽部の集合写真" loading="lazy"></figure>
     </div>
-    <p>音楽室は、大体育館の前です。いつでも入れます。私たちの目印は音です。</p>
-    <a class="btn" href="https://seihosuisogaku.morinosugi.com/" target="_blank" rel="noopener">部の公式サイトへ</a>
-    <a class="btn" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagram @shwo._.official</a>
-    <p class="src" style="margin-top:22px;font-size:12px;color:rgba(255,255,255,.55)">人数は、部の公式サイト「新入生歓迎2027」の記載にもとづきます。</p>
+    <div class="stats" data-rv>
+      <div class="stat"><b data-count="7">7</b><span>1年生</span></div>
+      <div class="stat"><b data-count="6">6</b><span>2年生</span></div>
+      <div class="stat"><b data-count="3">3</b><span>顧問</span></div>
+    </div>
+    <p data-rv><strong>金賞</strong>を目指して、日々練習しています。音楽室は、大体育館の前です。いつでも入れます。私たちの目印は音です。</p>
+    <div data-rv><a class="btn" href="https://seihosuisogaku.morinosugi.com/" target="_blank" rel="noopener">部の公式サイトへ</a><a class="btn" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagram @shwo._.official</a></div>
+    <p class="src" data-rv>人数は、部の公式サイト「新入生歓迎2027」の記載にもとづきます。</p>
   </div></section>
 
+  <section class="numsec"><div class="iw">
+    <p class="nl" data-rv>20 YEARS OF SOUND</p>
+    <p class="bignum" id="yearCt" data-from="2007" data-to="2027" aria-label="2007年から2027年">2007</p>
+    <p class="nsub" data-rv>2007　→　2027　　20年のあゆみ</p>
+  </div></section>
+
+  <!-- 03 プログラム -->
   <section class="isec" id="i-prog"><div class="iw">
-    <h2 class="sh"><span class="en">PROGRAM</span>プログラム</h2>
-    <ol class="prog">
-      <li><b>01</b><div><h3><span class="ph">【1部のステージ名】</span></h3><p><span class="ph">【曲名・作曲者】</span></p></div></li>
-      <li><b>02</b><div><h3><span class="ph">【2部のステージ名】</span></h3><p><span class="ph">【曲名・作曲者】</span></p></div></li>
-      <li><b>03</b><div><h3><span class="ph">【3部のステージ名】</span></h3><p><span class="ph">【曲名・作曲者】</span></p></div></li>
+    <header class="shead" data-rv><span class="no">02</span><div><span class="en">PROGRAM</span><h2 class="sh">プログラム</h2></div></header>
+    <ol class="stages" data-rv>
+      <li><span class="no">01</span><div><h3><span class="ph">第1部　クラシック・ステージ</span></h3><p><span class="ph">曲目は決まり次第お知らせします</span></p></div></li>
+      <li><span class="no">02</span><div><h3><span class="ph">第2部　ポップス・ステージ</span></h3><p><span class="ph">曲目は決まり次第お知らせします</span></p></div></li>
+      <li><span class="no">03</span><div><h3><span class="ph">第3部　20周年記念ステージ</span></h3><p><span class="ph">曲目は決まり次第お知らせします</span></p></div></li>
     </ol>
-    <dl class="rows"><div><dt>見どころ・ゲスト</dt><dd><span class="ph">【20周年ならではの企画、ゲストの紹介】</span></dd></div></dl>
+    <dl class="rows plain" data-rv><div><dt>見どころ・ゲスト</dt><dd><span class="ph">歴代の卒業生との合同演奏を予定しています</span></dd></div></dl>
+    <h3 class="mini" data-rv style="margin-top:56px">SCENES　これまでの演奏会から</h3>
+    <div class="scenes" data-rv>
+      <figure class="shot soft" data-label="【写真】演奏会の様子（photos/03.jpg）"><img src="photos/03.jpg" alt="【書き換え】演奏会のステージ" loading="lazy"></figure>
+      <figure class="shot soft" data-label="【写真】部員の表情（photos/04.jpg）"><img src="photos/04.jpg" alt="【書き換え】演奏に取り組む部員" loading="lazy"></figure>
+      <figure class="shot soft" data-label="【写真】地域での演奏（photos/05.jpg）"><img src="photos/05.jpg" alt="【書き換え】地域での演奏会の様子" loading="lazy"></figure>
+    </div>
   </div></section>
 
-  <section class="isec" id="i-sponsor"><div class="iw">
-    <h2 class="sh"><span class="en">SPONSORS</span>ご協賛のお願い</h2>
-    <p style="margin-top:24px">木曽青峰高校吹奏楽部は、20周年記念定期演奏会を、地域の皆さまとともに迎えたいと考えています。演奏会の運営や記念の企画には、多くの準備が必要です。そこで、趣旨にご賛同いただける企業・団体・個人の皆さまに、ご協賛をお願いしております。</p>
-    <p>いただいたご支援は、<span class="ph">【使いみち：会場費・記念プログラム作成など】</span>に大切に使わせていただきます。</p>
-    <ul class="tier">
-      <li><h3><span class="ph">【コース名】</span></h3><p>協賛金：<span class="ph">【金額】</span><br>特典：<span class="ph">【プログラム掲載、会場掲示など】</span></p></li>
-      <li><h3><span class="ph">【コース名】</span></h3><p>協賛金：<span class="ph">【金額】</span><br>特典：<span class="ph">【特典】</span></p></li>
-      <li><h3><span class="ph">【コース名】</span></h3><p>協賛金：<span class="ph">【金額】</span><br>特典：<span class="ph">【特典】</span></p></li>
+  <section class="stmt"><p class="st"><span class="ln" style="--i:0">ひとつひとつの音に、</span><span class="ln" style="--i:1">気持ちをこめて。</span></p></section>
+
+  <!-- 03 お知らせ（日付つきの一覧）。増やすときは li をコピーしてください -->
+  <section class="isec alt" id="i-news"><div class="iw">
+    <header class="shead" data-rv><span class="no">03</span><div><span class="en">NEWS</span><h2 class="sh">お知らせ</h2></div></header>
+    <ul class="news" data-rv>
+      <li><time>2026.10.19</time><span class="nt">公開</span><p><span class="ph">20周年記念定期演奏会の特設ページを公開しました。</span></p></li>
+      <li><time>2026.11.01</time><span class="nt">協賛</span><p><span class="ph">ご協賛の受付を開始しました。</span></p></li>
+      <li><time>2027.01.15</time><span class="nt">開催</span><p><span class="ph">開場・開演時刻を発表しました。</span></p></li>
     </ul>
-    <dl class="rows">
-      <div><dt>募集期間</dt><dd><span class="ph">【○月○日まで】</span></dd></div>
-      <div><dt>お名前の掲載</dt><dd><span class="ph">【掲載場所】</span>に掲載させていただきます。</dd></div>
-      <div><dt>お申し込み</dt><dd><span class="ph">【申し込み先（フォームのURL・連絡先）】</span></dd></div>
-    </dl>
   </div></section>
 
-  <section class="isec" id="i-access"><div class="iw">
-    <h2 class="sh"><span class="en">ACCESS</span>アクセス・ご来場のみなさまへ</h2>
-    <a class="btn" style="margin-left:0" href="https://www.google.com/maps/search/?api=1&query=%E6%9C%A8%E6%9B%BD%E6%96%87%E5%8C%96%E5%85%AC%E5%9C%92%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB" target="_blank" rel="noopener">地図を見る（Google マップ）</a>
-    <dl class="rows">
-      <div><dt>アクセス</dt><dd><span class="ph">【最寄り駅・バス・車での行き方、帰りの交通手段】</span></dd></div>
-      <div><dt>駐車場</dt><dd><span class="ph">【台数・場所・無料か有料か】</span></dd></div>
-      <div><dt>持ち物</dt><dd><span class="ph">【整理券、上ばきなど】</span></dd></div>
-      <div><dt>撮影・録音</dt><dd><span class="ph">【ルールを書いてください】</span></dd></div>
-      <div><dt>車いすなどの配慮</dt><dd><span class="ph">【席の場所、付き添いの方への案内】</span></dd></div>
-      <div><dt>雨天・荒天時</dt><dd><span class="ph">【中止や変更のときの連絡方法】</span></dd></div>
+  <!-- 04 ご協賛のお願い。コースの内容は、下の script の TIERS を書き換えると、カードとフォームの両方に出ます -->
+  <section class="isec" id="i-sponsor"><div class="iw">
+    <header class="shead" data-rv><span class="no">04</span><div><span class="en">SPONSORS</span><h2 class="sh">ご協賛のお願い</h2></div></header>
+    <p class="lede" data-rv>20周年を、地域の皆さまとともに迎えたいと考えています。</p>
+    <p data-rv>演奏会の運営や記念の企画には、多くの準備が必要です。そこで、趣旨にご賛同いただける企業・団体・個人の皆さまに、ご協賛をお願いしております。</p>
+    <p data-rv>いただいたご支援は、<span class="ph">会場費・記念プログラムの作成費など</span>に大切に使わせていただきます。</p>
+    <!-- 手順は案です。実際の流れに合わせて書き換えてください -->
+    <ol class="steps" data-rv>
+      <li><b>STEP 01</b>フォームに入力します（約2分）。</li>
+      <li><b>STEP 02</b>内容を確認し、部の担当者からご連絡します。</li>
+      <li><b>STEP 03</b>お支払いなどの手続きは、ご連絡の際にご案内します。</li>
+    </ol>
+    <div class="tiers" id="tiers" data-rv></div>
+    <dl class="rows plain" data-rv>
+      <div><dt>募集期間</dt><dd><span class="ph">2027年5月31日（月）まで</span></dd></div>
+      <div><dt>お名前の掲載</dt><dd><span class="ph">当日のプログラムとこのページ</span>に掲載させていただきます。</dd></div>
     </dl>
+    <div class="apply" data-rv>
+      <div><h3>ご協賛のお申し込み</h3><p>フォームは、この画面の上に開きます。入力は約2分です。</p></div>
+      <button type="button" class="btn solid" id="openForm">お申し込みフォームを開く</button>
+    </div>
+  </div></section>
+
+  <section class="stmt"><p class="st"><span class="ln" style="--i:0">2027年7月25日。</span><span class="ln" style="--i:1">木曽で、お待ちしています。</span></p></section>
+
+  <!-- 05 アクセス -->
+  <section class="isec alt" id="i-access"><div class="iw">
+    <header class="shead" data-rv><span class="no">05</span><div><span class="en">ACCESS</span><h2 class="sh">アクセス・ご来場のみなさまへ</h2></div></header>
+    <div class="mapbox" id="mapbox" data-rv>
+      <div class="mapph" id="mapph">
+        <p>木曽文化公園文化ホール<br>〒399-6101 長野県木曽郡木曽町日義4898-37</p>
+        <button type="button" class="btn" id="mapBtn">地図を表示する</button>
+        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E6%9C%A8%E6%9B%BD%E6%96%87%E5%8C%96%E5%85%AC%E5%9C%92%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB" target="_blank" rel="noopener">Googleマップで開く</a>
+      </div>
+    </div>
+    <div class="accs" data-rv><details class="acc" name="acc"><summary><span>行き方</span><i aria-hidden="true"></i></summary><p><span class="ph">JR中央西線 日義駅から車で約5分。お車の方は中央道から国道19号で約40分です。</span></p></details><details class="acc" name="acc"><summary><span>お車の方</span><i aria-hidden="true"></i></summary><p><span class="ph">無料駐車場があります（約100台）。満車の場合は係の案内に従ってください。</span></p></details><details class="acc" name="acc"><summary><span>持ち物</span><i aria-hidden="true"></i></summary><p><span class="ph">上ばきは不要です。</span></p></details><details class="acc" name="acc"><summary><span>撮影・録音</span><i aria-hidden="true"></i></summary><p><span class="ph">演奏中の撮影・録音はご遠慮ください。</span></p></details><details class="acc" name="acc"><summary><span>車いすの方へ</span><i aria-hidden="true"></i></summary><p><span class="ph">車いす席があります。入口で係にお声がけください。</span></p></details><details class="acc" name="acc"><summary><span>雨や雪のとき</span><i aria-hidden="true"></i></summary><p><span class="ph">部の公式サイトとInstagramでお知らせします。</span></p></details></div>
   </div></section>
 
   <section class="isec fin"><div class="iw">
-    <p>ぜひ、聞きに来てください。</p>
-    <a class="btn" style="margin-top:26px" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagram @shwo._.official</a>
+    <p data-rv>ぜひ、聞きに来てください。</p>
+    <a class="btn" style="margin-top:26px;width:auto" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener" data-rv>Instagram @shwo._.official</a>
   </div></section>
 
+  <!-- 木曽の山並みと、そこから流れ出す川 -->
+  <div class="scene" aria-hidden="true">
+    <svg viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice">
+      <defs><linearGradient id="rv" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#a1d3e3" stop-opacity=".9"/></linearGradient></defs>
+      <path d="M0 270L80 205L150 250L270 150L360 235L450 185L540 190L650 262L760 188L850 170L960 245L1060 180L1170 250L1270 200L1360 245L1440 215V400H0Z" fill="rgba(214,238,247,.32)"/>
+      <path d="M0 315L110 245L210 295L340 225L450 290L560 240L640 285L700 275L790 300L900 230L1010 295L1130 240L1240 300L1340 255L1440 295V400H0Z" fill="rgba(110,184,232,.45)"/>
+      <path d="M650 262C690 290 620 315 656 340S690 380 655 402" fill="none" stroke="url(#rv)" stroke-width="7" stroke-linecap="round"/>
+      <path class="river-dots" d="M650 262C690 290 620 315 656 340S690 380 655 402" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+      <path d="M0 375L120 330L240 362L380 322L500 360L585 335L610 400H700L725 338L820 365L960 322L1090 360L1220 325L1340 358L1440 335V400H0Z" fill="#021a38"/>
+    </svg>
+  </div>
+
   <footer class="ifoot"><div class="iw">
-    <p>主催：木曽青峰高校吹奏楽部 <span class="ph">【後援：○○】</span></p>
+    <p>主催：木曽青峰高校吹奏楽部 <span class="ph">後援：木曽町教育委員会</span></p>
     <p>年表の出典：Musica Bella 吹奏楽コンクールデータベース（長野県木曽青峰高等学校）をもとに作成しました。</p>
     <p><a href="https://seihosuisogaku.morinosugi.com/" target="_blank" rel="noopener">部の公式サイト</a>　© 木曽青峰高校吹奏楽部</p>
-    <button id="toTop">ページの先頭へ ↑</button>
+    <button id="toTop" type="button">ページの先頭へ ↑</button>
   </div></footer>
 </main>
+
+<!-- 協賛のお申し込みフォーム（ポップアップ） -->
+<dialog id="formDlg" class="dlg" aria-labelledby="dlgT">
+  <button type="button" class="dclose" id="dlgClose" aria-label="閉じる">×</button>
+  <div class="dbox">
+    <p class="dsub">SPONSORS</p>
+    <h2 id="dlgT">ご協賛のお申し込み</h2>
+    <p class="hint2">約2分で入力できます。迷うところは、空欄のままで大丈夫です。</p>
+    <form id="sponsor-form" novalidate>
+      <fieldset class="fset"><legend><b>01</b>コースをえらぶ <span class="tag req">必須</span></legend>
+        <div class="opts" id="tierOpts"></div></fieldset>
+      <fieldset class="fset"><legend><b>02</b>お名前・ご連絡先</legend>
+        <div class="fld"><label for="f-name">お名前（企業・団体名／個人の方はお名前）<span class="tag req">必須</span></label><input id="f-name" name="name" type="text" required autocomplete="organization" enterkeyhint="next" placeholder="例：○○商店"></div>
+        <div class="row2">
+          <div class="fld"><label for="f-email">メールアドレス<span class="tag req">必須</span></label><input id="f-email" name="email" type="email" required inputmode="email" autocomplete="email" enterkeyhint="next" placeholder="例：info@example.jp"></div>
+          <div class="fld"><label for="f-tel">お電話番号<span class="tag optn">任意</span></label><input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="例：0264-00-0000"></div>
+        </div>
+        <div class="fld"><label for="f-person">ご担当者名<span class="tag optn">任意</span></label><input id="f-person" name="person" type="text" autocomplete="name" enterkeyhint="next"></div>
+      </fieldset>
+      <fieldset class="fset"><legend><b>03</b>お名前の掲載 <span class="tag req">必須</span></legend>
+        <div class="opts">
+          <label class="rad"><input type="radio" name="show" value="掲載を希望する" required><span>掲載を希望する</span></label>
+          <label class="rad"><input type="radio" name="show" value="掲載を希望しない"><span>掲載を希望しない（匿名でのご協賛）</span></label>
+        </div>
+        <div class="fld"><label for="f-display">掲載するお名前の表記<span class="tag optn">任意</span></label><input id="f-display" name="display" type="text" enterkeyhint="next" placeholder="空欄の場合は、上のお名前を使います"></div>
+      </fieldset>
+      <fieldset class="fset"><legend><b>04</b>ご質問・メッセージ <span class="tag optn">任意</span></legend>
+        <div class="fld" style="margin-top:0"><textarea id="f-msg" name="msg" rows="4" aria-label="ご質問・メッセージ" enterkeyhint="done"></textarea></div>
+      </fieldset>
+      <div class="hp" aria-hidden="true"><label>Webサイト<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+      <button class="btn solid submit" type="submit" id="fsubmit">この内容で申し込む</button>
+      <p class="fnote">いただいた情報は、ご協賛のご連絡と、お名前の掲載の確認にのみ使います。</p>
+      <div class="status" id="fstatus" role="status" aria-live="polite" hidden></div>
+      <noscript><p class="fnote"><span class="ph">お問い合わせ：0264-00-0000（仮）</span></p></noscript>
+    </form>
+  </div>
+</dialog>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -426,7 +950,7 @@ const sm=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t
 const N=EVENTS.length;
 
 /* ---------- intro letters ---------- */
-(()=>{let n=0;document.querySelectorAll("#introText p").forEach(p=>{const t=p.textContent;p.textContent="";
+(()=>{let n=0;document.querySelectorAll("#introText p,#introText h1").forEach(p=>{const t=p.textContent;p.textContent="";
   [...t].forEach(c=>{const s=document.createElement("span");s.className="ch";s.textContent=c;s.style.setProperty("--d",(500+n*30+Math.random()*150)|0);n++;p.appendChild(s)})})})();
 if(root.classList.contains("g")){try{
   G.fromTo(".ch",{opacity:0,filter:"blur(10px)"},{opacity:1,filter:"blur(0px)",duration:1.1,ease:"power2.out",stagger:.03,delay:.5});
@@ -436,7 +960,12 @@ if(root.classList.contains("g")){try{
 /* ---------- state ---------- */
 let W=0,H=0,DPR=1;
 const S={state:"intro",off:0,target:0,spacing:520,pad:0,maxOff:0,leaveT:0,introStart:0};
-let drag=false,moved=0,sx0=0,off0=0,openIdx=-1,active=0,atEndNow=false,endShown=false;
+/* 自動で進む：導入は約7.5秒で海へ。年表は AUTO_SEC 秒で最後まで流れる（大きくするとゆっくり）。さわると止まり、離して約2.6秒たつと再開する */
+let autoOn=!reduce,lastAct=0;const AUTO_SEC=6.5;
+const eas=p=>p<.5?16*p**5:1-Math.pow(-2*p+2,5)/2;   /* 最初ゆっくり→中盤で一気に→ふっと着地 */
+let autoS0=0,autoQ=0,autoRun=false,hintHid=false;
+const invE=y=>{let a=0,b=1;for(let i=0;i<22;i++){const m=(a+b)/2;eas(m)<y?a=m:b=m}return a};
+let drag=false,moved=0,sx0=0,sy0=0,off0=0,openIdx=-1,active=0,atEndNow=false,endShown=false;
 const mx=i=>S.pad+i*S.spacing;
 const sc=()=>H/900;
 function cyJS(x){const c=H*.5+Math.sin(x*.0042+.6)*H*.07+Math.sin(x*.0013+2)*H*.085,xe=mx(N-1);return lerp(c,H*.66,sm(xe-W*.25,xe+W*.02,x))}
@@ -448,12 +977,12 @@ const canvas=$("#gl");
 let gl=null;
 try{gl=canvas.getContext("webgl",{antialias:false,alpha:false,powerPreference:"high-performance"})}catch(e){}
 if(!gl)root.classList.add("nogl");
-const U={uRes:[1,1],uDpr:1,uTime:0,uOff:0,uXe:0,uSp:500,uTL:0,uD:0,uC1:[.17,.53,.8],uC2:[0,.45,.74],uIT:0,uOut:-1};
+const U={uRes:[1,1],uDpr:1,uTime:0,uOff:0,uXe:0,uSp:500,uTL:0,uD:0,uC1:[.17,.53,.8],uC2:[0,.45,.74],uIT:0,uOut:-1,uBub:1};
 const COMMON=`precision highp float;
 uniform vec2 uRes;uniform float uDpr,uTime,uOff,uXe,uSp,uTL,uIT,uOut;
 float SC(){return uRes.y/900.;}
 float CY(float x){float H=uRes.y,W=uRes.x;float c=H*.5+sin(x*.0042+.6)*H*.07+sin(x*.0013+2.)*H*.085;return mix(c,H*.66,smoothstep(uXe-W*.25,uXe+W*.02,x));}
-float ENV(float x){float W=uRes.x;return (8.+78.*pow(abs(sin(x*.0016+.5)),1.4))*SC()*(1.-.8*smoothstep(uXe-W*.1,uXe+W*.3,x));}
+float ENV(float x){float W=uRes.x;return (8.+78.*pow(abs(sin(x*.0016+.5)),1.4))*SC()*mix(.55,1.,smoothstep(0.,uXe*.7,x))*(1.-.8*smoothstep(uXe-W*.1,uXe+W*.3,x));}
 vec4 NDC(vec2 p){return vec4(p.x/uRes.x*2.-1.,1.-p.y/uRes.y*2.,0.,1.);}
 `;
 const FSPRE="#ifdef GL_FRAGMENT_PRECISION_HIGH\nprecision highp float;\n#else\nprecision mediump float;\n#endif\n";
@@ -463,6 +992,10 @@ fs:`uniform vec2 uRes;uniform float uDpr,uTime,uOff,uTL,uD;uniform vec3 uC1,uC2;
 void main(){
   vec2 fc=vec2(gl_FragCoord.x,uRes.y*uDpr-gl_FragCoord.y)/uDpr;
   vec3 col=mix(uC1,uC2,fc.y/uRes.y);
+  float ig=1.-uTL;
+  vec3 ic=mix(vec3(.23,.13,.50),vec3(.07,.38,.76),smoothstep(0.,1.,fc.x/uRes.x*.95+(1.-fc.y/uRes.y)*.2));   // 紫がかった藍 → 海の青
+  col=mix(col,ic,ig*.97);
+  vec2 hq=(fc-uRes*.5)/uRes.y;col+=vec3(.16,.30,.62)*exp(-dot(hq,hq)*3.)*.22*ig;     // 「20」のうしろの、やわらかい光
   for(int i=0;i<6;i++){float fi=float(i);
     float r1=fract(sin(fi*12.9898)*43758.5453),r2=fract(sin(fi*78.233)*12345.6789);
     float w=(.06+.08*r1)*uRes.x*.5;
@@ -471,13 +1004,19 @@ void main(){
     float ray=smoothstep(wv,0.,abs(fc.x-cx))*(1.-clamp(fc.y/(uRes.y*.9),0.,1.));
     col+=vec3(.63,.83,.89)*ray*(.05+.05*r2)*(1.-.85*uD)*(.7+.3*sin(uTime*.4+fi*3.))*uTL;
   }
-  for(int L=0;L<2;L++){float fl=float(L);
-    float par=L==0?.28:.5;float base=uRes.y*(L==0?.9:.93);float amp=uRes.y*(L==0?.045:.035);
-    float wx=fc.x+uOff*par;
-    float yb=base-amp*(sin(wx*.006+fl*2.)*.6+sin(wx*.017+fl)*.4)-amp;
-    float cov=smoothstep(yb-1.,yb+1.,fc.y);
-    vec3 lc=L==0?vec3(.812,.604,.369):vec3(.329,.173,.137);
-    col=mix(col,lc,cov*(L==0?.3:.88)*uTL);
+  float mt=1.-smoothstep(.5,.92,uD);   // 山は、海へ進むほど沈んでいく
+  for(int L=0;L<3;L++){float fl=float(L);
+    float par=L==0?.10:(L==1?.20:.34);
+    float base=uRes.y*(L==0?.84:(L==1?.89:.95))+uRes.y*(1.-mt)*(.34+.12*fl);
+    float amp=uRes.y*(L==0?.17:(L==1?.14:.10))*mt+uRes.y*.008;
+    float wx=fc.x+uOff*par+fl*340.;
+    float pk=(1.-abs(sin(wx*.0031+fl*1.7)))*.62+(1.-abs(sin(wx*.0079+fl*3.1)))*.26+(.5+.5*sin(wx*.019+fl))*.12;
+    float yb=base-amp*pk;
+    float cov=smoothstep(yb-1.2,yb+1.2,fc.y);
+    float g=clamp((fc.y-yb)/(uRes.y*.3),0.,1.);
+    vec3 lc=L==0?vec3(.55,.77,.9):(L==1?vec3(.2,.5,.78):vec3(.03,.17,.34));
+    lc*=1.12-.3*g;
+    col=mix(col,lc,cov*(L==0?.34:(L==1?.55:.9))*uTL);
   }
   col+=(fract(sin(dot(fc,vec2(12.9898,78.233)))*43758.5453)-.5)/255.;
   gl_FragColor=vec4(col,1.);
@@ -509,24 +1048,27 @@ void main(){float span=uRes.x*1.5;
 float x=mod(aQ.x*span-uOff*aP.x*.45,span)-uRes.x*.25+sin(uTime*.9*aQ.w+aP.y)*10.;
 float y=mod(aQ.y-uTime*.012*aQ.w,1.)*(uRes.y*1.1)-uRes.y*.05;
 vU=aC;vR=aQ.z;gl_Position=NDC(vec2(x,y)+aC*aQ.z);}`,
-fs:`varying vec2 vU;varying float vR;uniform float uTL;
+fs:`varying vec2 vU;varying float vR;uniform float uTL,uBub;
 void main(){float d=length(vU);if(d>1.)discard;
 float hl=1.-smoothstep(0.,1.2,length(vU-vec2(-.35,-.35)));
 float fill=mix(.03,.26,hl);
 float ring=smoothstep(1.-1.6/vR,1.-.6/vR,d)*.55;
 float a=atan(vU.y,vU.x);
 float arc=smoothstep(.07,0.,abs(d-.68))*smoothstep(.55,0.,abs(a+2.3))*.75;
-float al=(fill+ring)*uTL;
+float al=(fill+ring)*uTL*uBub;
 vec3 c=mix(vec3(.63,.83,.89),vec3(1.),arc);
-gl_FragColor=vec4(c,max(al,arc*uTL));}`};
-SH.intro={vs:COMMON+`attribute vec2 aT,aR,aVel;attribute vec3 aM;varying vec4 vC;
+gl_FragColor=vec4(c,max(al,arc*uTL*uBub));}`};
+SH.intro={vs:COMMON+`attribute vec2 aT,aR,aVel,aH;attribute vec3 aM;varying vec4 vC;
 void main(){float k=clamp((uIT-aM.x-.2)/1.7,0.,1.);float e=1.-pow(1.-k,3.);
-vec2 p=mix(aR,aT,e)+vec2(sin(uTime*.7+aM.y),cos(uTime*.9+aM.y))*1.5*e;
+vec2 p=mix(aR,aT,e)+vec2(sin(uTime*.7+aM.y),cos(uTime*.9+aM.y))*1.2*e;
 float fade=1.;if(uOut>=0.){p+=aVel*uOut;fade=max(0.,1.-uOut/.9);}
 float sh=.5+.5*sin((aT.x*.9+aT.y*.55)*.045-uTime*.8);
-vec3 c=aM.z>.5?vec3(.878,.302,.4):vec3(.63+.37*sh,.83+.17*sh,.89+.11*sh);
-vC=vec4(c,(.3+.6*sh)*fade*(.2+.8*smoothstep(0.,.3,k)));
-gl_Position=NDC(p);gl_PointSize=1.9*uDpr;}`,
+float ln=pow(.5+.5*sin(aH.y*64.-uTime*.25),2.);                       // 等高線（指紋のような細い線）
+float lit=clamp(aH.x*1.05+sh*.18,0.,1.);                      // 立体の明るさ
+vec3 c=mix(vec3(.30,.58,1.),vec3(.72,.95,1.),lit);
+if(aM.z>.5)c=mix(c,vec3(.88,.30,.40),.85);
+vC=vec4(c,(.14+.5*lit)*(.22+.78*ln)*fade*(.2+.8*smoothstep(0.,.3,k)));
+gl_Position=NDC(p);gl_PointSize=1.8*uDpr;}`,
 fs:`varying vec4 vC;void main(){float d=length(gl_PointCoord-.5)*2.;gl_FragColor=vec4(vC.rgb,vC.a*(1.-smoothstep(.5,1.,d)));}`};
 
 function compile(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);
@@ -561,9 +1103,9 @@ function initGL(){
   for(let j=0;j<np;j++){pq.set([j*150+rnd(0,120),rnd(-.5,.5),Math.random()*6,rnd(.4,1)],j*4);pr.set([rnd(4.5,8.5),j%7===3?1:0],j*2)}
   M.pearl=mesh(P.pearl,{aQ:[pq,4],aR:[pr,2]},np,gl.POINTS,"add");
   // bubbles: 6 vertices per bubble. every 4th one is big.
-  const nb=20,bq=new Float32Array(nb*6*4),bp=new Float32Array(nb*6*2),bc=new Float32Array(nb*6*2);
+  const nb=8,bq=new Float32Array(nb*6*4),bp=new Float32Array(nb*6*2),bc=new Float32Array(nb*6*2);
   const corners=[[-1,-1],[1,-1],[-1,1],[-1,1],[1,-1],[1,1]];
-  for(let i=0;i<nb;i++){const big=i%4===0,r=big?rnd(34,64):rnd(9,30),s=big?rnd(.3,.6):rnd(.5,1.3),x=Math.random(),y=Math.random(),par=rnd(.3,.9),ph=Math.random()*6;
+  for(let i=0;i<nb;i++){const big=i===0,r=big?rnd(34,64):rnd(9,30),s=big?rnd(.3,.6):rnd(.5,1.3),x=Math.random(),y=Math.random(),par=rnd(.3,.9),ph=Math.random()*6;
     for(let v=0;v<6;v++){const o=i*6+v;bq.set([x,y,r,s],o*4);bp.set([par,ph],o*2);bc.set(corners[v],o*2)}}
   M.bub=mesh(P.bub,{aQ:[bq,4],aP:[bp,2],aC:[bc,2]},nb*6,gl.TRIANGLES,"alpha");
   buildRibbon();
@@ -578,24 +1120,38 @@ function buildRibbon(){
   M.glow=mesh(P.glow,{aI:[gI,1]},g,gl.POINTS,"add");
 }
 let introTok=0;
+/* ぼかし（「20」をふくらんだ立体にするための高さを作る） */
+function box(a,w,h,r){const o=new Float32Array(a.length),q=new Float32Array(a.length),n=2*r+1,cl=(v,m)=>Math.min(m-1,Math.max(0,v));
+  for(let y=0;y<h;y++){let s=0;for(let x=-r;x<=r;x++)s+=a[y*w+cl(x,w)];for(let x=0;x<w;x++){o[y*w+x]=s/n;s+=a[y*w+cl(x+r+1,w)]-a[y*w+cl(x-r,w)]}}
+  for(let x=0;x<w;x++){let s=0;for(let y=-r;y<=r;y++)s+=o[cl(y,h)*w+x];for(let y=0;y<h;y++){q[y*w+x]=s/n;s+=o[cl(y+r+1,h)*w+x]-o[cl(y-r,h)*w+x]}}
+  return q}
 async function buildIntro(){
   if(!gl)return;
   const tok=++introTok;
-  try{await document.fonts.load("400 200px Anton")}catch(e){}
+  try{await document.fonts.load("800 200px Jost")}catch(e){}
   if(tok!==introTok)return;
   const oc=document.createElement("canvas");oc.width=W;oc.height=H;const o=oc.getContext("2d",{willReadFrequently:true});
-  const fs=Math.min(H*.86,W*.7);
-  o.fillStyle="#fff";o.font=`400 ${fs}px Anton, Impact, sans-serif`;o.textAlign="center";o.textBaseline="middle";o.fillText("20",W/2,H*.5);
-  const d=o.getImageData(0,0,W,H).data,step=Math.max(3,Math.round(Math.sqrt((W*H*.2)/26000)));
-  const xs=[],ys=[];let y0=1e9,y1=-1e9;
-  for(let y=0;y<H;y+=step)for(let x=0;x<W;x+=step)if(d[(y*W+x)*4+3]>128){xs.push(x+rnd(-1,1));ys.push(y+rnd(-1,1));if(y<y0)y0=y;if(y>y1)y1=y}
+  const fs=Math.min(H*.86,W*.74);
+  o.fillStyle="#fff";o.font=`800 ${fs}px Jost, "Zen Maru Gothic", sans-serif`;o.textAlign="center";o.textBaseline="middle";o.fillText("20",W/2,H*.5);
+  const d=o.getImageData(0,0,W,H).data,m=new Float32Array(W*H);
+  for(let i=0;i<m.length;i++)m[i]=d[i*4+3]/255;
+  const r=Math.max(5,Math.round(fs*.055)),hg=box(box(box(m,W,H,r),W,H,r),W,H,r);   // 高さ（ふくらみ）
+  const target=coarse?36000:70000,step=Math.max(2,Math.round(Math.sqrt((W*H*.2)/target)));
+  const xs=[],ys=[],hv=[],lv=[];let y0=1e9,y1=-1e9;const K=r*1.7;
+  for(let y=step;y<H-step;y+=step)for(let x=step;x<W-step;x+=step){const i=y*W+x;
+    if(d[i*4+3]>128){
+      const gx=(hg[i+1]-hg[i-1])*.5,gy=(hg[i+W]-hg[i-W])*.5,nl=Math.hypot(gx*K,gy*K,1);
+      const lit=Math.max(0,Math.min(1,((-gx*K)*-.5+(-gy*K)*-.62+.6)/nl));   // 左上から光が当たる
+      xs.push(x+rnd(-1,1));ys.push(y+rnd(-1,1));hv.push(hg[i]);lv.push(lit);
+      if(y<y0)y0=y;if(y>y1)y1=y}}
   const n=xs.length,shift=H*.47-(y0+y1)/2;
-  const aT=new Float32Array(n*2),aR=new Float32Array(n*2),aVel=new Float32Array(n*2),aM=new Float32Array(n*3);
-  for(let i=0;i<n;i++){const ty=ys[i]+shift,a=Math.random()*6.283,r=Math.max(W,H)*rnd(.2,.7);
-    aT.set([xs[i],ty],i*2);aR.set([W/2+Math.cos(a)*r,H/2+Math.sin(a)*r],i*2);
-    const b=Math.atan2(ty-H/2,xs[i]-W/2)+rnd(-.5,.5),s=rnd(.4,2.6)*60;aVel.set([Math.cos(b)*s,Math.sin(b)*s-30],i*2);
-    aM.set([(xs[i]/W)*.9+Math.random()*.5,Math.random()*6.283,Math.random()<.07?1:0],i*3)}
-  free(M.intro);M.intro=mesh(P.intro,{aT:[aT,2],aR:[aR,2],aVel:[aVel,2],aM:[aM,3]},n,gl.POINTS,"add");
+  const aT=new Float32Array(n*2),aR=new Float32Array(n*2),aVel=new Float32Array(n*2),aM=new Float32Array(n*3),aH=new Float32Array(n*2);
+  for(let i=0;i<n;i++){const ty=ys[i]+shift,a=Math.random()*6.283,rr=Math.max(W,H)*rnd(.2,.7);
+    aT.set([xs[i],ty],i*2);aR.set([W/2+Math.cos(a)*rr,H/2+Math.sin(a)*rr],i*2);
+    const bb=Math.atan2(ty-H/2,xs[i]-W/2)+rnd(-.5,.5),sp=rnd(.4,2.6)*60;aVel.set([Math.cos(bb)*sp,Math.sin(bb)*sp-30],i*2);
+    aM.set([(xs[i]/W)*.9+Math.random()*.5,Math.random()*6.283,Math.random()<.05?1:0],i*3);
+    aH.set([lv[i],hv[i]],i*2)}
+  free(M.intro);M.intro=mesh(P.intro,{aT:[aT,2],aR:[aR,2],aVel:[aVel,2],aM:[aM,3],aH:[aH,2]},n,gl.POINTS,"add");
   S.introStart=performance.now();
 }
 
@@ -608,10 +1164,10 @@ function layout(){
   const k=Math.max(.8,H/900);root.style.setProperty("--R",(34*k).toFixed(1)+"px");
   MK.forEach((m,i)=>m.el.style.setProperty("--h",((72+(i%2)*28)*k).toFixed(1)+"px"));
 }
-function size(){
+function size(light){
   DPR=Math.min(devicePixelRatio||1,coarse?1.5:1.75);W=root.clientWidth||innerWidth;H=innerHeight;
   if(gl){canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);gl.viewport(0,0,canvas.width,canvas.height);U.uRes=[W,H];U.uDpr=DPR}
-  layout();if(gl){if(P.rib)buildRibbon();buildIntro()}
+  layout();if(gl&&!light){if(P.rib)buildRibbon();buildIntro()}
 }
 
 /* ---------- year rings (DOM) ---------- */
@@ -625,8 +1181,9 @@ const mksEl=$("#mks");
 const MK=EVENTS.map((ev,i)=>{
   const d=document.createElement("div");
   d.className="mk"+(ev.concert?" big g":ev.lv===3?" g":ev.lv===2?" s":"");
-  d.innerHTML=`<i class="stem"></i><button class="ring" type="button" aria-label="${ev.y}年の${ev.concert?"演奏会情報":"記録"}を開く"><span class="core"></span></button><div class="lb"><b>${ev.y}</b><em>${subLabel(ev)}</em></div>`;
+  d.innerHTML=`<i class="stem"></i><button class="ring" type="button" aria-label="${ev.y}年の${ev.concert?"演奏会情報":"記録"}を開く"><span class="core"></span></button>${ev.concert?'<button class="chip goBtn" type="button" aria-label="開催のご案内を詳しく見る" tabindex="-1">詳しく<br><span aria-hidden="true">↓</span></button>':""}<div class="lb"><b>${ev.y}</b><em>${subLabel(ev)}</em></div>`;
   d.querySelector(".ring").addEventListener("click",()=>{if(moved>6)return;openPanel(i)});
+  const gb=d.querySelector(".goBtn");if(gb)gb.addEventListener("click",()=>{if(moved>6)return;goInfo()});
   mksEl.appendChild(d);return {el:d,vis:false,n:-1};
 });
 function updMarkers(){
@@ -648,9 +1205,11 @@ function setTarget(v){S.target=clamp(v)}
 function goTo(i){setTarget(mx(i)-W*.32)}
 addEventListener("pointerdown",e=>{
   if(S.state!=="out"||scrollY>1||(inUI(e.target)&&!e.target.closest(".ring")))return;
-  drag=true;moved=0;sx0=e.clientX;off0=S.target;document.body.classList.add("drag")});
-addEventListener("pointermove",e=>{if(!drag)return;const dx=e.clientX-sx0;moved=Math.max(moved,Math.abs(dx));setTarget(off0-dx*1.2)});
-const endDrag=()=>{drag=false;document.body.classList.remove("drag")};
+  drag=true;moved=0;sx0=e.clientX;sy0=e.clientY;off0=S.target;dgD=off0;dgT=performance.now();vel=0;lastAct=performance.now();document.body.classList.add("drag")});
+/* 横にも縦にも動かせる（スマホは、上へスワイプで先へ進む） */
+addEventListener("pointermove",e=>{if(!drag)return;const dx=e.clientX-sx0,dy=e.clientY-sy0;moved=Math.max(moved,Math.abs(dx),Math.abs(dy));const d=off0-(Math.abs(dx)>=Math.abs(dy)?dx:dy)*1.2,t=performance.now();vel=(d-dgD)/Math.max(8,t-dgT);dgD=d;dgT=t;setTarget(d)});
+let vel=0,dgD=0,dgT=0;
+const endDrag=()=>{if(drag&&Math.abs(vel)>.25&&performance.now()-dgT<80)setTarget(S.target+vel*260);vel=0;drag=false;lastAct=performance.now();document.body.classList.remove("drag")};
 addEventListener("pointerup",endDrag);addEventListener("pointercancel",endDrag);
 let lastWheel=0;
 addEventListener("wheel",e=>{
@@ -658,10 +1217,11 @@ addEventListener("wheel",e=>{
   const nw=performance.now(),gap=nw-lastWheel;lastWheel=nw;
   // end of the sea: after a short pause the next scroll moves the page down (momentum from the same flick is absorbed)
   if(e.deltaY>0&&Math.abs(e.deltaY)>=Math.abs(e.deltaX)&&atEnd()&&gap>450)return;
-  e.preventDefault();setTarget(S.target+(Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY)*1.1)},{passive:false});
+  e.preventDefault();lastAct=nw;setTarget(S.target+(Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY)*1.1)},{passive:false});
 addEventListener("keydown",e=>{
   if(e.key==="Escape"){closePanel();return}
   if(S.state!=="out"||scrollY>1)return;
+  lastAct=performance.now();
   if(e.key==="ArrowRight")setTarget(S.target+S.spacing*.5);
   else if(e.key==="ArrowLeft")setTarget(S.target-S.spacing*.5);
   else if((e.key==="ArrowDown"||e.key==="PageDown")&&atEnd())goInfo();
@@ -671,10 +1231,11 @@ addEventListener("keydown",e=>{
 /* ---------- intro -> sea ---------- */
 function leaveIntro(){
   if(S.state!=="intro")return;S.state="out";S.leaveT=performance.now();U.uOut=0;
-  $("#intro").classList.add("gone");$("#ui").classList.add("on");mksEl.classList.add("on");root.classList.add("free");
+  $("#intro").classList.add("gone");document.body.classList.add("sea");$("#ui").classList.add("on");mksEl.classList.add("on");root.classList.add("free");
   if(G){try{G.to(U,{uTL:1,duration:1.8,delay:.3,ease:"power2.inOut"})}catch(e){U.uTL=1}}else U.uTL=1;
 }
 $("#intro").addEventListener("click",leaveIntro);
+
 $("#intro").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();leaveIntro()}});
 
 /* ---------- panel ---------- */
@@ -697,13 +1258,13 @@ function openPanel(i){
     if(ev.memo)desc=(desc?desc+"\n":"")+ev.memo;
   }
   setText($("#pt"),title);setText($("#pd"),desc);$("#pd").style.whiteSpace="pre-line";setDL(rows);
-  $("#psea").hidden=!ev.sea;$("#psrc").hidden=!!ev.concert||!ev.p;
+  $("#psrc").hidden=!!ev.concert||!ev.p;
   $("#prev").disabled=i===0;$("#next").disabled=i===N-1;
   panel.classList.add("open");panel.setAttribute("aria-hidden","false");goTo(i);markSel();chime(ev.lv);
 }
-function closePanel(){openIdx=-1;panel.classList.remove("open");panel.setAttribute("aria-hidden","true");markSel()}
+function closePanel(){openIdx=-1;lastAct=performance.now();panel.classList.remove("open");panel.setAttribute("aria-hidden","true");markSel()}
 function goInfo(){closePanel();$("#i-info").scrollIntoView({behavior:reduce?"auto":"smooth"})}
-$("#close").onclick=closePanel;$("#aboutBtn").onclick=goInfo;$("#endGo").onclick=goInfo;
+$("#close").onclick=closePanel;$("#aboutBtn").onclick=goInfo;
 $("#toTop").onclick=()=>scrollTo({top:0,behavior:reduce?"auto":"smooth"});
 $("#prev").onclick=()=>openIdx>0&&openPanel(openIdx-1);
 $("#next").onclick=()=>openIdx>=0&&openIdx<N-1&&openPanel(openIdx+1);
@@ -743,12 +1304,14 @@ function chime(lv){if(!soundOn||!ac)return;
   else if(lv===2)note(659.25,0,1.3,.045);
   else note(523.25,0,1.2,.04)}
 $("#snd").onclick=()=>setSound(!soundOn);
+const apBtn=$("#ap");
+apBtn.onclick=()=>{if(atEndNow){autoOn=true;lastAct=0;setTarget(0)}else{autoOn=!autoOn}};
 
 /* ---------- info reveals (GSAP + ScrollTrigger; content is visible without them) ---------- */
 function setupScroll(){
   if(!G||!ST||reduce)return;
   try{
-    document.querySelectorAll("#info .iw > *").forEach(el=>G.from(el,{y:34,opacity:0,duration:1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%",once:true}}));
+    document.querySelectorAll("#info [data-rv]").forEach(el=>G.from(el,{y:34,opacity:0,duration:1,ease:"power3.out",scrollTrigger:{trigger:el,start:"top 90%",once:true}}));
     document.querySelectorAll(".bub").forEach((b,i)=>G.to(b,{y:-140-i*30,ease:"none",scrollTrigger:{trigger:"#info",start:"top bottom",end:"bottom bottom",scrub:.6}}));
     G.to("#gl",{opacity:.25,ease:"none",scrollTrigger:{trigger:".stage",start:"top top",end:"bottom top",scrub:true}});
   }catch(e){}
@@ -761,7 +1324,9 @@ function frame(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
   if(document.hidden)return;
   if(S.state==="out"){
-    S.off+=(S.target-S.off)*(reduce?1:1-Math.exp(-dt*(drag?16:7)));
+    if(!hintHid&&now-S.leaveT>3500){hintHid=true;document.body.classList.add("nohint")}
+    if(autoOn&&!drag&&openIdx<0&&scrollY<2&&now-S.leaveT>500&&now-lastAct>350&&!atEnd()){if(!autoRun){autoS0=S.target;autoQ=0}autoQ=Math.min(1,autoQ+dt/Math.max(2.8,AUTO_SEC*(1-autoS0/S.maxOff)));S.target=clamp(autoS0+(S.maxOff-autoS0)*eas(autoQ));autoRun=true}else{autoRun=false}
+    S.off+=(S.target-S.off)*(reduce?1:1-Math.exp(-dt*(drag?45:autoRun?14:7)));
     if(Math.abs(S.target-S.off)<.05)S.off=S.target;
   }
   const covered=scrollY>H*1.02;
@@ -782,13 +1347,17 @@ function frame(now){
     if(!covered){updMarkers();if(Math.abs(D-lastD)>.001){lastD=D;$("#fill").style.transform=`scaleX(${D.toFixed(4)})`}}
     const end=atEnd()&&S.off>=S.maxOff-8;
     if(end!==atEndNow){atEndNow=end;document.body.classList.toggle("atend",end)}
+    U.uBub+=((atEndNow?0:1)-U.uBub)*(1-Math.exp(-dt*2.2));
     setEnd(end&&scrollY<H*.5);
     document.body.classList.toggle("deep",scrollY>H*.5);
+    const ast=atEndNow?"replay":(autoOn?"pause":"play");
+    if(apBtn.dataset.s!==ast){apBtn.dataset.s=ast;apBtn.setAttribute("aria-label",ast==="pause"?"自動再生を止める":ast==="play"?"自動再生を始める":"もう一度見る")}
   }
 }
 
 /* ---------- boot ---------- */
-let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(size,120)});
+/* 画面の幅が同じで高さだけ変わるとき（スマホのアドレスバーの出入りなど）は、粒を作り直さない */
+let rz;addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(()=>{const sameW=(root.clientWidth||innerWidth)===W;size(sameW&&S.state==="out")},120)});
 if(gl){
   gl.canvas.addEventListener("webglcontextlost",e=>{e.preventDefault();root.classList.add("nogl")});
   try{initGL()}catch(err){console.warn("WebGL init failed:",err);gl=null;root.classList.add("nogl")}
@@ -797,6 +1366,202 @@ size();
 setupScroll();
 addEventListener("load",()=>{if(ST)try{ST.refresh()}catch(e){}});
 if(!gl){/* no WebGL: show the rings on the plain gradient */ $("#intro").addEventListener("click",()=>{},{once:true})}
+/* 部分リンク（…/#sponsor-form など）で開かれたときは、導入を飛ばして、その場所へ */
+if(/^#(i-|sponsor)/.test(location.hash)){
+  const asForm=location.hash==="#sponsor-form",hash=asForm?"#i-sponsor":location.hash;
+  const jump=()=>{const t=document.querySelector(hash);if(!t)return;root.style.scrollBehavior="auto";scrollTo(0,t.getBoundingClientRect().top+scrollY);root.style.scrollBehavior=""};
+  if(document.querySelector(hash)){leaveIntro();requestAnimationFrame(()=>requestAnimationFrame(jump));addEventListener("load",()=>{jump();if(asForm)dispatchEvent(new Event("openform"))},{once:true})}
+}
 requestAnimationFrame(frame);
 })();
 </script>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ============ 設定：ここを書き換えると、フォームが動きます ============
+   endpoint … フォームの送信先URL（Formspree などの受け取りサービス）。入れると、ページの中で送信が完了します。
+   mail     … 受け取るメールアドレス。endpoint が空のときは、このアドレスあてのメールを作ります（スマホのメールアプリが開きます）。
+   どちらも空のままだと、「送信先が未設定」と表示されます。 */
+const FORM = { endpoint: '', mail: '', subject: '【ご協賛のお申し込み】20周年記念定期演奏会' };
+
+/* ご協賛のコース。ここを書き換えると、カードとフォームの選択肢の両方が変わります。 */
+const TIERS = [
+  { name: '【コース名】', amount: '【金額】', perk: '【プログラム掲載・会場掲示など】' },
+  { name: '【コース名】', amount: '【金額】', perk: '【特典】' },
+  { name: '【コース名】', amount: '【金額】', perk: '【特典】' }
+];
+const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3233.5895528402457!2d137.74456066100447!3d35.85906672018374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601cddfae77549bf%3A0x39f703070b842edb!2z5pyo5pu95paH5YyW5YWs5ZySIOaWh-WMluODm-ODvOODqw!5e0!3m2!1sja!2sjp!4v1781309081798!5m2!1sja!2sjp';
+/* ====================================================================== */
+
+const mk = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) { e.textContent = txt; if (txt.includes('【')) e.classList.add('ph'); } return e; };
+
+/* ---- コースのカードと選択肢 ---- */
+const tiersEl = $('#tiers'), optsEl = $('#tierOpts');
+function addOpt(label, value) {
+  const l = mk('label', 'rad'), i = document.createElement('input'), sp = document.createElement('span');
+  i.type = 'radio'; i.name = 'tier'; i.value = value; if (!optsEl.children.length) i.required = true;
+  sp.textContent = label; l.append(i, sp); optsEl.appendChild(l); return i;
+}
+const radios = [];
+TIERS.forEach((t, i) => {
+  const card = mk('article', 'tier');
+  card.append(mk('h3', null, t.name), mk('p', 'amt', t.amount), mk('p', 'perk', t.perk ? '特典：' + t.perk : ''));
+  const b = mk('button', 'btn', 'このコースで申し込む'); b.type = 'button'; b.addEventListener('click', () => pick(i));
+  card.appendChild(b); tiersEl.appendChild(card);
+  radios.push(addOpt(t.name + '　' + t.amount, t.name + '（' + t.amount + '）'));
+});
+radios.push(addOpt('その他・金額や内容について相談したい', 'その他・相談したい'));
+/* ---- フォームのポップアップ ---- */
+const dlg = $('#formDlg');
+function openForm(i) {
+  if (typeof i === 'number' && radios[i]) radios[i].checked = true;
+  if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }
+  document.documentElement.classList.add('modal');
+  setTimeout(() => $('#f-name').focus({ preventScroll: true }), 350);
+}
+const pick = openForm;
+dlg.addEventListener('close', () => document.documentElement.classList.remove('modal'));
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+$('#dlgClose').addEventListener('click', () => dlg.close());
+$('#openForm').addEventListener('click', () => openForm());
+addEventListener('openform', () => openForm());
+
+/* ---- フォーム ---- */
+const form = $('#sponsor-form'), box = $('#fstatus'), btn = $('#fsubmit');
+form.addEventListener('invalid', e => {
+  const v = e.target.validity;
+  e.target.setCustomValidity(v.valueMissing ? 'こちらは必須です。ご入力・ご選択ください。' : v.typeMismatch ? '入力の形式をご確認ください。' : '');
+}, true);
+form.addEventListener('input', e => e.target.setCustomValidity && e.target.setCustomValidity(''));
+
+function build(d) {
+  return ['【ご協賛のお申し込み】木曽青峰高校20周年記念定期演奏会', '',
+    'コース：' + d.tier,
+    'お名前（企業・団体名）：' + d.name,
+    'メールアドレス：' + d.email,
+    'お電話番号：' + (d.tel || '（未記入）'),
+    'ご担当者名：' + (d.person || '（未記入）'),
+    'お名前の掲載：' + d.show + (d.show === '掲載を希望する' ? '（掲載名：' + (d.display || d.name) + '）' : ''),
+    'ご質問・メッセージ：', d.msg || '（なし）'].join('\n');
+}
+function copyText(t, b) {
+  const done = () => { b.textContent = 'コピーしました'; };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done, () => legacy());
+  else legacy();
+  function legacy() { const a = document.createElement('textarea'); a.value = t; a.style.position = 'fixed'; a.style.opacity = '0'; document.body.appendChild(a); a.select(); try { document.execCommand('copy'); done(); } catch (e) { b.textContent = '長押しでコピーしてください'; } a.remove(); }
+}
+function show(msg, text) {
+  box.hidden = false; box.textContent = msg;
+  if (text) { const c = mk('button', 'btn', '申し込み内容をコピーする'); c.type = 'button'; c.addEventListener('click', () => copyText(text, c)); box.append(document.createElement('br'), c); }
+  box.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'nearest' });
+}
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!form.reportValidity()) return;
+  const f = new FormData(form);
+  if (f.get('website')) { show('送信しました。ありがとうございます。'); return; }   // 迷惑送信よけ
+  const d = { tier: f.get('tier'), name: f.get('name').trim(), email: f.get('email').trim(), tel: (f.get('tel') || '').trim(), person: (f.get('person') || '').trim(), show: f.get('show'), display: (f.get('display') || '').trim(), msg: (f.get('msg') || '').trim() };
+  const text = build(d);
+  btn.disabled = true;
+  try {
+    if (FORM.endpoint) {
+      const r = await fetch(FORM.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(Object.assign({ _subject: FORM.subject, message: text }, d)) });
+      if (!r.ok) throw new Error(String(r.status));
+      form.reset(); show('お申し込みを受け付けました。ありがとうございます。内容を確認して、部の担当者からご連絡します。');
+    } else if (FORM.mail) {
+      location.href = 'mailto:' + FORM.mail + '?subject=' + encodeURIComponent(FORM.subject) + '&body=' + encodeURIComponent(text);
+      show('メールアプリが開きます。内容を確認して、そのまま送信してください。開かないときは、下のボタンで内容をコピーして、' + FORM.mail + ' あてにお送りください。', text);
+    } else {
+      show('（事務局の方へ）送信先が未設定です。このファイルの FORM に、受け取るメールアドレスか送信先URLを入れてください。', text);
+    }
+  } catch (err) {
+    show('送信できませんでした。お手数ですが、下のボタンで内容をコピーして、' + (FORM.mail || '事務局') + ' あてにお送りください。', text);
+  } finally { btn.disabled = false; }
+});
+
+/* ---- 数字が数え上がる ---- */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return; io.unobserve(e.target);
+  if (reduce) return;
+  const el = e.target, n = +el.dataset.count; let t0; el.textContent = '0';
+  const step = t => { if (t0 === undefined) t0 = t; const k = Math.min(1, (t - t0) / 1200); el.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}), { threshold: .6 });
+$$('[data-count]').forEach(el => io.observe(el));
+
+/* ---- ボタンのガラスのつやが、指（カーソル）に合わせて動く ---- */
+const GL = '.snd,.ap,.about,.endbtn,.close,.nav button,.btn,.chip,.ifoot button,.dclose';
+let gRaf = 0;
+const follow = e => {
+  const el = e.target.closest && e.target.closest(GL); if (!el) return;
+  cancelAnimationFrame(gRaf);
+  gRaf = requestAnimationFrame(() => { const r = el.getBoundingClientRect(); el.style.setProperty('--x', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%'); el.style.setProperty('--y', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%'); });
+};
+addEventListener('pointermove', follow, { passive: true }); addEventListener('pointerdown', follow, { passive: true });
+
+/* ---- 地図は、押したときに読みこむ（ページを軽くするため） ----
+$('#mapBtn').addEventListener('click', () => {
+  const f = document.createElement('iframe'); f.title = '木曽文化公園文化ホールの地図'; f.loading = 'lazy'; f.referrerPolicy = 'no-referrer-when-downgrade'; f.src = MAP_SRC;
+  $('#mapph').hidden = true; $('#mapbox').appendChild(f);
+});
+
+/* ---- 写真が読めないときは、枠だけにする ---- */
+const dummy = t => 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a1d3e3"/><stop offset=".6" stop-color="#31a6f6"/><stop offset="1" stop-color="#0b4a8a"/></linearGradient></defs><rect width="800" height="800" fill="url(#g)"/><path d="M0 520L140 400L260 480L400 330L540 470L660 390L800 500V800H0Z" fill="rgba(255,255,255,.28)"/><path d="M0 640C140 590 260 690 400 640S660 590 800 640V800H0Z" fill="rgba(255,255,255,.22)"/><text x="400" y="300" fill="#fff" font-size="44" font-family="sans-serif" text-anchor="middle" opacity=".9">' + t + '</text></svg>');
+$$('.shot img').forEach(i => { const f = () => { if (i.dataset.d) return; i.dataset.d = 1; i.src = dummy('仮の写真'); }; i.addEventListener('error', f); if (i.complete && !i.naturalWidth) f(); });
+})();
+</script>
+<script>
+/* 最初の窓：うす暗い画面の中心に小さな丸い窓があり、ゆっくり広がって海と「20」が現れる */
+(function(){
+  const el=document.getElementById("iris"); if(!el)return;
+  document.documentElement.classList.add("irisjs");
+  const rise=()=>document.documentElement.classList.add("irisdone");
+  const done=()=>{rise();el.classList.add("off");setTimeout(()=>el.remove(),700)};
+  if(matchMedia("(prefers-reduced-motion:reduce)").matches||/^#(i-|sponsor)/.test(location.hash)){el.remove();rise();return}
+  const w=innerWidth,h=innerHeight,r0=Math.min(w,h)*.17,r1=Math.hypot(w,h)*.55,T=2600,D=500;
+  let t0=0,fin=false;
+  const ease=p=>p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+  const set=r=>el.style.setProperty("--r",r+"px");
+  set(r0);
+  const skip=()=>{if(fin)return;fin=true;set(r1);done()};
+  ["pointerdown","keydown","wheel"].forEach(e=>addEventListener(e,skip,{once:true,passive:true}));
+  function f(n){if(fin)return;if(!t0)t0=n;const p=Math.min(1,Math.max(0,(n-t0-D)/T));set(r0+(r1-r0)*ease(p));if(p<1)requestAnimationFrame(f);else{fin=true;done()}if(p>.72)rise()}
+  requestAnimationFrame(f);
+})();
+</script>
+<script>
+/* 一行ずつ浮かび上がる文字と、区画ごとに切り替わる背景の色 */
+(function(){
+  const info=document.getElementById("info"),bg=document.getElementById("bgfx"); if(!info)return;
+  const pal=["#0a4a8c","#1262a9","#0b4f92","#1873b8","#0d5a9e","#1a78c0","#0a4a8c","#1262a9","#0b4f92","#0d5a9e"];
+  const secs=[...info.querySelectorAll(":scope > section")];
+  if(!("IntersectionObserver" in window)){document.querySelectorAll(".ln").forEach(l=>l.classList.add("in"));return}
+  const lo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll(".ln").forEach(l=>l.classList.add("in"));lo.unobserve(e.target)}}),{threshold:.5});
+  document.querySelectorAll(".st").forEach(p=>lo.observe(p));
+  const bo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target);if(i>=0&&bg)bg.style.backgroundColor=pal[i%pal.length]}}),{rootMargin:"-45% 0px -45% 0px"});
+  secs.forEach(x=>bo.observe(x));
+})();
+</script>
+<script>
+/* 数字の数え上がり／写真のスクロール拡大 */
+(function(){
+  const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const ct=document.getElementById("yearCt");
+  if(ct&&"IntersectionObserver" in window&&!reduce){
+    const a=+ct.dataset.from,b=+ct.dataset.to,T=2600;
+    const io=new IntersectionObserver(es=>{if(!es[0].isIntersecting)return;io.disconnect();let t0=0;
+      const e=p=>p<.5?16*p**5:1-Math.pow(-2*p+2,5)/2;      // ゆっくり→一気に→ゆっくり
+      const f=n=>{if(!t0)t0=n;const p=Math.min(1,(n-t0)/T);ct.textContent=Math.round(a+(b-a)*e(p));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)},{threshold:.6});
+    io.observe(ct);
+  }else if(ct){ct.textContent=ct.dataset.to}
+  const ph=[...document.querySelectorAll(".shot.big")];
+  if(ph.length&&!reduce){let tk=0;const up=()=>{tk=0;const vh=innerHeight;ph.forEach(el=>{const r=el.getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh-r.top)/(vh*.9)));el.style.transform="scale("+(.86+.14*p).toFixed(3)+")"})};
+    addEventListener("scroll",()=>{if(!tk)tk=requestAnimationFrame(up)},{passive:true});up()}
+})();
+</script>
+</body>
+</html>
