@@ -433,6 +433,28 @@ html.modal{overflow:hidden!important}
 .keys{gap:14px!important}
 .tier{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)!important;border-radius:20px;padding:26px 24px!important}
 .tiers{gap:14px;border-top:0!important}
+.tabs{display:grid;grid-template-columns:1fr 1fr;margin-top:32px;border-bottom:1px solid rgba(255,255,255,.5)}
+.tabs button{appearance:none;font:700 16px var(--gothic);letter-spacing:.06em;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.35);border-bottom:0;border-radius:var(--r-s) var(--r-s) 0 0;min-height:56px;cursor:pointer;transition:background .2s,color .2s}
+.tabs button+button{border-left:0}
+.tabs button[aria-selected=true]{background:#fff;color:#083d74;border-color:#fff}
+.tabs button:focus-visible{outline:3px solid var(--foam);outline-offset:-3px}
+@media (hover:hover){.tabs button[aria-selected=false]:hover{background:rgba(255,255,255,.14)}}
+.tiers{margin-top:20px!important}
+.tier .grp{display:none}
+.youkou{margin:24px 0 0}
+.inl{color:#fff;text-underline-offset:3px}
+.dl{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}
+.dl a{color:#083d74;background:#fff;text-decoration:none;font-weight:700;padding:.45em 1.2em;border-radius:var(--r-p);font-size:14px}
+.tier{position:relative}
+.adfig{position:absolute;right:20px;top:50%;transform:translateY(-50%);width:76px;opacity:.95}
+.adfig svg{display:block;width:100%;height:auto}
+.adfig .pg{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.7)}
+.adfig rect:not(.pg){fill:rgba(255,255,255,.1);stroke:rgba(255,255,255,.3);stroke-width:.6}
+.adfig rect.on{fill:#fff;stroke:#fff}
+.tier[data-g="企業・団体"]{padding-right:112px!important}
+.tier[hidden]{display:none}
+.tiers.solo{grid-template-columns:1fr!important}
+.tiers.solo .tier{border-left:0!important;padding-left:24px!important}
 .tier+.tier{border-left:1px solid rgba(255,255,255,.2)!important}
 .about2{display:grid;gap:28px;align-items:center}
 .shot.big{max-width:none;aspect-ratio:4/3;border-radius:24px}
@@ -498,7 +520,7 @@ html.modal{overflow:hidden!important}
 .bignum{font:200 clamp(110px,34vw,340px)/1 var(--num);letter-spacing:.02em;font-variant-numeric:tabular-nums;color:#fff;text-shadow:0 0 70px rgba(255,255,255,.3);margin:8px 0 6px!important}
 .numsec .nsub{font:300 clamp(14px,2.6vw,20px) var(--num);letter-spacing:.3em;color:#d6eef7}
 /* 写真は、スクロールで少しずつ大きくなる */
-.shot.big{will-change:transform}
+.shot.big img{will-change:transform;transform:scale(1.16)}
 /* 一覧の行は、触れると色が変わる */
 .news li{transition:background .3s;padding-inline:10px;margin-inline:-10px;border-radius:12px}
 @media (hover:hover){.news li:hover{background:rgba(255,255,255,.08)}}
@@ -606,16 +628,16 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
   .gb b{font-size:17px}
   .gl{gap:36px;font-size:15px}
   .isec p{font-size:18px;line-height:2.2}
-  .isec .lede{font-size:clamp(28px,2.4vw,38px)}
-  .sh{font-size:clamp(40px,3.6vw,56px)}
-  .shead .no{font-size:128px}
-  .ticket .lh{font-size:clamp(40px,4vw,58px)}
+  .isec .lede{font-size:clamp(24px,2vw,32px)}
+  .sh{font-size:clamp(34px,3vw,46px)}
+  .shead .no{font-size:104px}
+  .ticket .lh{font-size:clamp(32px,3.2vw,48px)}
   .keys{margin-top:96px}
-  .key b{font-size:clamp(26px,2.3vw,34px)}
+  .key b{font-size:clamp(24px,2vw,30px)}
   .key em{font-size:14.5px}
   .about2{grid-template-columns:1fr 1.05fr;gap:72px}
   .steps li{font-size:15.5px}
-  .tier .amt{font-size:44px!important}
+  .tier .amt{font-size:36px!important}
   .tier{padding:40px 32px!important}
   .apply{padding:40px 0}
   .accs{gap:20px}
@@ -624,8 +646,8 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
   .news li{grid-template-columns:140px 88px 1fr;padding-block:28px}
   .news time{font-size:26px}
   .news p{font-size:17px!important}
-  .stmt .st{font-size:clamp(40px,5.2vw,96px)}
-  .endcap .e2{font-size:clamp(52px,5vw,92px)}
+  .stmt .st{font-size:clamp(36px,4vw,68px)}
+  .endcap .e2{font-size:clamp(44px,4vw,68px)}
   .dlg{max-width:720px}
   .dbox{padding:48px}
   .btn{min-height:56px;font-size:16px}
@@ -638,6 +660,46 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
   .acc summary:hover{background:rgba(255,255,255,.06)}
   .gl a{transition:opacity .2s,border-color .2s}
 }
+
+/* コースのカード：個人1つ＋企業4つ */
+.tier .grp{font:500 12px var(--num)!important;letter-spacing:.3em;color:#ffd0d8!important;margin:0!important}
+.tier .perk{margin-top:auto!important}
+@media (min-width:861px){.tiers{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}}
+#gfFrame{display:block;width:100%;height:min(72svh,760px);border:0;border-radius:var(--r-s);background:#fff;margin-top:24px}
+.fnote a{color:#fff}
+
+/* フォームの選択肢：ガラスをやめて、くっきり選べるカードにする。選ぶと白く反転し、チェックが付きます */
+.opts.two{grid-template-columns:1fr 1fr}
+.rad[hidden],.fgrp[hidden]{display:none}
+.fld select{width:100%;min-height:54px;padding:0 14px;border-radius:var(--r-s);border:1px solid rgba(255,255,255,.5);background:rgba(2,30,66,.32);color:#fff;font:16px var(--gothic)}
+.fld select:focus{outline:2px solid #fff;outline-offset:1px}
+.fld select option{color:#083d74;background:#fff}
+.zipmsg{display:block;margin-top:8px}
+/* 入力欄を「白い紙」にして、書く場所をひと目で分かるように */
+.fld label{font-size:15px;font-weight:700;letter-spacing:.04em}
+.fset legend{font-size:16px}
+.fld input,.fld textarea,.fld select{background:#fff;color:#0b3d74;border:2px solid #fff}
+.fld input::placeholder,.fld textarea::placeholder{color:#8a9bb0}
+.fld input:focus,.fld textarea:focus,.fld select:focus{outline:3px solid var(--coral);outline-offset:2px}
+#sponsor-form[hidden]{display:none}
+/* 送信完了の画面 */
+.thanks{display:grid;justify-items:center;gap:14px;text-align:center;padding:36px 0 8px}
+.thanks[hidden]{display:none}
+.thanks .tick{width:76px;height:76px;border-radius:50%;background:var(--coral);display:grid;place-items:center;box-shadow:0 10px 30px rgba(0,10,40,.35)}
+.thanks svg{width:40px;height:40px;fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.thanks h3{margin:0;font:700 clamp(20px,3.4vw,24px)/1.5 var(--mincho)}
+.thanks p{margin:0;line-height:1.9;max-width:26em}
+.thanks .btn{margin-top:10px;min-width:200px}
+.dbox .rad span{position:relative;min-height:58px;padding:14px 18px 14px 58px;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.07);box-shadow:none;text-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;font-weight:500;transform:none;transition:background .2s,border-color .2s,color .2s}
+.dbox .rad span::after{display:none}
+.dbox .rad span::before{position:absolute;left:18px;top:50%;width:24px;height:24px;margin-top:-12px;border:2px solid rgba(255,255,255,.7);border-radius:50%;background:transparent;transition:background .2s,border-color .2s}
+.dbox .rad:hover span,.dbox .rad:active span{transform:none}
+@media (hover:hover){.dbox .rad:hover input:not(:checked)+span{background:rgba(255,255,255,.16);border-color:#fff}}
+.dbox .rad input:checked+span{background:#fff;border-color:#fff;color:#083d74;font-weight:700}
+.dbox .rad input:checked+span::before{border-color:var(--coral);background:var(--coral) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/15px no-repeat}
+.dbox .rad input:focus-visible+span{outline:3px solid var(--foam);outline-offset:2px}
+@media (max-width:420px){.opts.two{grid-template-columns:1fr}}
+@media (min-width:1024px){.bignum{font-size:clamp(160px,22vw,300px)}.dateblock .big{font-size:clamp(140px,20vw,260px)}}
 </style>
 <script>
   (function(d) {
@@ -742,7 +804,6 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
         <div class="key"><span class="k">ADMISSION　入場</span><b>無料</b><em>整理券：<span class="ph">不要（先着順・自由席）</span></em></div>
       </div>
       <div class="actions"><a class="btn" href="#i-access">アクセスを見る</a><a class="btn solid" href="#i-sponsor">ご協賛のお願い</a></div>
-      <nav class="chips" aria-label="ページ内リンク"><a class="chip" href="#i-info">INFORMATION</a><a class="chip" href="#i-msg">ABOUT</a><a class="chip" href="#i-prog">PROGRAM</a><a class="chip hot" href="#i-sponsor">SPONSORS</a><a class="chip" href="#i-access">ACCESS</a></nav>
     </div>
   </div></section>
 
@@ -761,12 +822,7 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
       <!-- 写真：このファイルと同じ場所に photos フォルダを作り、01.jpg などの名前で入れてください。alt（写真の説明）も書き換えてください。写真がないときは、仮の画像が出ます -->
       <figure class="shot soft big" data-rv data-label="【写真】部員の集合写真（photos/01.jpg）"><img src="photos/01.jpg" alt="【書き換え】木曽青峰高校吹奏楽部の集合写真" loading="lazy"></figure>
     </div>
-    <div class="stats" data-rv>
-      <div class="stat"><b data-count="7">7</b><span>1年生</span></div>
-      <div class="stat"><b data-count="6">6</b><span>2年生</span></div>
-      <div class="stat"><b data-count="3">3</b><span>顧問</span></div>
-    </div>
-    <p data-rv><strong>金賞</strong>を目指して、日々練習しています。音楽室は、大体育館の前です。いつでも入れます。私たちの目印は音です。</p>
+    <p data-rv><strong>金賞</strong>を目指して、日々練習しています。私たちの目印は音です。</p>
     <div data-rv><a class="btn" href="https://seihosuisogaku.morinosugi.com/" target="_blank" rel="noopener">部の公式サイトへ</a><a class="btn" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagram @shwo._.official</a></div>
     <p class="src" data-rv>人数は、部の公式サイト「新入生歓迎2027」の記載にもとづきます。</p>
   </div></section>
@@ -813,15 +869,19 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
     <p data-rv>演奏会の運営や記念の企画には、多くの準備が必要です。そこで、趣旨にご賛同いただける企業・団体・個人の皆さまに、ご協賛をお願いしております。</p>
     <p data-rv>いただいたご支援は、<span class="ph">会場費・記念プログラムの作成費など</span>に大切に使わせていただきます。</p>
     <!-- 手順は案です。実際の流れに合わせて書き換えてください -->
+    <p class="youkou" data-rv><a class="btn solid" href="/2027/files/youkou.pdf" target="_blank" rel="noopener">募集要項（PDF）を見る</a></p>
     <ol class="steps" data-rv>
       <li><b>STEP 01</b>フォームに入力します（約2分）。</li>
       <li><b>STEP 02</b>内容を確認し、部の担当者からご連絡します。</li>
       <li><b>STEP 03</b>お支払いなどの手続きは、ご連絡の際にご案内します。</li>
     </ol>
+    <div class="tabs" id="tierTabs" role="tablist" aria-label="お申し込みの種別" data-rv><button type="button" role="tab" aria-selected="true" data-g="個人">個人の方</button><button type="button" role="tab" aria-selected="false" data-g="企業・団体">企業・団体の方</button></div>
     <div class="tiers" id="tiers" data-rv></div>
     <dl class="rows plain" data-rv>
+      <div><dt>広告データ</dt><dd>企業・団体の方は、<a class="inl" href="/2027/files/youkou.pdf" target="_blank" rel="noopener">募集要項（PDF）</a>と、広告枠のひな形（PDF）をご利用ください。<span class="dl"><a href="/2027/files/ad-1-8.pdf" download>1/8</a><a href="/2027/files/ad-1-4.pdf" download>1/4</a><a href="/2027/files/ad-1-2.pdf" download>1/2</a><a href="/2027/files/ad-1-1.pdf" download>1/1</a></span>完成したデータの提出方法は、お申し込み後のご連絡でご案内します。</dd></div>
       <div><dt>募集期間</dt><dd><span class="ph">2027年5月31日（月）まで</span></dd></div>
-      <div><dt>お名前の掲載</dt><dd><span class="ph">当日のプログラムとこのページ</span>に掲載させていただきます。</dd></div>
+      <div><dt>個人の方</dt><dd>お名前を、演奏会のエンドロールと<span class="ph">パンフレット</span>に掲載します。掲載をご希望でない方は、お申し込みの際にお知らせください。</dd></div>
+      <div><dt>企業・団体の方</dt><dd>ご選択の広告枠で、広告を<span class="ph">パンフレット</span>に掲載します。お名前も、エンドロールに掲載します。</dd></div>
     </dl>
     <div class="apply" data-rv>
       <div><h3>ご協賛のお申し込み</h3><p>フォームは、この画面の上に開きます。入力は約2分です。</p></div>
@@ -841,7 +901,7 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
         <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E6%9C%A8%E6%9B%BD%E6%96%87%E5%8C%96%E5%85%AC%E5%9C%92%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB" target="_blank" rel="noopener">Googleマップで開く</a>
       </div>
     </div>
-    <div class="accs" data-rv><details class="acc" name="acc"><summary><span>行き方</span><i aria-hidden="true"></i></summary><p><span class="ph">JR中央西線 日義駅から車で約5分。お車の方は中央道から国道19号で約40分です。</span></p></details><details class="acc" name="acc"><summary><span>お車の方</span><i aria-hidden="true"></i></summary><p><span class="ph">無料駐車場があります（約100台）。満車の場合は係の案内に従ってください。</span></p></details><details class="acc" name="acc"><summary><span>持ち物</span><i aria-hidden="true"></i></summary><p><span class="ph">上ばきは不要です。</span></p></details><details class="acc" name="acc"><summary><span>撮影・録音</span><i aria-hidden="true"></i></summary><p><span class="ph">演奏中の撮影・録音はご遠慮ください。</span></p></details><details class="acc" name="acc"><summary><span>車いすの方へ</span><i aria-hidden="true"></i></summary><p><span class="ph">車いす席があります。入口で係にお声がけください。</span></p></details><details class="acc" name="acc"><summary><span>雨や雪のとき</span><i aria-hidden="true"></i></summary><p><span class="ph">部の公式サイトとInstagramでお知らせします。</span></p></details></div>
+    <div class="accs" data-rv><details class="acc" name="acc"><summary><span>行き方</span><i aria-hidden="true"></i></summary><p><span class="ph">JR中央西線 日義駅から車で約5分。お車の方は中央道から国道19号で約40分です。</span></p></details><details class="acc" name="acc"><summary><span>お車の方</span><i aria-hidden="true"></i></summary><p><span class="ph">無料駐車場があります（約100台）。満車の場合は係の案内に従ってください。</span></p></details><details class="acc" name="acc"><summary><span>持ち物</span><i aria-hidden="true"></i></summary><p><span class="ph">上ばきは不要です。</span></p></details><details class="acc" name="acc"><summary><span>撮影・録音</span><i aria-hidden="true"></i></summary><p><span class="ph">演奏中の撮影・録音はご遠慮ください。</span></p></details><details class="acc" name="acc"><summary><span>車いすの方へ</span><i aria-hidden="true"></i></summary><p><span class="ph">車いす席があります。入口で係にお声がけください。</span></p></details><details class="acc" name="acc"><summary><span>雨のとき</span><i aria-hidden="true"></i></summary><p><span class="ph">部の公式サイトとInstagramでお知らせします。</span></p></details></div>
   </div></section>
 
   <section class="isec fin"><div class="iw">
@@ -875,34 +935,68 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
   <div class="dbox">
     <p class="dsub">SPONSORS</p>
     <h2 id="dlgT">ご協賛のお申し込み</h2>
-    <p class="hint2">約2分で入力できます。迷うところは、空欄のままで大丈夫です。</p>
+    <p class="hint2" id="dlgHint">約2分で入力できます。送信は、Googleフォームを介して行われます。</p>
+    <div id="gfWrap" hidden><iframe id="gfFrame" title="協賛お申し込みフォーム" loading="lazy"></iframe><p class="fnote"><a id="gfOpen" target="_blank" rel="noopener">うまく表示されない場合は、こちらで開いてください</a></p></div>
     <form id="sponsor-form" novalidate>
-      <fieldset class="fset"><legend><b>01</b>コースをえらぶ <span class="tag req">必須</span></legend>
+      <!-- name="entry.数字" は Googleフォームの質問ID（そのまま送信されます） -->
+      <fieldset class="fset"><legend><b>01</b>お申し込みの種別 <span class="tag req">必須</span></legend>
+        <div class="opts two">
+          <label class="rad"><input type="radio" name="entry.1834485423" value="個人" required><span>個人</span></label>
+          <label class="rad"><input type="radio" name="entry.1834485423" value="企業・団体"><span>企業・団体</span></label>
+        </div></fieldset>
+      <fieldset class="fset" id="fsTier" hidden><legend><b>02</b>コースをえらぶ <span class="tag req">必須</span></legend>
         <div class="opts" id="tierOpts"></div></fieldset>
-      <fieldset class="fset"><legend><b>02</b>お名前・ご連絡先</legend>
-        <div class="fld"><label for="f-name">お名前（企業・団体名／個人の方はお名前）<span class="tag req">必須</span></label><input id="f-name" name="name" type="text" required autocomplete="organization" enterkeyhint="next" placeholder="例：○○商店"></div>
-        <div class="row2">
-          <div class="fld"><label for="f-email">メールアドレス<span class="tag req">必須</span></label><input id="f-email" name="email" type="email" required inputmode="email" autocomplete="email" enterkeyhint="next" placeholder="例：info@example.jp"></div>
-          <div class="fld"><label for="f-tel">お電話番号<span class="tag optn">任意</span></label><input id="f-tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="例：0264-00-0000"></div>
+      <fieldset class="fset" id="fsInfo" hidden><legend><b>03</b>お名前・ご連絡先</legend>
+        <!-- 個人を選んだときだけ表示 -->
+        <div class="fgrp" data-kind="個人" hidden>
+          <div class="fld"><label for="p-name">お名前<span class="tag req">必須</span></label><input id="p-name" name="entry.757442192" type="text" required autocomplete="name" enterkeyhint="next"></div>
+          <div class="row2">
+            <div class="fld"><label for="p-email">メールアドレス<span class="tag req">必須</span></label><input id="p-email" name="entry.571693525" type="email" required inputmode="email" autocomplete="email" enterkeyhint="next" placeholder="例：info@example.jp"></div>
+            <div class="fld"><label for="p-tel">お電話番号<span class="tag req">必須</span></label><input id="p-tel" name="entry.1831941752" type="tel" required inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="例：0264-00-0000"></div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="p-zip">郵便番号<span class="tag req">必須</span></label><input id="p-zip" name="zip" type="text" required inputmode="numeric" autocomplete="postal-code" maxlength="8" enterkeyhint="next" placeholder="399-0000" data-zip></div>
+            <div class="fld"><label for="p-pref">都道府県<span class="tag req">必須</span></label><select id="p-pref" name="pref" required autocomplete="address-level1"><option value="">選んでください</option><option value="北海道">北海道</option><option value="青森県">青森県</option><option value="岩手県">岩手県</option><option value="宮城県">宮城県</option><option value="秋田県">秋田県</option><option value="山形県">山形県</option><option value="福島県">福島県</option><option value="茨城県">茨城県</option><option value="栃木県">栃木県</option><option value="群馬県">群馬県</option><option value="埼玉県">埼玉県</option><option value="千葉県">千葉県</option><option value="東京都">東京都</option><option value="神奈川県">神奈川県</option><option value="新潟県">新潟県</option><option value="富山県">富山県</option><option value="石川県">石川県</option><option value="福井県">福井県</option><option value="山梨県">山梨県</option><option value="長野県">長野県</option><option value="岐阜県">岐阜県</option><option value="静岡県">静岡県</option><option value="愛知県">愛知県</option><option value="三重県">三重県</option><option value="滋賀県">滋賀県</option><option value="京都府">京都府</option><option value="大阪府">大阪府</option><option value="兵庫県">兵庫県</option><option value="奈良県">奈良県</option><option value="和歌山県">和歌山県</option><option value="鳥取県">鳥取県</option><option value="島根県">島根県</option><option value="岡山県">岡山県</option><option value="広島県">広島県</option><option value="山口県">山口県</option><option value="徳島県">徳島県</option><option value="香川県">香川県</option><option value="愛媛県">愛媛県</option><option value="高知県">高知県</option><option value="福岡県">福岡県</option><option value="佐賀県">佐賀県</option><option value="長崎県">長崎県</option><option value="熊本県">熊本県</option><option value="大分県">大分県</option><option value="宮崎県">宮崎県</option><option value="鹿児島県">鹿児島県</option><option value="沖縄県">沖縄県</option></select></div>
+          </div>
+          <span class="hint2 zipmsg" data-zipmsg role="status" aria-live="polite">郵便番号を入れると、住所が自動で入ります。</span>
+          <div class="fld"><label for="p-addr">市区町村・町名<span class="tag req">必須</span></label><input id="p-addr" name="addr" type="text" required autocomplete="address-level2" enterkeyhint="next" placeholder="例：木曽郡南木曽町読書"></div>
+          <div class="fld"><label for="p-addr2">番地<span class="tag req">必須</span></label><input id="p-addr2" name="addr2" type="text" required autocomplete="address-line1" enterkeyhint="next" placeholder="例：1-2-3"></div>
+          <div class="fld"><label for="p-addr3">建物名・部屋番号<span class="tag optn">任意</span></label><input id="p-addr3" name="addr3" type="text" autocomplete="address-line2" enterkeyhint="next" placeholder="例：○○ビル101"></div>
         </div>
-        <div class="fld"><label for="f-person">ご担当者名<span class="tag optn">任意</span></label><input id="f-person" name="person" type="text" autocomplete="name" enterkeyhint="next"></div>
-      </fieldset>
-      <fieldset class="fset"><legend><b>03</b>お名前の掲載 <span class="tag req">必須</span></legend>
-        <div class="opts">
-          <label class="rad"><input type="radio" name="show" value="掲載を希望する" required><span>掲載を希望する</span></label>
-          <label class="rad"><input type="radio" name="show" value="掲載を希望しない"><span>掲載を希望しない（匿名でのご協賛）</span></label>
+        <!-- 企業・団体を選んだときだけ表示 -->
+        <div class="fgrp" data-kind="企業・団体" hidden>
+          <div class="fld"><label for="c-org">企業・団体名／店名<span class="tag req">必須</span></label><input id="c-org" name="entry.507263538" type="text" required autocomplete="organization" enterkeyhint="next" placeholder="例：○○商店"></div>
+          <div class="fld"><label for="c-person">ご担当者名<span class="tag optn">任意</span></label><input id="c-person" name="entry.1812977518" type="text" autocomplete="name" enterkeyhint="next"></div>
+          <div class="row2">
+            <div class="fld"><label for="c-email">メールアドレス<span class="tag req">必須</span></label><input id="c-email" name="entry.1262764383" type="email" required inputmode="email" autocomplete="email" enterkeyhint="next" placeholder="例：info@example.jp"></div>
+            <div class="fld"><label for="c-tel">お電話番号<span class="tag req">必須</span></label><input id="c-tel" name="entry.34443059" type="tel" required inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="例：0264-00-0000"></div>
+          </div>
+          <div class="row2">
+            <div class="fld"><label for="c-zip">郵便番号<span class="tag req">必須</span></label><input id="c-zip" name="zip" type="text" required inputmode="numeric" autocomplete="postal-code" maxlength="8" enterkeyhint="next" placeholder="399-0000" data-zip></div>
+            <div class="fld"><label for="c-pref">都道府県<span class="tag req">必須</span></label><select id="c-pref" name="pref" required autocomplete="address-level1"><option value="">選んでください</option><option value="北海道">北海道</option><option value="青森県">青森県</option><option value="岩手県">岩手県</option><option value="宮城県">宮城県</option><option value="秋田県">秋田県</option><option value="山形県">山形県</option><option value="福島県">福島県</option><option value="茨城県">茨城県</option><option value="栃木県">栃木県</option><option value="群馬県">群馬県</option><option value="埼玉県">埼玉県</option><option value="千葉県">千葉県</option><option value="東京都">東京都</option><option value="神奈川県">神奈川県</option><option value="新潟県">新潟県</option><option value="富山県">富山県</option><option value="石川県">石川県</option><option value="福井県">福井県</option><option value="山梨県">山梨県</option><option value="長野県">長野県</option><option value="岐阜県">岐阜県</option><option value="静岡県">静岡県</option><option value="愛知県">愛知県</option><option value="三重県">三重県</option><option value="滋賀県">滋賀県</option><option value="京都府">京都府</option><option value="大阪府">大阪府</option><option value="兵庫県">兵庫県</option><option value="奈良県">奈良県</option><option value="和歌山県">和歌山県</option><option value="鳥取県">鳥取県</option><option value="島根県">島根県</option><option value="岡山県">岡山県</option><option value="広島県">広島県</option><option value="山口県">山口県</option><option value="徳島県">徳島県</option><option value="香川県">香川県</option><option value="愛媛県">愛媛県</option><option value="高知県">高知県</option><option value="福岡県">福岡県</option><option value="佐賀県">佐賀県</option><option value="長崎県">長崎県</option><option value="熊本県">熊本県</option><option value="大分県">大分県</option><option value="宮崎県">宮崎県</option><option value="鹿児島県">鹿児島県</option><option value="沖縄県">沖縄県</option></select></div>
+          </div>
+          <span class="hint2 zipmsg" data-zipmsg role="status" aria-live="polite">郵便番号を入れると、住所が自動で入ります。</span>
+          <div class="fld"><label for="c-addr">市区町村・町名<span class="tag req">必須</span></label><input id="c-addr" name="addr" type="text" required autocomplete="address-level2" enterkeyhint="next" placeholder="例：木曽郡南木曽町読書"></div>
+          <div class="fld"><label for="c-addr2">番地<span class="tag req">必須</span></label><input id="c-addr2" name="addr2" type="text" required autocomplete="address-line1" enterkeyhint="next" placeholder="例：1-2-3"></div>
+          <div class="fld"><label for="c-addr3">建物名・部屋番号<span class="tag optn">任意</span></label><input id="c-addr3" name="addr3" type="text" autocomplete="address-line2" enterkeyhint="next" placeholder="例：○○ビル101"></div>
         </div>
-        <div class="fld"><label for="f-display">掲載するお名前の表記<span class="tag optn">任意</span></label><input id="f-display" name="display" type="text" enterkeyhint="next" placeholder="空欄の場合は、上のお名前を使います"></div>
       </fieldset>
-      <fieldset class="fset"><legend><b>04</b>ご質問・メッセージ <span class="tag optn">任意</span></legend>
+      <fieldset class="fset" id="fsMsg" hidden><legend><b>04</b>ご質問・メッセージ <span class="tag optn">任意</span></legend>
         <div class="fld" style="margin-top:0"><textarea id="f-msg" name="msg" rows="4" aria-label="ご質問・メッセージ" enterkeyhint="done"></textarea></div>
       </fieldset>
       <div class="hp" aria-hidden="true"><label>Webサイト<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <button class="btn solid submit" type="submit" id="fsubmit">この内容で申し込む</button>
-      <p class="fnote">いただいた情報は、ご協賛のご連絡と、お名前の掲載の確認にのみ使います。</p>
+      <p class="fnote">このフォームは、Googleフォームを介して送信されます。いただいた情報は、ご協賛のご連絡にのみ使います。</p>
       <div class="status" id="fstatus" role="status" aria-live="polite" hidden></div>
       <noscript><p class="fnote"><span class="ph">お問い合わせ：0264-00-0000（仮）</span></p></noscript>
     </form>
+    <!-- 送信が終わったら、フォームのかわりにこれを表示します -->
+    <div class="thanks" id="thanks" role="status" hidden>
+      <div class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+      <h3>お申し込みを受け付けました</h3>
+      <p>ありがとうございます。内容を確認して、部の担当者からご連絡します。</p>
+      <button type="button" class="btn solid" id="thanksClose">閉じる</button>
+    </div>
   </div>
 </dialog>
 
@@ -1158,7 +1252,7 @@ async function buildIntro(){
 /* ---------- layout / resize ---------- */
 function layout(){
   S.spacing=Math.max(300,Math.min(560,W*.36));S.pad=W*.3;
-  S.maxOff=Math.max(0,S.pad+(N-1)*S.spacing-(W<700?.5:.2)*W);
+  S.maxOff=Math.max(0,S.pad+(N-1)*S.spacing-.5*W);
   S.off=Math.min(S.off,S.maxOff);S.target=Math.min(S.target,S.maxOff);
   U.uSp=S.spacing;U.uXe=mx(N-1);
   const k=Math.max(.8,H/900);root.style.setProperty("--R",(34*k).toFixed(1)+"px");
@@ -1390,10 +1484,20 @@ const FORM = { endpoint: '', mail: '', subject: '【ご協賛のお申し込み�
 
 /* ご協賛のコース。ここを書き換えると、カードとフォームの選択肢の両方が変わります。 */
 const TIERS = [
-  { name: '【コース名】', amount: '【金額】', perk: '【プログラム掲載・会場掲示など】' },
-  { name: '【コース名】', amount: '【金額】', perk: '【特典】' },
-  { name: '【コース名】', amount: '【金額】', perk: '【特典】' }
+  { grp: '個人', name: '個人協賛', amount: '1,000円（一律）', gv: '1000円', perk: '' },
+  { grp: '企業・団体', name: '広告枠 1/8', fig: [1,1], amount: '3,000円', gv: '3000円', perk: 'A4広告枠の1/8' },
+  { grp: '企業・団体', name: '広告枠 1/4', fig: [2,1], amount: '5,000円', gv: '5000円', perk: 'A4広告枠の1/4' },
+  { grp: '企業・団体', name: '広告枠 1/2', fig: [2,2], amount: '10,000円', gv: '10000円', perk: 'A4広告枠の1/2' },
+  { grp: '企業・団体', name: '広告枠 1/1', fig: [2,4], amount: '20,000円', gv: '20000円', perk: 'A4広告枠の全面' }
 ];
+/* Googleフォームを使うときは、フォームの「送信」→「<>埋め込む」のURL（src="…" の中身）か、共有リンクをここに入れてください。空のままなら、このページのフォームを使います */
+const GFORM = '';
+/* Googleフォームへ、このページのフォームから直接送る設定。action は、フォームURLの /viewform を /formResponse にしたものです。
+   E … Googleフォームの質問ID（フォームの name="entry.数字" と同じ）。gv … コースの選択肢は、Googleフォーム側の文言と一字一句同じにしてください */
+const GPOST = { action: 'https://docs.google.com/forms/d/e/1FAIpQLSexaDSTk0ELwrEfhmIWfF3mFSmqXGLIUYEGBlKLBe4LW9jaHw/formResponse' };
+const E = { kind: 'entry.1834485423', courseP: 'entry.1451912709', courseC: 'entry.1358233050',   /* コースは、個人用と企業用で別の質問 */ other: 'entry.11577245',
+  pName: 'entry.757442192', pEmail: 'entry.571693525', pTel: 'entry.1831941752', pAddr: 'entry.1758145305',
+  cOrg: 'entry.507263538', cPerson: 'entry.1812977518', cEmail: 'entry.1262764383', cTel: 'entry.34443059', cAddr: 'entry.1119030877' };
 const MAP_SRC = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3233.5895528402457!2d137.74456066100447!3d35.85906672018374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601cddfae77549bf%3A0x39f703070b842edb!2z5pyo5pu95paH5YyW5YWs5ZySIOaWh-WMluODm-ODvOODqw!5e0!3m2!1sja!2sjp!4v1781309081798!5m2!1sja!2sjp';
 /* ====================================================================== */
 
@@ -1401,37 +1505,101 @@ const mk = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) 
 
 /* ---- コースのカードと選択肢 ---- */
 const tiersEl = $('#tiers'), optsEl = $('#tierOpts');
-function addOpt(label, value) {
+function addOpt(label, value, grp, gv) {
   const l = mk('label', 'rad'), i = document.createElement('input'), sp = document.createElement('span');
-  i.type = 'radio'; i.name = 'tier'; i.value = value; if (!optsEl.children.length) i.required = true;
+  i.type = 'radio'; i.name = 'tier'; i.value = value; i.required = true; i.dataset.grp = grp || ''; i.dataset.gv = gv;
   sp.textContent = label; l.append(i, sp); optsEl.appendChild(l); return i;
 }
 const radios = [];
 TIERS.forEach((t, i) => {
   const card = mk('article', 'tier');
-  card.append(mk('h3', null, t.name), mk('p', 'amt', t.amount), mk('p', 'perk', t.perk ? '特典：' + t.perk : ''));
-  const b = mk('button', 'btn', 'このコースで申し込む'); b.type = 'button'; b.addEventListener('click', () => pick(i));
-  card.appendChild(b); tiersEl.appendChild(card);
-  radios.push(addOpt(t.name + '　' + t.amount, t.name + '（' + t.amount + '）'));
+  card.append(mk('p', 'grp', t.grp), mk('h3', null, t.name), mk('p', 'amt', t.amount), mk('p', 'perk', t.perk || ''));
+  const b = mk('button', 'btn solid', 'このコースで申し込む'); b.type = 'button'; b.addEventListener('click', () => pick(i));
+  if (t.fig) {   // A4の紙面を 2列×4段 に分け、その枠が占める場所を白く塗って見せる
+    const [w, h] = t.fig, cells = [];
+    cells.push('<rect x="4" y="4" width="' + (w * 36 - 2) + '" height="' + (h * 28 - 2) + '" rx="1.5" class="on"/>');   // 区切り線は描かず、その枠の大きさだけを見せる
+    const f = document.createElement('div'); f.className = 'adfig'; f.setAttribute('role', 'img'); f.setAttribute('aria-label', 'A4紙面での広告枠の大きさ（' + t.name + '）');
+    f.innerHTML = '<svg viewBox="0 0 80 116" aria-hidden="true"><rect x=".5" y=".5" width="79" height="115" rx="3" class="pg"/>' + cells.join('') + '</svg>';
+    card.appendChild(f);
+  }
+  card.dataset.g = t.grp; card.appendChild(b); tiersEl.appendChild(card);
+  radios.push(addOpt(t.name + '　' + t.amount, t.grp + '｜' + t.name + '（' + t.amount + '）', t.grp, t.gv));
 });
-radios.push(addOpt('その他・金額や内容について相談したい', 'その他・相談したい'));
+radios.push(addOpt('その他・金額や内容について相談したい', 'その他・相談したい', '', 'その他・相談したい'));
+/* ---- 個人／企業・団体の切り替え ---- */
+let curG = '個人';
+function setTab(g) {
+  curG = g;
+  $$('#tierTabs button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.g === g)));
+  $$('#tiers .tier').forEach(c => { c.hidden = c.dataset.g !== g; });
+  tiersEl.classList.toggle('solo', $$('#tiers .tier:not([hidden])').length === 1);
+}
+$$('#tierTabs button').forEach(b => b.addEventListener('click', () => setTab(b.dataset.g)));
+setTab('個人');
 /* ---- フォームのポップアップ ---- */
 const dlg = $('#formDlg');
 function openForm(i) {
-  if (typeof i === 'number' && radios[i]) radios[i].checked = true;
+  $('#thanks').hidden = true; $('#sponsor-form').hidden = false; $('#dlgHint').hidden = false;   // 前回の完了画面が残らないように
+  if (typeof i === 'number' && radios[i]) { const kr = [...form.querySelectorAll('input[name="' + E.kind + '"]')].find(x => x.value === TIERS[i].grp); if (kr) { kr.checked = true; syncKind(); } radios[i].checked = true; }
+  if (typeof i !== 'number') { const kr = [...form.querySelectorAll('input[name="' + E.kind + '"]')].find(x => x.value === curG); if (kr) { kr.checked = true; syncKind(); } }
+  if (GFORM) { const f = $('#gfFrame'); if (!f.src) f.src = GFORM; $('#gfOpen').href = GFORM.replace('?embedded=true', ''); $('#gfWrap').hidden = false; $('#sponsor-form').hidden = true; $('#dlgHint').hidden = true; }
   if (!dlg.open) { if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', ''); }
   document.documentElement.classList.add('modal');
-  setTimeout(() => $('#f-name').focus({ preventScroll: true }), 350);
 }
 const pick = openForm;
 dlg.addEventListener('close', () => document.documentElement.classList.remove('modal'));
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
 $('#dlgClose').addEventListener('click', () => dlg.close());
+$('#thanksClose').addEventListener('click', () => dlg.close());
 $('#openForm').addEventListener('click', () => openForm());
 addEventListener('openform', () => openForm());
 
 /* ---- フォーム ---- */
 const form = $('#sponsor-form'), box = $('#fstatus'), btn = $('#fsubmit');
+
+/* 種別（個人／企業・団体）に合わせて、コースと入力欄を切り替える。隠れている欄は disabled にして、必須チェックと送信の対象から外す */
+function syncKind() {
+  const k = (form.querySelector('input[name="' + E.kind + '"]:checked') || {}).value;
+  $('#fsTier').hidden = $('#fsInfo').hidden = $('#fsMsg').hidden = !k;
+  $$('.fgrp').forEach(g => { const on = g.dataset.kind === k; g.hidden = !on; g.querySelectorAll('input,select').forEach(x => { x.disabled = !on; }); });
+  radios.forEach(r => { const on = !r.dataset.grp || r.dataset.grp === k; r.disabled = !on; r.parentNode.hidden = !on; if (!on) r.checked = false; });
+}
+form.addEventListener('change', e => { if (e.target.name === E.kind) syncKind(); });
+
+/* 郵便番号 → 住所を調べる。①zipcloud → ②YubinBango（GitHub上のデータ）の順に試す。
+   うまくいかない理由は、ブラウザのコンソールに [zip] で始まる行で出ます（デバッグ用） */
+async function lookupZip(d, prefs) {
+  const log = (...a) => console.warn('[zip]', ...a);
+  let notFound = false;
+  if (!lookupZip.zipDown) try {
+    const res = await fetch('https://zipcloud.ibsnet.jp/api/search?zipcode=' + d), j = await res.json();
+    console.info('[zip] zipcloud の返事', res.status, j);
+    if (j.results && j.results[0]) { const x = j.results[0]; return { hit: { pref: x.address1, addr: x.address2 + x.address3 } }; }
+    notFound = true; log('zipcloud: 該当なし（またはエラー）', j.message || '');
+  } catch (err) { lookupZip.zipDown = true; log('zipcloud: 通信できませんでした（DNS・ネットワーク制限・オフラインなど）。このあとは予備だけを使います', err); }
+  try {
+    const res = await fetch('https://yubinbango.github.io/yubinbango-data/data/' + d.slice(0, 3) + '.js'), t = await res.text();
+    const j = JSON.parse(t.match(/\$yubin\(([\s\S]*)\)\s*;?\s*$/)[1]), x = j[d];
+    console.info('[zip] YubinBango の返事', res.status, x);
+    if (x) return { hit: { pref: prefs[x[0] - 1], addr: x[1] + (x[2] || '') } };
+    notFound = true; log('YubinBango: 該当なし');
+  } catch (err) { log('YubinBango: 通信または読み取りに失敗しました', err); }
+  return { notFound };
+}
+
+/* 郵便番号 → 住所の自動入力（無料の郵便番号API「zipcloud」を使います。入らないときは、手で入力できます） */
+form.addEventListener('input', async e => {
+  const z = e.target; if (!z.matches || !z.matches('[data-zip]')) return;
+  const digits = z.value.replace(/[０-９]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0)).replace(/\D/g, '');
+  const grp = z.closest('.fgrp'), msg = grp.querySelector('[data-zipmsg]'), a1 = grp.querySelector('input[name="addr"]'), a2 = grp.querySelector('input[name="addr2"]'), pf = grp.querySelector('select[name="pref"]');
+  if (digits.length !== 7) return;
+  z.value = digits.slice(0, 3) + '-' + digits.slice(3);
+  const r = await lookupZip(digits, [...pf.options].slice(1).map(o => o.value));
+  if (r.hit) { pf.value = r.hit.pref; a1.value = r.hit.addr; pf.setCustomValidity(''); a1.setCustomValidity(''); msg.textContent = '住所を入れました。番地をご入力ください。'; a2.focus({ preventScroll: true }); }
+  else msg.textContent = r.notFound ? '該当する住所が見つかりませんでした。郵便番号をご確認ください。わからないときは、都道府県から直接ご入力ください。'
+                                    : '通信できず、住所を自動で入れられませんでした。都道府県から、直接ご入力ください。';
+});
+syncKind();
 form.addEventListener('invalid', e => {
   const v = e.target.validity;
   e.target.setCustomValidity(v.valueMissing ? 'こちらは必須です。ご入力・ご選択ください。' : v.typeMismatch ? '入力の形式をご確認ください。' : '');
@@ -1440,13 +1608,14 @@ form.addEventListener('input', e => e.target.setCustomValidity && e.target.setCu
 
 function build(d) {
   return ['【ご協賛のお申し込み】木曽青峰高校20周年記念定期演奏会', '',
+    '種別：' + d.kind,
     'コース：' + d.tier,
-    'お名前（企業・団体名）：' + d.name,
+    (d.kind === '個人' ? 'お名前：' : '企業・団体名／店名：') + d.name,
+    d.kind === '個人' ? null : 'ご担当者名：' + (d.person || '（未記入）'),
     'メールアドレス：' + d.email,
-    'お電話番号：' + (d.tel || '（未記入）'),
-    'ご担当者名：' + (d.person || '（未記入）'),
-    'お名前の掲載：' + d.show + (d.show === '掲載を希望する' ? '（掲載名：' + (d.display || d.name) + '）' : ''),
-    'ご質問・メッセージ：', d.msg || '（なし）'].join('\n');
+    'お電話番号：' + d.tel,
+    'ご住所：' + d.addr,
+    'ご質問・メッセージ：', d.msg || '（なし）'].filter(x => x !== null).join('\n');
 }
 function copyText(t, b) {
   const done = () => { b.textContent = 'コピーしました'; };
@@ -1461,14 +1630,30 @@ function show(msg, text) {
 }
 form.addEventListener('submit', async e => {
   e.preventDefault();
+  form.querySelectorAll('input,textarea').forEach(x => x.setCustomValidity(''));   // 前回の「必須です」の表示が残らないように、いったん消す
   if (!form.reportValidity()) return;
   const f = new FormData(form);
   if (f.get('website')) { show('送信しました。ありがとうございます。'); return; }   // 迷惑送信よけ
-  const d = { tier: f.get('tier'), name: f.get('name').trim(), email: f.get('email').trim(), tel: (f.get('tel') || '').trim(), person: (f.get('person') || '').trim(), show: f.get('show'), display: (f.get('display') || '').trim(), msg: (f.get('msg') || '').trim() };
+  const g = (...ks) => { for (const k of ks) if (f.get(k) != null) return String(f.get(k)).trim(); return ''; };
+  const d = { kind: f.get(E.kind), tier: f.get('tier'), name: g(E.pName, E.cOrg), person: g(E.cPerson), email: g(E.pEmail, E.cEmail), tel: g(E.pTel, E.cTel), addr: '〒' + g('zip') + ' ' + g('pref') + g('addr') + g('addr2') + (g('addr3') ? ' ' + g('addr3') : ''), msg: (f.get('msg') || '').trim() };
   const text = build(d);
   btn.disabled = true;
   try {
-    if (FORM.endpoint) {
+    if (GPOST.action) {
+      /* Googleフォームへ送る：name が entry. で始まる欄（種別・お名前など）＋ コース ＋ メッセージ */
+      const p = new URLSearchParams();
+      f.forEach((v, k) => { if (k.startsWith('entry.')) p.append(k, String(v).trim()); });
+      p.append(d.kind === '個人' ? E.pAddr : E.cAddr, d.addr);   // 郵便番号・住所・番地を1つにまとめて、フォームの「住所」へ
+      p.append(d.kind === '個人' ? E.courseP : E.courseC, radios.find(r => r.checked).dataset.gv);
+      if (d.msg) p.append(E.other, d.msg);
+      p.append('fvv', '1'); p.append('pageHistory', '0');
+      /* Googleフォームは別のサイトなので、結果は読み取れません（no-cors）。送れたかどうかは、フォームの「回答」で確認します */
+      await fetch(GPOST.action, { method: 'POST', mode: 'no-cors', body: p });
+      form.reset(); syncKind();
+      /* フォームを隠して、完了画面を出す */
+      box.hidden = true; form.hidden = true; $('#dlgHint').hidden = true; $('#thanks').hidden = false;
+      dlg.querySelector('.dbox').scrollTop = 0; $('#thanksClose').focus({ preventScroll: true });
+    } else if (FORM.endpoint) {
       const r = await fetch(FORM.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(Object.assign({ _subject: FORM.subject, message: text }, d)) });
       if (!r.ok) throw new Error(String(r.status));
       form.reset(); show('お申し込みを受け付けました。ありがとうございます。内容を確認して、部の担当者からご連絡します。');
@@ -1559,7 +1744,7 @@ $$('.shot img').forEach(i => { const f = () => { if (i.dataset.d) return; i.data
     io.observe(ct);
   }else if(ct){ct.textContent=ct.dataset.to}
   const ph=[...document.querySelectorAll(".shot.big")];
-  if(ph.length&&!reduce){let tk=0;const up=()=>{tk=0;const vh=innerHeight;ph.forEach(el=>{const r=el.getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh-r.top)/(vh*.9)));el.style.transform="scale("+(.86+.14*p).toFixed(3)+")"})};
+  if(ph.length&&!reduce){let tk=0;const up=()=>{tk=0;const vh=innerHeight;ph.forEach(el=>{const r=el.getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh-r.top)/(vh*.9)));const im=el.firstElementChild;if(im)im.style.transform="scale("+(1.16-.16*p).toFixed(3)+")"})};
     addEventListener("scroll",()=>{if(!tk)tk=requestAnimationFrame(up)},{passive:true});up()}
 })();
 </script>
