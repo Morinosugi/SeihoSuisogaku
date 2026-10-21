@@ -317,6 +317,8 @@ html.modal{overflow:hidden!important}
 
 /* 05 アクセス */
 .mapbox{position:relative;min-height:280px;aspect-ratio:16/9;display:grid;place-items:center;overflow:hidden;text-align:center;padding:20px;border-radius:24px;border:1px solid rgba(255,255,255,.35);background:rgba(2,30,66,.3)}
+.maplink{margin:16px 0 0;line-height:1.9}
+.maplink .btn{margin-top:10px}
 .mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.8) brightness(.95)}
 .mapph p{max-width:none!important;text-align:center;font-weight:500}
 .mapph .btn{margin:14px 6px 0}
@@ -744,7 +746,7 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
 <section id="intro" role="button" tabindex="0" aria-label="クリックして20年のあゆみを見る">
   <div class="intro-text" id="introText">
     <h1 class="l1">木曽青峰高校20周年記念定期演奏会</h1>
-    <p class="l2">Twenty years of sound, flowing to the sea</p>
+    <p class="l2">Twenty years, one sound.</p>
     <p class="l3">2027年7月25日（日）　木曽文化公園文化ホール</p>
   </div>
   <div class="cta">
@@ -895,13 +897,10 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
   <section class="isec alt" id="i-access"><div class="iw">
     <header class="shead" data-rv><span class="no">05</span><div><span class="en">ACCESS</span><h2 class="sh">アクセス・ご来場のみなさまへ</h2></div></header>
     <div class="mapbox" id="mapbox" data-rv>
-      <div class="mapph" id="mapph">
-        <p>木曽文化公園文化ホール<br>〒399-6101 長野県木曽郡木曽町日義4898-37</p>
-        <button type="button" class="btn" id="mapBtn">地図を表示する</button>
-        <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E6%9C%A8%E6%9B%BD%E6%96%87%E5%8C%96%E5%85%AC%E5%9C%92%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB" target="_blank" rel="noopener">Googleマップで開く</a>
-      </div>
+      <iframe title="木曽文化公園文化ホールの地図" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d679.7784861633841!2d137.74713704784318!3d35.85906435097326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601cddfae77549bf%3A0x39f703070b842edb!2z5pyo5pu95paH5YyW5YWs5ZySIOaWh-WMluODm-ODvOODqw!5e0!3m2!1sja!2sjp!4v1792617850391!5m2!1sja!2sjp" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
-    <div class="accs" data-rv><details class="acc" name="acc"><summary><span>行き方</span><i aria-hidden="true"></i></summary><p><span class="ph">JR中央西線 日義駅から車で約5分。お車の方は中央道から国道19号で約40分です。</span></p></details><details class="acc" name="acc"><summary><span>お車の方</span><i aria-hidden="true"></i></summary><p><span class="ph">無料駐車場があります（約100台）。満車の場合は係の案内に従ってください。</span></p></details><details class="acc" name="acc"><summary><span>持ち物</span><i aria-hidden="true"></i></summary><p><span class="ph">上ばきは不要です。</span></p></details><details class="acc" name="acc"><summary><span>撮影・録音</span><i aria-hidden="true"></i></summary><p><span class="ph">演奏中の撮影・録音はご遠慮ください。</span></p></details><details class="acc" name="acc"><summary><span>車いすの方へ</span><i aria-hidden="true"></i></summary><p><span class="ph">車いす席があります。入口で係にお声がけください。</span></p></details><details class="acc" name="acc"><summary><span>雨のとき</span><i aria-hidden="true"></i></summary><p><span class="ph">部の公式サイトとInstagramでお知らせします。</span></p></details></div>
+    <p class="maplink" data-rv>木曽文化公園文化ホール　〒399-6101 長野県木曽郡木曽町日義4898-37<br><a class="btn" href="https://www.google.com/maps/search/?api=1&query=%E6%9C%A8%E6%9B%BD%E6%96%87%E5%8C%96%E5%85%AC%E5%9C%92%E6%96%87%E5%8C%96%E3%83%9B%E3%83%BC%E3%83%AB" target="_blank" rel="noopener">Googleマップで開く</a></p>
+    <div class="accs" data-rv><details class="acc" name="acc"><summary><span>行き方</span><i aria-hidden="true"></i></summary><p><span class="ph">JR中央西線 日義駅から車で約5分。お車の方は中央道から国道19号で約40分です。</span></p><p><a class="inl" href="https://www.kisoji.com/chiikishinko/kiso-bus/documents/02ak-kisokoma2610.pdf" target="_blank" rel="noopener">木曽バスの時刻表（PDF）</a></p></details><details class="acc" name="acc"><summary><span>お車の方</span><i aria-hidden="true"></i></summary><p><span class="ph">無料駐車場があります（約100台）。満車の場合は係の案内に従ってください。</span></p></details><details class="acc" name="acc"><summary><span>持ち物</span><i aria-hidden="true"></i></summary><p><span class="ph">上ばきは不要です。</span></p></details><details class="acc" name="acc"><summary><span>撮影・録音</span><i aria-hidden="true"></i></summary><p><span class="ph">演奏中の撮影・録音はご遠慮ください。</span></p></details><details class="acc" name="acc"><summary><span>車いすの方へ</span><i aria-hidden="true"></i></summary><p><span class="ph">車いす席があります。入口で係にお声がけください。</span></p></details><details class="acc" name="acc"><summary><span>雨のとき</span><i aria-hidden="true"></i></summary><p><span class="ph">部の公式サイトとInstagramでお知らせします。</span></p></details></div>
   </div></section>
 
   <section class="isec fin"><div class="iw">
@@ -950,6 +949,7 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
         <!-- 個人を選んだときだけ表示 -->
         <div class="fgrp" data-kind="個人" hidden>
           <div class="fld"><label for="p-name">お名前<span class="tag req">必須</span></label><input id="p-name" name="entry.757442192" type="text" required autocomplete="name" enterkeyhint="next"></div>
+          <div class="fld"><label for="p-kana">フリガナ<span class="tag req">必須</span></label><input id="p-kana" required name="entry.1587286678" type="text" data-kana-for="p-name" autocomplete="off" enterkeyhint="next" placeholder="例：セイホウ　タロウ"></div>
           <div class="row2">
             <div class="fld"><label for="p-email">メールアドレス<span class="tag req">必須</span></label><input id="p-email" name="entry.571693525" type="email" required inputmode="email" autocomplete="email" enterkeyhint="next" placeholder="例：info@example.jp"></div>
             <div class="fld"><label for="p-tel">お電話番号<span class="tag req">必須</span></label><input id="p-tel" name="entry.1831941752" type="tel" required inputmode="tel" autocomplete="tel" enterkeyhint="next" placeholder="例：0264-00-0000"></div>
@@ -958,14 +958,15 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
             <div class="fld"><label for="p-zip">郵便番号<span class="tag req">必須</span></label><input id="p-zip" name="zip" type="text" required inputmode="numeric" autocomplete="postal-code" maxlength="8" enterkeyhint="next" placeholder="399-0000" data-zip></div>
             <div class="fld"><label for="p-pref">都道府県<span class="tag req">必須</span></label><select id="p-pref" name="pref" required autocomplete="address-level1"><option value="">選んでください</option><option value="北海道">北海道</option><option value="青森県">青森県</option><option value="岩手県">岩手県</option><option value="宮城県">宮城県</option><option value="秋田県">秋田県</option><option value="山形県">山形県</option><option value="福島県">福島県</option><option value="茨城県">茨城県</option><option value="栃木県">栃木県</option><option value="群馬県">群馬県</option><option value="埼玉県">埼玉県</option><option value="千葉県">千葉県</option><option value="東京都">東京都</option><option value="神奈川県">神奈川県</option><option value="新潟県">新潟県</option><option value="富山県">富山県</option><option value="石川県">石川県</option><option value="福井県">福井県</option><option value="山梨県">山梨県</option><option value="長野県">長野県</option><option value="岐阜県">岐阜県</option><option value="静岡県">静岡県</option><option value="愛知県">愛知県</option><option value="三重県">三重県</option><option value="滋賀県">滋賀県</option><option value="京都府">京都府</option><option value="大阪府">大阪府</option><option value="兵庫県">兵庫県</option><option value="奈良県">奈良県</option><option value="和歌山県">和歌山県</option><option value="鳥取県">鳥取県</option><option value="島根県">島根県</option><option value="岡山県">岡山県</option><option value="広島県">広島県</option><option value="山口県">山口県</option><option value="徳島県">徳島県</option><option value="香川県">香川県</option><option value="愛媛県">愛媛県</option><option value="高知県">高知県</option><option value="福岡県">福岡県</option><option value="佐賀県">佐賀県</option><option value="長崎県">長崎県</option><option value="熊本県">熊本県</option><option value="大分県">大分県</option><option value="宮崎県">宮崎県</option><option value="鹿児島県">鹿児島県</option><option value="沖縄県">沖縄県</option></select></div>
           </div>
-          <span class="hint2 zipmsg" data-zipmsg role="status" aria-live="polite">郵便番号を入れると、住所が自動で入ります。</span>
-          <div class="fld"><label for="p-addr">市区町村・町名<span class="tag req">必須</span></label><input id="p-addr" name="addr" type="text" required autocomplete="address-level2" enterkeyhint="next" placeholder="例：木曽郡南木曽町読書"></div>
+          <span class="hint2 zipmsg" data-zipmsg role="status" aria-live="polite"></span>
+          <div class="fld"><label for="p-addr">市区町村・町名<span class="tag req">必須</span></label><input id="p-addr" name="addr" type="text" required autocomplete="address-level2" enterkeyhint="next" placeholder="例：木曽郡木曽町福島"></div>
           <div class="fld"><label for="p-addr2">番地<span class="tag req">必須</span></label><input id="p-addr2" name="addr2" type="text" required autocomplete="address-line1" enterkeyhint="next" placeholder="例：1-2-3"></div>
           <div class="fld"><label for="p-addr3">建物名・部屋番号<span class="tag optn">任意</span></label><input id="p-addr3" name="addr3" type="text" autocomplete="address-line2" enterkeyhint="next" placeholder="例：○○ビル101"></div>
         </div>
         <!-- 企業・団体を選んだときだけ表示 -->
         <div class="fgrp" data-kind="企業・団体" hidden>
           <div class="fld"><label for="c-org">企業・団体名／店名<span class="tag req">必須</span></label><input id="c-org" name="entry.507263538" type="text" required autocomplete="organization" enterkeyhint="next" placeholder="例：○○商店"></div>
+          <div class="fld"><label for="c-kana">フリガナ<span class="tag req">必須</span></label><input id="c-kana" required name="entry.1952194695" type="text" data-kana-for="c-org" autocomplete="off" enterkeyhint="next" placeholder="例：モリノショウテン"></div>
           <div class="fld"><label for="c-person">ご担当者名<span class="tag optn">任意</span></label><input id="c-person" name="entry.1812977518" type="text" autocomplete="name" enterkeyhint="next"></div>
           <div class="row2">
             <div class="fld"><label for="c-email">メールアドレス<span class="tag req">必須</span></label><input id="c-email" name="entry.1262764383" type="email" required inputmode="email" autocomplete="email" enterkeyhint="next" placeholder="例：info@example.jp"></div>
@@ -975,8 +976,8 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
             <div class="fld"><label for="c-zip">郵便番号<span class="tag req">必須</span></label><input id="c-zip" name="zip" type="text" required inputmode="numeric" autocomplete="postal-code" maxlength="8" enterkeyhint="next" placeholder="399-0000" data-zip></div>
             <div class="fld"><label for="c-pref">都道府県<span class="tag req">必須</span></label><select id="c-pref" name="pref" required autocomplete="address-level1"><option value="">選んでください</option><option value="北海道">北海道</option><option value="青森県">青森県</option><option value="岩手県">岩手県</option><option value="宮城県">宮城県</option><option value="秋田県">秋田県</option><option value="山形県">山形県</option><option value="福島県">福島県</option><option value="茨城県">茨城県</option><option value="栃木県">栃木県</option><option value="群馬県">群馬県</option><option value="埼玉県">埼玉県</option><option value="千葉県">千葉県</option><option value="東京都">東京都</option><option value="神奈川県">神奈川県</option><option value="新潟県">新潟県</option><option value="富山県">富山県</option><option value="石川県">石川県</option><option value="福井県">福井県</option><option value="山梨県">山梨県</option><option value="長野県">長野県</option><option value="岐阜県">岐阜県</option><option value="静岡県">静岡県</option><option value="愛知県">愛知県</option><option value="三重県">三重県</option><option value="滋賀県">滋賀県</option><option value="京都府">京都府</option><option value="大阪府">大阪府</option><option value="兵庫県">兵庫県</option><option value="奈良県">奈良県</option><option value="和歌山県">和歌山県</option><option value="鳥取県">鳥取県</option><option value="島根県">島根県</option><option value="岡山県">岡山県</option><option value="広島県">広島県</option><option value="山口県">山口県</option><option value="徳島県">徳島県</option><option value="香川県">香川県</option><option value="愛媛県">愛媛県</option><option value="高知県">高知県</option><option value="福岡県">福岡県</option><option value="佐賀県">佐賀県</option><option value="長崎県">長崎県</option><option value="熊本県">熊本県</option><option value="大分県">大分県</option><option value="宮崎県">宮崎県</option><option value="鹿児島県">鹿児島県</option><option value="沖縄県">沖縄県</option></select></div>
           </div>
-          <span class="hint2 zipmsg" data-zipmsg role="status" aria-live="polite">郵便番号を入れると、住所が自動で入ります。</span>
-          <div class="fld"><label for="c-addr">市区町村・町名<span class="tag req">必須</span></label><input id="c-addr" name="addr" type="text" required autocomplete="address-level2" enterkeyhint="next" placeholder="例：木曽郡南木曽町読書"></div>
+          <span class="hint2 zipmsg" data-zipmsg role="status" aria-live="polite"></span>
+          <div class="fld"><label for="c-addr">市区町村・町名<span class="tag req">必須</span></label><input id="c-addr" name="addr" type="text" required autocomplete="address-level2" enterkeyhint="next" placeholder="例：木曽郡木曽町福島"></div>
           <div class="fld"><label for="c-addr2">番地<span class="tag req">必須</span></label><input id="c-addr2" name="addr2" type="text" required autocomplete="address-line1" enterkeyhint="next" placeholder="例：1-2-3"></div>
           <div class="fld"><label for="c-addr3">建物名・部屋番号<span class="tag optn">任意</span></label><input id="c-addr3" name="addr3" type="text" autocomplete="address-line2" enterkeyhint="next" placeholder="例：○○ビル101"></div>
         </div>
@@ -1224,20 +1225,22 @@ async function buildIntro(){
   const tok=++introTok;
   try{await document.fonts.load("800 200px Jost")}catch(e){}
   if(tok!==introTok)return;
-  const oc=document.createElement("canvas");oc.width=W;oc.height=H;const o=oc.getContext("2d",{willReadFrequently:true});
-  const fs=Math.min(H*.86,W*.74);
-  o.fillStyle="#fff";o.font=`800 ${fs}px Jost, "Zen Maru Gothic", sans-serif`;o.textAlign="center";o.textBaseline="middle";o.fillText("20",W/2,H*.5);
-  const d=o.getImageData(0,0,W,H).data,m=new Float32Array(W*H);
+  const sc=W*H>1300000?.5:1,w=Math.round(W*sc),h=Math.round(H*sc);   // 大きい画面では、半分の解像度で形を作る（初回の引っかかりを減らす）
+  const oc=document.createElement("canvas");oc.width=w;oc.height=h;const o=oc.getContext("2d",{willReadFrequently:true});
+  const fs=Math.min(h*.86,w*.74);
+  o.fillStyle="#fff";o.font=`800 ${fs}px Jost, "Zen Maru Gothic", sans-serif`;o.textAlign="center";o.textBaseline="middle";o.fillText("20",w/2,h*.5);
+  const d=o.getImageData(0,0,w,h).data,m=new Float32Array(w*h);
   for(let i=0;i<m.length;i++)m[i]=d[i*4+3]/255;
-  const r=Math.max(5,Math.round(fs*.055)),hg=box(box(box(m,W,H,r),W,H,r),W,H,r);   // 高さ（ふくらみ）
-  const target=coarse?36000:70000,step=Math.max(2,Math.round(Math.sqrt((W*H*.2)/target)));
+  const r=Math.max(4,Math.round(fs*.055)),hg=box(box(box(m,w,h,r),w,h,r),w,h,r);   // 高さ（ふくらみ）
+  const target=coarse?36000:48000,step=Math.max(2,Math.round(Math.sqrt((w*h*.2)/target)));
   const xs=[],ys=[],hv=[],lv=[];let y0=1e9,y1=-1e9;const K=r*1.7;
-  for(let y=step;y<H-step;y+=step)for(let x=step;x<W-step;x+=step){const i=y*W+x;
+  for(let y=step;y<h-step;y+=step)for(let x=step;x<w-step;x+=step){const i=y*w+x;
     if(d[i*4+3]>128){
-      const gx=(hg[i+1]-hg[i-1])*.5,gy=(hg[i+W]-hg[i-W])*.5,nl=Math.hypot(gx*K,gy*K,1);
+      const gx=(hg[i+1]-hg[i-1])*.5,gy=(hg[i+w]-hg[i-w])*.5,nl=Math.hypot(gx*K,gy*K,1);
       const lit=Math.max(0,Math.min(1,((-gx*K)*-.5+(-gy*K)*-.62+.6)/nl));   // 左上から光が当たる
-      xs.push(x+rnd(-1,1));ys.push(y+rnd(-1,1));hv.push(hg[i]);lv.push(lit);
-      if(y<y0)y0=y;if(y>y1)y1=y}}
+      const fx=x/sc+rnd(-1,1)/sc,fy=y/sc+rnd(-1,1)/sc;
+      xs.push(fx);ys.push(fy);hv.push(hg[i]);lv.push(lit);
+      if(fy<y0)y0=fy;if(fy>y1)y1=fy}}
   const n=xs.length,shift=H*.47-(y0+y1)/2;
   const aT=new Float32Array(n*2),aR=new Float32Array(n*2),aVel=new Float32Array(n*2),aM=new Float32Array(n*3),aH=new Float32Array(n*2);
   for(let i=0;i<n;i++){const ty=ys[i]+shift,a=Math.random()*6.283,rr=Math.max(W,H)*rnd(.2,.7);
@@ -1259,7 +1262,7 @@ function layout(){
   MK.forEach((m,i)=>m.el.style.setProperty("--h",((72+(i%2)*28)*k).toFixed(1)+"px"));
 }
 function size(light){
-  DPR=Math.min(devicePixelRatio||1,coarse?1.5:1.75);W=root.clientWidth||innerWidth;H=innerHeight;
+  DPR=Math.min(devicePixelRatio||1,1.5);W=root.clientWidth||innerWidth;H=innerHeight;
   if(gl){canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);gl.viewport(0,0,canvas.width,canvas.height);U.uRes=[W,H];U.uDpr=DPR}
   layout();if(gl&&!light){if(P.rib)buildRibbon();buildIntro()}
 }
@@ -1566,6 +1569,19 @@ function syncKind() {
 }
 form.addEventListener('change', e => { if (e.target.name === E.kind) syncKind(); });
 
+/* ---- フリガナの自動入力：名前を日本語入力（変換）しているあいだの「読み」を拾って、カタカナで入れる。手で直したら、そこからは自動で書き換えない ---- */
+$$('[data-kana-for]').forEach(k => {
+  const src = document.getElementById(k.dataset.kanaFor);
+  let buf = '', last = '', manual = false;
+  const kata = t => t.replace(/[ぁ-ゖ]/g, c => String.fromCharCode(c.charCodeAt(0) + 0x60));
+  const isKana = t => /^[ぁ-ゖー゛゜ゝゞ\s　]*$/.test(t);
+  src.addEventListener('compositionstart', () => { last = ''; });
+  src.addEventListener('compositionupdate', e => { if (isKana(e.data)) last = e.data; });
+  src.addEventListener('compositionend', () => { if (last) buf += last; last = ''; if (!manual) k.value = kata(buf).replace(/\s+/g, ''); });
+  src.addEventListener('input', e => { if (!e.isComposing && !src.value) { buf = ''; if (!manual) k.value = ''; } });
+  k.addEventListener('input', () => { manual = k.value !== ''; if (!manual) buf = ''; });
+});
+
 /* 郵便番号 → 住所を調べる。①zipcloud → ②YubinBango（GitHub上のデータ）の順に試す。
    うまくいかない理由は、ブラウザのコンソールに [zip] で始まる行で出ます（デバッグ用） */
 async function lookupZip(d, prefs) {
@@ -1687,12 +1703,6 @@ const follow = e => {
   gRaf = requestAnimationFrame(() => { const r = el.getBoundingClientRect(); el.style.setProperty('--x', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%'); el.style.setProperty('--y', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%'); });
 };
 addEventListener('pointermove', follow, { passive: true }); addEventListener('pointerdown', follow, { passive: true });
-
-/* ---- 地図は、押したときに読みこむ（ページを軽くするため） ----
-$('#mapBtn').addEventListener('click', () => {
-  const f = document.createElement('iframe'); f.title = '木曽文化公園文化ホールの地図'; f.loading = 'lazy'; f.referrerPolicy = 'no-referrer-when-downgrade'; f.src = MAP_SRC;
-  $('#mapph').hidden = true; $('#mapbox').appendChild(f);
-});
 
 /* ---- 写真が読めないときは、枠だけにする ---- */
 const dummy = t => 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a1d3e3"/><stop offset=".6" stop-color="#31a6f6"/><stop offset="1" stop-color="#0b4a8a"/></linearGradient></defs><rect width="800" height="800" fill="url(#g)"/><path d="M0 520L140 400L260 480L400 330L540 470L660 390L800 500V800H0Z" fill="rgba(255,255,255,.28)"/><path d="M0 640C140 590 260 690 400 640S660 590 800 640V800H0Z" fill="rgba(255,255,255,.22)"/><text x="400" y="300" fill="#fff" font-size="44" font-family="sans-serif" text-anchor="middle" opacity=".9">' + t + '</text></svg>');
