@@ -8,7 +8,12 @@
 <title>木曽青峰高校20周年記念定期演奏会</title>
 <meta name="description" content="木曽青峰高校吹奏楽部の20周年記念定期演奏会。2027年7月25日、木曽文化公園文化ホール。山から川へ、そして海へ。20年のあゆみをたどる特設ページ。">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<!-- 書き換え：公開するURLが決まったら、canonical と og:url、og:image（1200×630px）を足してください -->
+<link rel="canonical" href="https://seihosuisogaku.morinosugi.com/2027teien/">
+<meta property="og:url" content="https://seihosuisogaku.morinosugi.com/2027teien/">
+<meta property="og:site_name" content="木曽青峰高校吹奏楽部">
+<!-- 書き換え：og:image（1200×630px）が用意できたら、下の2行を足してください
+<meta property="og:image" content="https://seihosuisogaku.morinosugi.com/2027teien/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image"> -->
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:title" content="木曽青峰高校20周年記念定期演奏会">
@@ -18,6 +23,7 @@
 {"@context":"https://schema.org","@type":"Event",
 "name":"木曽青峰高校20周年記念定期演奏会",
 "startDate":"2027-07-25",
+"url":"https://seihosuisogaku.morinosugi.com/2027teien/",
 "eventStatus":"https://schema.org/EventScheduled",
 "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
 "inLanguage":"ja",
@@ -322,6 +328,21 @@ html.modal{overflow:hidden!important}
 .veil-msg{position:absolute;inset:0;z-index:2;display:grid;place-content:center;justify-items:center;gap:10px;text-align:center;padding:24px;background:rgba(255,255,255,.1);-webkit-backdrop-filter:blur(9px);backdrop-filter:blur(9px);border:1px solid rgba(255,255,255,.35);border-radius:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
 .veil-msg b{font:400 clamp(28px,6vw,44px)/1.2 var(--mincho);letter-spacing:.3em;padding-left:.3em}
 .veil-msg span{font-size:14px;letter-spacing:.08em}
+.shot.poster{width:100%;max-width:720px;aspect-ratio:210/297;margin:18px auto 0;border-radius:var(--r-m)}
+.shot.poster.wip img{filter:blur(10px);transform:scale(1.06)}
+.shot.poster .veil-msg{z-index:3}
+.igrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 14px;margin-top:6px}
+.igc{display:block;color:#fff;text-decoration:none}
+.igi{position:relative;aspect-ratio:1;border-radius:var(--r-m);overflow:hidden;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);box-shadow:var(--sh1)}
+.igi img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.igc:hover .igi img{transform:scale(1.05)}}
+.igk{position:absolute;left:10px;top:10px;font:500 11px var(--num);letter-spacing:.14em;padding:3px 10px;border-radius:999px;background:rgba(2,30,66,.7);color:#fff}
+.igc time{display:block;margin-top:10px;font:300 17px var(--num);letter-spacing:.06em}
+.igc p{margin:4px 0 0!important;font-size:14px!important;line-height:1.7!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.igc.sk .igi{animation:igp 1.4s ease-in-out infinite}
+@keyframes igp{50%{opacity:.5}}
+.igmsg{grid-column:1/-1;text-align:center}
+@media (max-width:700px){.igrid{grid-template-columns:repeat(2,1fr)}}
 .maplink{margin:16px 0 0;line-height:1.9}
 .maplink .btn{margin-top:10px}
 .mapbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:saturate(.8) brightness(.95)}
@@ -810,6 +831,8 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
         <div class="key"><span class="k">WHERE　会場</span><b>木曽文化公園<br>文化ホール</b><em>〒399-6101 長野県木曽郡木曽町日義4898-37</em></div>
         <div class="key"><span class="k">ADMISSION　入場</span><b>無料</b><em>整理券：<span class="ph">不要（先着順・自由席）</span></em></div>
       </div>
+      <h3 class="mini" style="margin-top:56px">POSTER　ポスター</h3>
+      <figure class="shot poster wip" data-label="【画像】ポスター（photos/poster.jpg）"><img src="photos/poster.jpg" alt="木曽青峰高校20周年記念定期演奏会のポスター" loading="lazy"><div class="veil-msg" role="note"><b>準備中</b><span>ポスターは、完成したらここに掲載します</span></div></figure>
       <div class="actions"><a class="btn" href="#i-access">アクセスを見る</a><a class="btn solid" href="#i-sponsor">ご協賛のお願い</a></div>
     </div>
   </div></section>
@@ -862,8 +885,14 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
   <section class="stmt"><p class="st"><span class="ln" style="--i:0">ひとつひとつの音に、</span><span class="ln" style="--i:1">気持ちをこめて。</span></p></section>
 
   <!-- 03 お知らせ（日付つきの一覧）。増やすときは li をコピーしてください -->
+  <section class="isec" id="i-insta"><div class="iw">
+    <header class="shead" data-rv><span class="no">03</span><div><span class="en">INSTAGRAM</span><h2 class="sh">日々の投稿</h2></div></header>
+    <p data-rv>カウントダウンや練習のようすは、Instagramでお知らせしています。</p>
+    <div class="igrid" id="igrid" aria-live="polite"><a class="igc sk"><div class="igi"></div></a><a class="igc sk"><div class="igi"></div></a><a class="igc sk"><div class="igi"></div></a></div>
+    <div data-rv><a class="btn" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagramでもっと見る　@shwo._.official</a></div>
+  </div></section>
   <section class="isec alt" id="i-news"><div class="iw">
-    <header class="shead" data-rv><span class="no">03</span><div><span class="en">NEWS</span><h2 class="sh">お知らせ</h2></div></header>
+    <header class="shead" data-rv><span class="no">04</span><div><span class="en">NEWS</span><h2 class="sh">お知らせ</h2></div></header>
     <ul class="news" data-rv>
       <li><time>2026.10.19</time><span class="nt">公開</span><p><span class="ph">20周年記念定期演奏会の特設ページを公開しました。</span></p></li>
       <li><time>2026.11.01</time><span class="nt">協賛</span><p><span class="ph">ご協賛の受付を開始しました。</span></p></li>
@@ -873,7 +902,7 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
 
   <!-- 04 ご協賛のお願い。コースの内容は、下の script の TIERS を書き換えると、カードとフォームの両方に出ます -->
   <section class="isec" id="i-sponsor"><div class="iw">
-    <header class="shead" data-rv><span class="no">04</span><div><span class="en">SPONSORS</span><h2 class="sh">ご協賛のお願い</h2></div></header>
+    <header class="shead" data-rv><span class="no">05</span><div><span class="en">SPONSORS</span><h2 class="sh">ご協賛のお願い</h2></div></header>
     <p class="lede" data-rv>20周年を、地域の皆さまとともに迎えたいと考えています。</p>
     <p data-rv>演奏会の運営や記念の企画には、多くの準備が必要です。そこで、趣旨にご賛同いただける企業・団体・個人の皆さまに、ご協賛をお願いしております。</p>
     <p data-rv>いただいたご支援は、<span class="ph">会場費・記念プログラムの作成費など</span>に大切に使わせていただきます。</p>
@@ -902,7 +931,7 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
 
   <!-- 05 アクセス -->
   <section class="isec alt" id="i-access"><div class="iw">
-    <header class="shead" data-rv><span class="no">05</span><div><span class="en">ACCESS</span><h2 class="sh">アクセス・ご来場のみなさまへ</h2></div></header>
+    <header class="shead" data-rv><span class="no">06</span><div><span class="en">ACCESS</span><h2 class="sh">アクセス・ご来場のみなさまへ</h2></div></header>
     <div class="mapbox" id="mapbox" data-rv>
       <iframe title="木曽文化公園文化ホールの地図" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d679.7784861633841!2d137.74713704784318!3d35.85906435097326!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x601cddfae77549bf%3A0x39f703070b842edb!2z5pyo5pu95paH5YyW5YWs5ZySIOaWh-WMluODm-ODvOODqw!5e0!3m2!1sja!2sjp!4v1792617850391!5m2!1sja!2sjp" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
@@ -1386,9 +1415,11 @@ let ac=null,master=null,soundOn=false,tick=null;
 const PENTA=[523.25,587.33,659.25,783.99,880,1046.5];
 function ensureAudio(){if(ac)return true;try{
   ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=0;
-  const lp=ac.createBiquadFilter();lp.type="lowpass";lp.frequency.value=2600;master.connect(lp);lp.connect(ac.destination);
-  [130.81,196].forEach((f,i)=>{const o=ac.createOscillator(),g=ac.createGain(),l=ac.createOscillator(),lg=ac.createGain();
-    o.type="sine";o.frequency.value=f;g.gain.value=.012;l.frequency.value=.07+i*.04;lg.gain.value=.006;l.connect(lg);lg.connect(g.gain);o.connect(g);g.connect(master);o.start();l.start()});
+  const lp=ac.createBiquadFilter();lp.type="lowpass";lp.frequency.value=3200;master.connect(lp);lp.connect(ac.destination);
+  // 残響（ホールのひびき）：ノイズが減っていく波形を作って、たたみこむ
+  const len=ac.sampleRate*3.4,ir=ac.createBuffer(2,len,ac.sampleRate);
+  for(let c=0;c<2;c++){const d=ir.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6)}
+  const cv=ac.createConvolver();cv.buffer=ir;const wet=ac.createGain();wet.gain.value=.5;master.connect(cv);cv.connect(wet);wet.connect(lp);
   return true}catch(e){return false}}
 function note(f,delay=0,dur=1.5,vol=.05){
   const t=ac.currentTime+delay,o=ac.createOscillator(),o2=ac.createOscillator(),g=ac.createGain(),g2=ac.createGain(),v=ac.createOscillator(),vg=ac.createGain();
@@ -1397,10 +1428,28 @@ function note(f,delay=0,dur=1.5,vol=.05){
   o.connect(g);o2.connect(g2);g2.connect(g);
   g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.12);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
   g.connect(master);[o,o2,v].forEach(x=>{x.start(t);x.stop(t+dur+.1)})}
+/* 音楽：やさしい4つの和音がゆっくりくり返し、その上でオルゴールのような音が、かろやかにのぼったりおりたりする */
+const CHORDS=[[130.81,196,293.66,329.63],[98,146.83,246.94,369.99],[110,164.81,261.63,392],[87.31,130.81,220,329.63]];
+let mTime=0,mBeat=0,mTimer=null;
+function pad(f,t,dur,vol){
+  [0,.4].forEach(dt=>{const o=ac.createOscillator(),g=ac.createGain();o.type="sine";o.frequency.value=f;o.detune.value=(dt?5:-5);
+    g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+dur*.38);g.gain.linearRampToValueAtTime(0,t+dur);
+    o.connect(g);g.connect(master);o.start(t);o.stop(t+dur+.1)})}
+function mNote(f,t,vol){const d=t-ac.currentTime;if(d<0)return;note(f,d,2.6,vol)}
+function mStep(t){
+  const ch=CHORDS[(mBeat>>3)&3],i=mBeat&7;
+  if(i===0)ch.forEach((f,k)=>pad(f,t,7.2,k<2?.02:.012));
+  const arp=[0,2,1,3,2,3,1,2];                       // くり返しの音の並び
+  mNote(ch[arp[i]]*(i%4===3?4:2),t,i%4===0?.034:.024);
+  if(i===4&&((mBeat>>3)&1))mNote(ch[3]*4,t+.375,.02);   // 1小節おきに、高い音をひとつそえる
+  mBeat++}
+function mTick(){if(!ac||!soundOn)return;if(document.hidden){mTime=ac.currentTime+.2;return}
+  while(mTime<ac.currentTime+1.5){mStep(mTime);mTime+=.75}}
+function startMusic(){mBeat=0;mTime=ac.currentTime+.3;clearInterval(mTimer);mTimer=setInterval(mTick,250);mTick()}
 function setSound(on){soundOn=on;const b=$("#snd");b.classList.toggle("muted",!on);b.setAttribute("aria-pressed",on);
-  clearInterval(tick);
+  clearInterval(tick);clearInterval(mTimer);
   if(on&&ensureAudio()){ac.resume();master.gain.cancelScheduledValues(ac.currentTime);master.gain.linearRampToValueAtTime(.9,ac.currentTime+2);
-    tick=setInterval(()=>{if(!document.hidden)note(PENTA[Math.random()*PENTA.length|0],0,2.2,.028)},3200)}
+    startMusic()}
   else if(master){master.gain.cancelScheduledValues(ac.currentTime);master.gain.linearRampToValueAtTime(0,ac.currentTime+.6)}}
 function chime(lv){if(!soundOn||!ac)return;
   if(lv===9)[523.25,659.25,783.99,1046.5].forEach((f,i)=>note(f,i*.16,1.8,.055));
@@ -1765,6 +1814,26 @@ $$('.shot img').forEach(i => { const f = () => { if (i.dataset.d) return; i.data
   const ph=[...document.querySelectorAll(".shot.big")];
   if(ph.length&&!reduce){let tk=0;const up=()=>{tk=0;const vh=innerHeight;ph.forEach(el=>{const r=el.getBoundingClientRect(),p=Math.min(1,Math.max(0,(vh-r.top)/(vh*.9)));const im=el.firstElementChild;if(im)im.style.transform="scale("+(1.16-.16*p).toFixed(3)+")"})};
     addEventListener("scroll",()=>{if(!tk)tk=requestAnimationFrame(up)},{passive:true});up()}
+})();
+</script>
+<script>
+/* Instagramの最新の投稿を、部のAPI（Cloudflare Workers）から読みこんで並べる。読めなかったときは、ボタンだけ残す */
+(function(){
+  const API='https://suibu-insta-api.sugiko-morinosugi.workers.dev/',MAX=6,box=document.getElementById('igrid'); if(!box)return;
+  const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const ymd=t=>{try{const p=new Intl.DateTimeFormat('ja-JP',{timeZone:'Asia/Tokyo',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(t)).reduce((o,x)=>(o[x.type]=x.value,o),{});return p.year+'.'+p.month+'.'+p.day}catch(e){return ''}};
+  const head=c=>{const ls=String(c||'').split(/\n/).map(x=>x.trim());return ls.find(l=>/[ぁ-んァ-ヶ一-龠]{4,}/.test(l))||ls.find(l=>l)||''};
+  const fail=()=>{box.innerHTML='<p class="igmsg">投稿を読みこめませんでした。下のボタンから、Instagramでご覧ください。</p>'};
+  const draw=list=>{
+    const items=list.filter(m=>m&&m.permalink&&(m.thumbnail_url||m.media_url)).slice(0,MAX);
+    if(!items.length)return fail();
+    box.innerHTML=items.map(m=>{
+      const img=m.media_type==='VIDEO'?(m.thumbnail_url||''):(m.media_url||m.thumbnail_url||''),k=m.media_type==='VIDEO'?'動画':(m.media_type==='CAROUSEL_ALBUM'?'複数枚':'');
+      return '<a class="igc" href="'+esc(m.permalink)+'" target="_blank" rel="noopener"><div class="igi"><img src="'+esc(img)+'" alt="" loading="lazy" referrerpolicy="no-referrer">'+(k?'<span class="igk">'+k+'</span>':'')+'</div><time datetime="'+esc(m.timestamp||'')+'">'+ymd(m.timestamp)+'</time><p>'+esc(head(m.caption))+'</p></a>'}).join('');
+    box.querySelectorAll('.igi img').forEach(i=>i.addEventListener('error',()=>{i.style.display='none'}));
+  };
+  const ctl=new AbortController(),to=setTimeout(()=>ctl.abort(),8000);
+  fetch(API,{signal:ctl.signal}).then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{clearTimeout(to);draw(Array.isArray(j.media)?j.media:[])}).catch(()=>{clearTimeout(to);fail()});
 })();
 </script>
 </body>
