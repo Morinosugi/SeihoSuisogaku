@@ -844,15 +844,15 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
     <header class="shead" data-rv><span class="no">01</span><div><span class="en">ABOUT</span><h2 class="sh">感謝をこめて</h2></div></header>
     <div class="about2">
       <div class="txt">
-        <p class="lede" data-rv>木曽青峰高校吹奏楽部は、おかげさまで27年<strong>20周年</strong>を迎えます。</p>
+        <p class="lede" data-rv>木曽青峰高校吹奏楽部は、おかげさまで<strong>20周年</strong>を迎えます。</p>
         <p data-rv>木曽地域の皆さまから、地域での演奏会など多くの演奏の機会をいただいてきました。心より感謝申し上げます。</p>
-        <p data-rv>部活目標”一音入魂”のとおり、ひとつひとつの音に気持ちをこめて練習を重ねています。27年度のコンクールでは東海大会出場をめざし、活動しています。</p>
+        <p data-rv>部活目標のとおり、ひとつひとつの音に気持ちをこめて練習を重ねています。来年度のコンクールでは東海大会出場をめざし、12月にはアンサンブルコンテストの地区大会にも挑戦します。</p>
         <p data-rv><strong>ぜひ聞きに来てください。</strong>部員一同、心をこめて演奏いたします。</p>
       </div>
       <!-- 写真：このファイルと同じ場所に photos フォルダを作り、01.jpg などの名前で入れてください。alt（写真の説明）も書き換えてください。写真がないときは、仮の画像が出ます -->
-      <figure class="shot soft big" data-rv data-label="【写真】部員の集合写真（photos/01.jpg）"><img src="2027/teien/01.jpg" alt="【書き換え】木曽青峰高校吹奏楽部の集合写真" loading="lazy"></figure>
+      <figure class="shot soft big" data-rv data-label="【写真】部員の集合写真（photos/01.jpg）"><img src="photos/01.jpg" alt="【書き換え】木曽青峰高校吹奏楽部の集合写真" loading="lazy"></figure>
     </div>
-    <p data-rv>2026年10月の演奏の様子</p>
+    <p data-rv><strong>金賞</strong>を目指して、日々練習しています。私たちの目印は音です。</p>
     <div data-rv><a class="btn" href="https://seihosuisogaku.morinosugi.com/" target="_blank" rel="noopener">部の公式サイトへ</a><a class="btn" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagram @shwo._.official</a></div>
       </div></section>
 
@@ -876,9 +876,9 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
     </div>
     <h3 class="mini" data-rv style="margin-top:56px">SCENES　これまでの演奏会から</h3>
     <div class="scenes" data-rv>
-      <figure class="shot soft" data-label="【写真】演奏会の様子（photos/02.jpg）"><img src="2027/teien/02.png" alt="演奏会のステージ" loading="lazy"></figure>
-      <figure class="shot soft" data-label="【写真】部員の表情（photos/03.jpg）"><img src="2027/teien/03.jpg" alt="演奏に取り組む部員" loading="lazy"></figure>
-      <figure class="shot soft" data-label="【写真】地域での演奏（photos/04.jpg）"><img src="2027/teien/04.jpg" alt="地域での演奏会の様子" loading="lazy"></figure>
+      <figure class="shot soft" data-label="【写真】演奏会の様子（photos/03.jpg）"><img src="photos/03.jpg" alt="【書き換え】演奏会のステージ" loading="lazy"></figure>
+      <figure class="shot soft" data-label="【写真】部員の表情（photos/04.jpg）"><img src="photos/04.jpg" alt="【書き換え】演奏に取り組む部員" loading="lazy"></figure>
+      <figure class="shot soft" data-label="【写真】地域での演奏（photos/05.jpg）"><img src="photos/05.jpg" alt="【書き換え】地域での演奏会の様子" loading="lazy"></figure>
     </div>
   </div></section>
 
@@ -887,7 +887,7 @@ body.atend .head .brand{opacity:0;transition:opacity .8s}
   <!-- 03 お知らせ（日付つきの一覧）。増やすときは li をコピーしてください -->
   <section class="isec" id="i-insta"><div class="iw">
     <header class="shead" data-rv><span class="no">03</span><div><span class="en">INSTAGRAM</span><h2 class="sh">日々の投稿</h2></div></header>
-    <p data-rv>カウントダウンや練習のようすは、Instagramでお知らせしています。</p>
+    <p data-rv>カウントダウンや練習のようすは、Instagramで毎日お知らせしています。</p>
     <div class="igrid" id="igrid" aria-live="polite"><a class="igc sk"><div class="igi"></div></a><a class="igc sk"><div class="igi"></div></a><a class="igc sk"><div class="igi"></div></a></div>
     <div data-rv><a class="btn" href="https://www.instagram.com/shwo._.official" target="_blank" rel="noopener">Instagramでもっと見る　@shwo._.official</a></div>
   </div></section>
@@ -1259,7 +1259,8 @@ function box(a,w,h,r){const o=new Float32Array(a.length),q=new Float32Array(a.le
 async function buildIntro(){
   if(!gl)return;
   const tok=++introTok;
-  try{await document.fonts.load("800 200px Jost")}catch(e){}
+  await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));   // まず画面を一度描いてから、重い計算をはじめる
+  try{await Promise.race([document.fonts.load("800 200px Jost"),new Promise(r=>setTimeout(r,900))])}catch(e){}   // フォントが遅くても、900msで先へ進む
   if(tok!==introTok)return;
   const sc=W*H>1300000?.5:1,w=Math.round(W*sc),h=Math.round(H*sc);   // 大きい画面では、半分の解像度で形を作る（初回の引っかかりを減らす）
   const oc=document.createElement("canvas");oc.width=w;oc.height=h;const o=oc.getContext("2d",{willReadFrequently:true});
